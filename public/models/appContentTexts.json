@@ -1,0 +1,19 @@
+{
+    "appData": {
+        "appName": "Shashank Seeds",
+        "appDescription": "Shashank Seeds is dedicated to providing high-quality seeds that ensure bountiful harvests and sustainable growth. With a focus on innovation and excellence, we support farmers and gardeners in cultivating success and contributing to the nourishment of communities. Join us in our mission to nurture seeds and nourish lives.",
+		"siteName": "Shashank Seeds",
+        "keywords": ["seeds", "agriculture", "uttar pradesh", "Shashank seeds", "shashank"],
+        "slogan": "Seeds for a bountiful harvest",
+        "pages": ["Products", "About", "Contact"],
+        "sideNav": ["Home"],
+        "url": "/shashank_logo.jpg",
+        "logo": "/shashank_logo.jpg",
+        "copy": "© 2024 Shashank Seeds. All rights reserved.",
+        "address": "",
+        "mobile": "",
+        "email": "shashankseeds@gmail.com",
+        "instagram": "",
+        "version":"1.2.2"
+    }
+}
