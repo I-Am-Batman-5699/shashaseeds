@@ -9,9 +9,10 @@ interface ImageCardProps {
     imageUrl: string;
     altText: string;
     title: string;
+    loading?: 'lazy' | 'eager';
 }
 
-const ImageCard: FC<ImageCardProps> = ({ imageUrl, altText, title }) => {
+const ImageCard: FC<ImageCardProps> = ({ imageUrl, altText, title, loading='lazy' }) => {
     return (
         <div className="max-w-xl mx-auto rounded-lg overflow-hidden shadow-xl flex flex-col items-center justify-center bg-gray-800 bg-opacity-70 text-white pt-10 ">
             <div className="h-auto w-auto">
@@ -28,6 +29,7 @@ const ImageCard: FC<ImageCardProps> = ({ imageUrl, altText, title }) => {
                     className="w-full h-full object-cover"
                     width={200}
                     height={190}
+                    loading={loading}
                 />
             </div>
             <div className="flex flex-col items-center justify-center p-4 sm:p-8 text-center">
