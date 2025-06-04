@@ -65,7 +65,7 @@ export default function Footer(props: { classNameProp: string }) {
 		<footer className={`justify-center items-center ${classNameProp}`}>
 		{/* <footer className="py-6 w-full shrink-0 justify-center items-center px-4 md:px-6 border-t"> */}
 		{/* <footer className="flex flex-col sm:flex-row gap-2 py-6 w-full shrink-0 justify-center items-center px-4 md:px-6 border-t"> */}
-			<div className="w-full h-px animate-glow md:block animate-pulse bg-gradient-to-r from-zinc-300/0 via-zinc-300/50 to-zinc-300/0 mb-2" />
+			{/* <div className="w-full h-px animate-glow md:block animate-pulse bg-gradient-to-r from-zinc-300/0 via-zinc-300/50 to-zinc-300/0 mb-2" /> */}
 			<div className="flex flex-col justify-center items-center">
 				{
 					appData &&
@@ -85,9 +85,9 @@ export default function Footer(props: { classNameProp: string }) {
 								<a title="Insta logo" href={appData.instagram} target="_blank">
 									<Avatar alt="Instagram" src="/icons/insta-footer.png" variant="square" className={`mt-0.5 ${img}`} style={{ width: '1.25rem', height: '1.25rem' }} />
 								</a>
-								{/* <a title="Email logo" href={appData.email} target="_blank">
+								<a title="Email logo" href={appData.email} target="_blank">
 									<Avatar alt="Email" src="/icons/email.png" variant="square" className={`mt-0.5 ${img}`} style={{ width: '1.25rem', height: '1.25rem' }} />
-								</a> */}
+								</a>
 								<a title="X logo" href="" target="_blank">
 									<Avatar alt="X" src="/icons/twitter.png" variant="square" className={`mt-0.5 ${img}`} style={{ width: '1.25rem', height: '1.25rem' }} />
 								</a>
