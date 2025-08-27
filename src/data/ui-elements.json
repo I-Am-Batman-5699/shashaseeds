@@ -1,0 +1,129 @@
+{
+    "actionButtons": [
+        {
+            "id": "shop-now",
+            "label": "Shop Now",
+            "variant": "default",
+            "className": "border dark:border-white dark:text-zinc-100 dark:hover:text-zinc-50 dark:hover:bg-green-900 text-sm dark:bg-green-600 opacity-95 hover:opacity-100",
+            "href": "/shop",
+            "enabled": false,
+            "visible": true,
+            "icon": "M16 11V7a4 4 0 00-8 0v4M5 9h14l1 12H4L5 9z"
+        },
+        {
+            "id": "login",
+            "label": "Login",
+            "variant": "outline",
+            "className": "dark:border-green-200 dark:hover:border-green-400 dark:text-zinc-900 dark:hover:text-black dark:bg-white text-sm dark:hover:bg-white opacity-90 hover:opacity-100",
+            "href": "/login",
+            "enabled": false,
+            "visible": true,
+            "icon": "M5.121 17.804A13.937 13.937 0 0112 16c2.5 0 4.847.655 6.879 1.804M15 10a3 3 0 11-6 0 3 3 0 016 0zm6 2a9 9 0 11-18 0 9 9 0 0118 0z"
+        }
+    ],
+    "footerSections": [
+        {
+            "id": "quick-links",
+            "title": "Quick Links",
+            "links": [
+                {
+                    "id": "home",
+                    "label": "Home",
+                    "enablesd": true,
+                    "visible": true,
+                    "href": "/"
+                },
+                {
+                    "id": "products",
+                    "label": "Products",
+                    "enablesd": true,
+                    "visible": true,
+                    "href": "/products"
+                },
+                {
+                    "id": "about",
+                    "label": "About Us",
+                    "enablesd": true,
+                    "visible": true,
+                    "href": "/about"
+                },
+                {
+                    "id": "blog",
+                    "label": "Blog",
+                    "enablesd": true,
+                    "visible": true,
+                    "href": "/blog"
+                },
+                {
+                    "id": "contact",
+                    "label": "Contact",
+                    "enablesd": true,
+                    "visible": true,
+                    "href": "/contact"
+                }
+            ]
+        },
+        {
+            "id": "categories",
+            "title": "Categories",
+            "links": [
+                {
+                    "id": "vegetable-seeds",
+                    "label": "Vegetable Seeds",
+                    "enablesd": true,
+                    "visible": true,
+                    "href": "/products/vegetable-seeds"
+                },
+                {
+                    "id": "flower-seeds",
+                    "label": "Flower Seeds",
+                    "href": "/products/flower-seeds"
+                },
+                {
+                    "id": "herb-seeds",
+                    "label": "Herb Seeds",
+                    "enablesd": true,
+                    "visible": true,
+                    "href": "/products/herb-seeds"
+                },
+                {
+                    "id": "fruit-seeds",
+                    "label": "Fruit Seeds",
+                    "enablesd": true,
+                    "visible": true,
+                    "href": "/products/fruit-seeds"
+                },
+                {
+                    "id": "organic-seeds",
+                    "label": "Organic Seeds",
+                    "enablesd": true,
+                    "visible": true,
+                    "href": "/products/organic-seeds"
+                }
+            ]
+        }
+    ],
+    "supportLinks": [
+        {
+            "id": "privacy-policy",
+            "label": "Privacy Policy",
+            "enablesd": true,
+            "visible": true,
+            "href": "/privacy-policy"
+        },
+        {
+            "id": "terms-of-service",
+            "label": "Terms of Service",
+            "enablesd": true,
+            "visible": true,
+            "href": "/terms-of-service"
+        },
+        {
+            "id": "shipping-policy",
+            "label": "Shipping Policy",
+            "enablesd": true,
+            "visible": true,
+            "href": "/shipping-policy"
+        }
+    ]
+}
