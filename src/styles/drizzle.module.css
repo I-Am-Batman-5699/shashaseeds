@@ -1,0 +1,91 @@
+.cloud {
+    animation: move 6s ease infinite;
+    position: absolute;
+    top: var(--yC, 0.3125rem);
+    left: var(--xC, 1rem);
+    background: #FFFFFF;
+    height: 3.75rem;
+    width: 3.75rem;
+    border-radius: 50%;
+    box-shadow:
+        #FFFFFF 4.0625rem -0.9375rem 0 -0.3125rem,
+        #FFFFFF 1.5625rem -1.5625rem,
+        #FFFFFF 1.875rem 0.625rem,
+        var(--box-shadow-color4) 3.75rem 0.9375rem 0 -0.625rem,
+        var(--box-shadow-color5) 5rem 0.3125rem 0 -0.625rem;
+    animation: move 6s ease infinite;
+}
+.cloudUp {
+    animation: move 6s ease infinite;
+    position: absolute;
+    top: var(--yC, 0.3125rem);
+    left: var(--xC, 1rem);
+    background: #FFFFFF;
+    height: 1.875rem;
+    width: 1.875rem;
+    color: #f0ededf6;
+    border-radius: 50%;
+    box-shadow:
+        #FFFFFF 2.03125rem -0.46875rem 0 -0.15625rem,
+        #FFFFFF 0.78125rem -0.78125rem,
+        #FFFFFF 0.9375rem 0.3125rem,
+        var(--box-shadow-color4) 1.875rem 0.46875rem 0 -0.3125rem,
+        var(--box-shadow-color5) 2.65625rem 0.15625rem 0 -0.15625rem;
+    animation: move 6s ease infinite;
+}
+
+@keyframes move {
+    50% {
+        transform: translateY(0.9375rem);
+    }
+}
+
+.drizzle-container {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    pointer-events: none;
+    z-index: 4;
+    overflow: hidden;
+}
+
+.drop {
+    position: absolute;
+    top: -40px;
+    left: var(--x, 50vw);
+    width: var(--size, 0.625rem);
+    height: var(--size, 0.625rem);
+
+    background: linear-gradient(to bottom, #cfc2c2b0 0%, #d3cececb 100%);
+    border: var(--size, 0.625rem);
+    border-radius: 50% 50% 50% 50% / 70% 70% 40% 40%;
+    backdrop-filter: blur(0.1875rem);
+
+    animation: drip var(--duration, 4s) linear infinite;
+    animation-delay: var(--delay, 0s);
+}
+
+@keyframes drip {
+    from {
+        transform: translateY(0);
+        opacity: 0.9;
+    }
+
+    to {
+        transform: translateY(68.75rem);
+        opacity: 0.1;
+    }
+}
+
+.drop::before {
+    content: "";
+    position: absolute;
+    width: 0;
+    height: 0;
+    border-left: var(--bLR) solid transparent;
+    border-right: var(--bLR) solid transparent;
+    border-bottom: var(--bB) solid #cfc2c2b0;
+    top: var(--bt);
+}

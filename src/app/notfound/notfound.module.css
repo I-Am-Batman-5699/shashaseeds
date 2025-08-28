@@ -1,19 +1,29 @@
+
 .notfound-root {
     min-height: 100vh;
     width: 100vw;
-    background: linear-gradient(135deg, #6d706f 0%, #333534 100%);
+    background: linear-gradient(
+        to bottom,
+        rgba(144, 212, 6, 0.5) 0%,
+        rgba(131, 185, 22, 0.45) 25%,
+        rgba(24, 235, 24, 0.4) 50%,
+        rgba(3, 199, 3, 0.35) 75%,
+        rgba(8, 151, 8, 0.3) 90%,
+        rgba(10, 104, 10, 0.25) 100%
+    );
     display: flex;
     align-items: center;
     justify-content: center;
     position: relative;
     overflow: hidden;
     z-index: 5;
+    /* opacity: 0.7; */
 }
 
 .notfound-content {
     position: relative;
     z-index: 1;
-    background: rgba(255, 255, 255, 0.85);
+    background: rgba(255, 255, 255, 0.432);
     border-radius: 24px;
     padding: 2rem 2.5rem;
     box-shadow: 0 8px 32px rgba(0, 0, 0, 0.08);
@@ -24,7 +34,7 @@
 .notfound-content h1 {
     font-size: 5rem;
     margin: 0 0 0.5rem 0;
-    color: #0097a7;
+    color: #f1f4f5;
     font-weight: 800;
     letter-spacing: 0.1em;
 }
@@ -63,54 +73,4 @@
     .notfound-content p {
         font-size: 1rem;
     }
-}
-
-.drizzle-container {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100vw;
-    height: 100vh;
-    pointer-events: none;
-    z-index: 4;
-    overflow: hidden;
-}
-
-.drop {
-    position: absolute;
-    top: -40px;
-    left: var(--x, 50vw);
-    width: var(--size, 1px);
-    height: calc(var(--size, 1px) * 2.2);
-
-    background: #ffffff73;
-    border-radius: 50% 50% 50% 50% / 70% 70% 40% 40%;
-    backdrop-filter: blur(3px);
-
-    animation: drip var(--duration, 4s) linear infinite;
-    animation-delay: var(--delay, 0s);
-}
-
-@keyframes drip {
-    from {
-        transform: translateY(0);
-        opacity: 0.9;
-    }
-
-    to {
-        transform: translateY(110vh);
-        /* fall fully off screen */
-        opacity: 0.1;
-    }
-}
-
-.drop::before {
-    content: "";
-    position: absolute;
-    width: 0;
-    height: 0;
-    border-left: var(--bwlr) solid transparent;
-    border-right: var(--bwlr) solid transparent;
-    border-bottom: var(--bwb) solid #cfc2c2b0;
-    top: var(--db2);
 }
