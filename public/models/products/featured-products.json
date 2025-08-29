@@ -1,0 +1,26 @@
+{
+    "products": [
+        {
+            "product-id": "KS-44B46",
+            "name": "First product 1",
+            "image": "/SHB-76-nobg.png"
+        },
+        {
+            "product-id": "KS-55C57",
+            "name": "2 - second product",
+            "image": "/SHB-76-nobg.png"
+        },
+        {
+            "product-id": "KS-66D68",
+            "name": "Third product (3)",
+            "image": "/SHB-76-nobg.png"
+        },
+        {
+            "product-id": "KS-66D68",
+            "name": "4th - product",
+            "image": "/SHB-76-nobg.png"
+        }
+    ],
+    "description": "Explore our featured products, handpicked for quality and variety. From organic seeds to gardening essentials, find everything you need to cultivate your green space.",
+    "title": "Featured Products"  
+}

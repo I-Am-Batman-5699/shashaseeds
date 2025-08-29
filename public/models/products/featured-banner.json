@@ -1,0 +1,25 @@
+{
+    "items": [
+        {
+            "id": "banner-1",
+            "image": "/products/SHB-76-nobg.png",
+            "title": "Premium Collection",
+            "subtitle": "Discover our latest premium products with advanced features and elegant design",
+            "href": "/collections/premium"
+        },
+        {
+            "id": "banner-2", 
+            "image": "/products/SHB-76-nobg.png",
+            "title": "Special Offers",
+            "subtitle": "Limited time deals on selected items - Save up to 50% on featured products",
+            "href": "/offers"
+        },
+        {
+            "id": "banner-3",
+            "image": "/products/SHB-76-nobg.png",
+            "title": "New Arrivals",
+            "subtitle": "Check out the latest additions to our catalog - Fresh products just for you",
+            "href": "/new-arrivals"
+        }
+    ]
+}

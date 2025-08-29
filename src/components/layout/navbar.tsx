@@ -12,7 +12,7 @@ import uiElementsData from "@/data/ui-elements.json";
 import icons from "@/data/icons.json";
 
 // Import types
-import { NavigationItem, ActionButton } from "@/types/index";
+import { NavigationItem, ActionButton } from "@/types/navigation";
 
 import HamburgerButton from "@/components/ui/hamburgerButton";
 import SVGIcon from "@/components/ui/svgIcon";
@@ -54,10 +54,10 @@ export default function HeaderNavbar() {
             {/* ⬇ Desktop navigation ⬇ */}
             <nav className="hidden lg:flex items-center gap-8 text-sm text-zinc-100 font-semibold">
                 {navigationItems.map((item) => (
-                    <div>
+                    <div key={item.id} >
                         {!item.visible && null}
                         {item.visible &&
-                            <div key={item.id} className={item.children ? "relative group" : ""}>
+                            <div className={item.children ? "relative group" : ""}>
                                 {item.enabled && item.children && item.showChildren ? (
                                     <div>
                                         <button
@@ -147,7 +147,7 @@ export default function HeaderNavbar() {
                     </Button>
                 ))}
                 {/* #TODO For user profile*/}
-                <div className='invisible w-8'>
+                <div className='invisible w-8 hidden'>
                     <Avatar alt={company.logoAlt} src={company.logo} sx={{ width: 32, height: 32 }} />
                 </div>
             </div>

@@ -6,11 +6,18 @@ import { Leaf, Mail, MapPin, Phone, Star } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
 import Navbar from "@/components/layout/navbar";
+import MainCarousel from "@/components/carousel/main-carousel";
+import Banner from "@/components/banner/featured-banner";
 
 export default function LandingPage() {
+
+
   return (
     <div className="flex min-h-screen flex-col">
       <Navbar />
+      <Banner />
+      <MainCarousel />
+
 
       {/* main */}
       <main className="flex-1">
@@ -34,10 +41,10 @@ export default function LandingPage() {
               {featuredSeeds.map((seed) => (
                 <Card key={seed.id} className="overflow-hidden transition-all hover:shadow-lg">
                   <div className="aspect-square relative">
-                    <Image 
-                      src={seed.image || "/placeholder.svg"} 
-                      alt={seed.name} 
-                      fill 
+                    <Image
+                      src={seed.image || "/placeholder.svg"}
+                      alt={seed.name}
+                      fill
                       className="object-cover"
                       sizes="(max-width: 640px) 100vw, (max-width: 768px) 50vw, (max-width: 1024px) 33vw, 25vw"
                     />
