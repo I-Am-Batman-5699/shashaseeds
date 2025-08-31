@@ -9,6 +9,7 @@ import Navbar from "@/components/layout/navbar";
 import MainCarousel from "@/components/carousel/main-carousel";
 import Banner from "@/components/banner/featured-banner";
 import HeroSection from "@/sections/hero";
+import HeroSectionNormal from "@/sections/hero2";
 
 export default function LandingPage() {
 
@@ -19,6 +20,7 @@ export default function LandingPage() {
       <Banner />
       <MainCarousel />
       <HeroSection />
+      <HeroSectionNormal />
 
 
       {/* main */}

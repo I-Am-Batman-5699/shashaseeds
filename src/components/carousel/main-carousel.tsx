@@ -34,9 +34,9 @@ const MainCarousel: React.FC = () => {
     };
 
     return (
-        <div className="bg-gradient-to-br from-green-50 to-green-100 ">
+        <div className="bg-gradient-to-br from-green-50 to-green-100">
             <div className="mx-auto max-w-[90%] md:pb-8 pb-4 md:pt-4 pt-1">
-                <div className="from-green-200 to-green-300 rounded-2xl shadow-xl md:p-4 p-2 inset-shadow-sm inset-shadow-indigo-200/50 space-y-1">
+                <div className="rounded-2xl shadow-xl md:p-4 p-2 inset-shadow-sm inset-shadow-indigo-200/50 space-y-1">
                 {/* <div className="bg-gradient-to-r from-transparent via-black/30 to-black/60 rounded-2xl p-4"> */}
                     <p className="text-2xl font-semibold text-gray-700 m-2 text-center">
                         {title}

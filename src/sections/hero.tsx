@@ -80,16 +80,16 @@ export default function HeroSection() {
                                         {heroContent.subtitle}
                                     </p>
 
-                                    <div className="mt-4 md:mt-8 flex gap-4">
+                                    <div className="mt-4 md:mt-8 flex flex-col gap-y-2 md:gap-4 md:flex-row w-[95%] md:w-auto">
                                         <a
                                             href={heroContent.primaryButton.link}
-                                            className="font-semibold text-sm md:text-lg rounded-2xl bg-green-700 hover:bg-green-800 px-6 py-3 text-white shadow-lg transition"
+                                            className="font-semibold text-sm md:text-lg rounded-2xl bg-green-700 hover:bg-green-800 px-6 py-3 text-white shadow-lg transition text-center"
                                         >
                                             {heroContent.primaryButton.text}
                                         </a>
                                         <a
                                             href={heroContent.secondaryButton.link}
-                                            className={`font-semibold text-sm md:text-lg rounded-2xl border border-green-600 hover:border-green-800 hover:bg-green-100 px-6 py-3 text-green-700 transition ${heroContent.backgroundPattern.showPattern ? 'bg-green-50/80' : ''}`}
+                                            className={`font-semibold text-sm md:text-lg rounded-2xl border border-green-600 hover:border-green-800 hover:bg-green-100 px-6 py-3 text-green-700 transition text-center ${heroContent.backgroundPattern.showPattern ? 'bg-green-50/80' : ''}`}
                                         >
                                             {heroContent.secondaryButton.text}
                                         </a>
