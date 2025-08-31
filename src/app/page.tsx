@@ -10,6 +10,8 @@ import MainCarousel from "@/components/carousel/main-carousel";
 import Banner from "@/components/banner/featured-banner";
 import HeroSection from "@/sections/hero";
 import HeroSectionNormal from "@/sections/hero2";
+import BenefitsSection from "@/sections/benefits";
+import TestimonialsSection from "@/sections/testimonials";
 
 export default function LandingPage() {
 
@@ -17,6 +19,10 @@ export default function LandingPage() {
   return (
     <div className="flex min-h-screen flex-col bg-gradient-to-br from-green-50 to-green-100 rounded-2xl shadow-xl">
       <Navbar />
+
+      <TestimonialsSection/>
+      <BenefitsSection/>
+
       <Banner />
       <MainCarousel />
       <HeroSection />
@@ -28,7 +34,6 @@ export default function LandingPage() {
         {/* Hero Section with Product Showcase */}
         <section className="py-12 md:py-20 bg-gradient-to-br from-green-50 via-yellow-50 to-amber-50">
           <div className="container px-4 md:px-6">
-
             {/* Featured Products Grid */}
             <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
               {featuredSeeds.map((seed) => (
@@ -49,95 +54,6 @@ export default function LandingPage() {
                         <p className="text-sm text-muted-foreground">{seed.category}</p>
                       </div>
                       <span className="font-bold text-green-600">${seed.price}</span>
-                    </div>
-                  </CardContent>
-                </Card>
-              ))}
-            </div>
-          </div>
-        </section>
-
-        {/* Benefits Section */}
-        <section className="py-12 md:py-20 bg-white">
-          <div className="container px-4 md:px-6">
-            <div className="text-center mb-10">
-              <h2 className="text-2xl md:text-4xl font-bold">Why Choose Our Seeds?</h2>
-              <p className="text-muted-foreground mt-2 max-w-[700px] mx-auto">
-                We take pride in offering the highest quality seeds for your garden
-              </p>
-            </div>
-
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-              <div className="flex flex-col items-center text-center p-4">
-                <div className="bg-green-100 p-3 rounded-full mb-4">
-                  <Leaf className="h-6 w-6 text-green-600" />
-                </div>
-                <h3 className="text-xl font-medium mb-2">100% Organic</h3>
-                <p className="text-muted-foreground">
-                  All our seeds are certified organic, grown without harmful pesticides or chemicals.
-                </p>
-              </div>
-
-              <div className="flex flex-col items-center text-center p-4">
-                <div className="bg-green-100 p-3 rounded-full mb-4">
-                  <Star className="h-6 w-6 text-green-600" />
-                </div>
-                <h3 className="text-xl font-medium mb-2">High Germination Rate</h3>
-                <p className="text-muted-foreground">
-                  Our seeds are tested to ensure excellent germination rates and healthy plants.
-                </p>
-              </div>
-
-              <div className="flex flex-col items-center text-center p-4">
-                <div className="bg-green-100 p-3 rounded-full mb-4">
-                  <MapPin className="h-6 w-6 text-green-600" />
-                </div>
-                <h3 className="text-xl font-medium mb-2">Locally Sourced</h3>
-                <p className="text-muted-foreground">
-                  We work with local farmers to provide seeds that are adapted to your region.
-                </p>
-              </div>
-            </div>
-          </div>
-        </section>
-
-        {/* Testimonials Section */}
-        <section className="py-12 md:py-20 bg-green-50">
-          <div className="container px-4 md:px-6">
-            <div className="text-center mb-10">
-              <h2 className="text-2xl md:text-4xl font-bold">What Our Customers Say</h2>
-              <p className="text-muted-foreground mt-2 max-w-[700px] mx-auto">
-                Don&apos;t just take our word for it - hear from our satisfied customers
-              </p>
-            </div>
-
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-              {testimonials.map((testimonial, index) => (
-                <Card key={index} className="bg-white">
-                  <CardContent className="p-6">
-                    <div className="flex items-center gap-1 mb-4">
-                      {[...Array(5)].map((_, i) => (
-                        <Star
-                          key={i}
-                          className={`h-4 w-4 ${i < testimonial.rating ? "text-yellow-400 fill-yellow-400" : "text-gray-300"}`}
-                        />
-                      ))}
-                    </div>
-                    <p className="italic mb-4">&ldquo;{testimonial.comment}&rdquo;</p>
-                    <div className="flex items-center gap-3">
-                      <div className="relative h-10 w-10 rounded-full overflow-hidden bg-green-100">
-                        <Image
-                          src={`/placeholder.svg?height=40&width=40&text=${testimonial.name.charAt(0)}`}
-                          alt={testimonial.name}
-                          fill
-                          className="object-cover"
-                          sizes="40px"
-                        />
-                      </div>
-                      <div>
-                        <p className="font-medium">{testimonial.name}</p>
-                        <p className="text-sm text-muted-foreground">{testimonial.location}</p>
-                      </div>
                     </div>
                   </CardContent>
                 </Card>

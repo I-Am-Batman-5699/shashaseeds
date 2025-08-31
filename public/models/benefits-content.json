@@ -1,0 +1,62 @@
+{
+    "title": "Why Choose Us",
+    "subtitle": "Discover the Benefits of Choosing Shasha Seeds",
+    "benefits": [
+        {
+            "id": 1,
+            "icon": "/icons/leaf.svg",
+            "iconName": "leaf",
+            "visible": true,
+            "title": "100% Organic",
+            "description": "All our seeds are certified organic, grown without harmful pesticides or chemicals."
+        },
+        {
+            "id": 2,
+            "icon": "/icons/star.svg",
+            "iconName": "star",
+            "visible": true,
+            "title": "High Germination Rate",
+            "description": "Our seeds are tested to ensure excellent germination rates and healthy plants."
+        },
+        {
+            "id": 3,
+            "icon": "/icons/map-pin.svg",
+            "iconName": "map-pin",
+            "visible": true,
+            "title": "Locally Sourced",
+            "description": "We work with local farmers to provide seeds that are adapted to your region."
+        },
+        {
+            "id": 4,
+            "icon": "/icons/quality.svg",
+            "iconName": "spotlight",
+            "visible": false,
+            "title": "Premium Quality",
+            "description": "We source only the finest seeds to ensure optimal growth and yield for your crops."
+        },
+        {
+            "id": 5,
+            "icon": "/icons/variety.svg",
+            "iconName": "shopping-cart",
+            "visible": false,
+            "title": "Wide Variety",
+            "description": "Our extensive selection of seeds caters to diverse agricultural needs and preferences."
+        },
+        {
+            "id": 6,
+            "icon": "/icons/support.svg",
+            "iconName": "user-star",
+            "visible": false,
+            "title": "Expert Support",
+            "description": "Our team of agricultural experts is always ready to assist you with any queries or advice."
+        },
+        {
+            "id": 7,
+            "icon": "/icons/sustainability.svg",
+            "iconName": "sprout",
+            "visible": false,
+            "title": "Sustainable Practices",
+            "description": "We are committed to environmentally friendly practices that promote sustainable farming."
+        }
+    ]
+}

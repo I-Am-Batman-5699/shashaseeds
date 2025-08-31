@@ -38,14 +38,14 @@ export default function HeroSectionNormal() {
             <div className="max-w-[95%] mx-auto md:pb-8 pb-4 md:pt-4 pt-1">
                 {
                     heroContentLoading &&
-                    <div className="flex items-center justify-center flex-row align-middle bg-gradient-to-br rounded-2xl shadow-xl md:p-4 p-2 inset-shadow-sm inset-shadow-indigo-200/50 space-y-1">
+                    <div className="flex items-center justify-center flex-row align-middle rounded-2xl shadow-xl md:p-4 p-2 inset-shadow-sm inset-shadow-indigo-200/50 space-y-1">
                         <div>
                             <p className="text-gray-700">Fetching latest updates...</p>
                         </div>
                     </div>
                 }
                 {heroContent && heroContentLoading === false &&
-                    <div className={`bg-gradient-to-br rounded-2xl shadow-xl md:p-4 p-2 inset-shadow-sm inset-shadow-indigo-200/50 space-y-1`}>
+                    <div className={`rounded-2xl shadow-xl md:p-4 p-2 inset-shadow-sm inset-shadow-indigo-200/50 space-y-1`}>
                         <section className={`relative overflow-hidden ${heroContent.backgroundPattern.showPattern ? 'bg-zinc-900/70' : ''}`}>
                             {/* Background pattern */}
                             {heroContent.backgroundPattern.showPattern &&
@@ -89,7 +89,7 @@ export default function HeroSectionNormal() {
                             </div>
 
                             <div>
-                                <div className="absolute bottom-0 right-0 opacity-20 mr-1 mb-1">
+                                <div className="absolute bottom-0 right-0 opacity-20 mr-1 mb-1 hidden sm:block">
                                     <Image
                                         src={heroContent.image.src}
                                         alt={heroContent.image.alt}
