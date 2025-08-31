@@ -19,9 +19,11 @@ const Banner: React.FC = () => {
             console.error(error);
         }
     };
+    
     useEffect(() => {
         fetchItems();
     }, []);
+
     const transformItemsData = (items: BannerItem[]) => {
         return items.map(item => ({
             id: item.id,
@@ -33,9 +35,9 @@ const Banner: React.FC = () => {
     };
 
     return (
-        <div className="lg:p-6 bg-gradient-to-br from-green-50 to-green-100 p-8">
-            <div className="mx-auto max-w-[90%] space-y-12 pb-8">
-                <div className="from-green-200 to-green-300 rounded-2xl shadow-xl p-4 inset-shadow-sm inset-shadow-indigo-200/50 space-y-1">
+        <div className="bg-gradient-to-br from-green-50 to-green-100">
+            <div className="mx-auto max-w-[95%] md:pb-8 pb-4 md:pt-4 pt-1">
+                <div className="from-green-200 to-green-300 rounded-2xl shadow-xl md:p-4 p-2 inset-shadow-sm inset-shadow-indigo-200/50 space-y-1">
                     <BannerCarousel
                         items={items}
                         autoPlay={true}

@@ -8,15 +8,17 @@ import Link from "next/link";
 import Navbar from "@/components/layout/navbar";
 import MainCarousel from "@/components/carousel/main-carousel";
 import Banner from "@/components/banner/featured-banner";
+import HeroSection from "@/sections/hero";
 
 export default function LandingPage() {
 
 
   return (
-    <div className="flex min-h-screen flex-col">
+    <div className="flex min-h-screen flex-col bg-gradient-to-br from-green-50 to-green-100 rounded-2xl shadow-xl">
       <Navbar />
       <Banner />
       <MainCarousel />
+      <HeroSection />
 
 
       {/* main */}
@@ -24,17 +26,6 @@ export default function LandingPage() {
         {/* Hero Section with Product Showcase */}
         <section className="py-12 md:py-20 bg-gradient-to-br from-green-50 via-yellow-50 to-amber-50">
           <div className="container px-4 md:px-6">
-            <div className="flex flex-col items-center text-center space-y-4 mb-12">
-              <h1 className="text-3xl md:text-5xl font-bold tracking-tighter">Grow Your Garden with Premium Seeds</h1>
-              <p className="text-muted-foreground md:text-xl max-w-[800px]">
-                Discover our selection of high-quality, organic seeds for your garden. From vegetables to flowers, we
-                have everything you need.
-              </p>
-              <div className="flex flex-wrap gap-4 justify-center">
-                <Button className="bg-green-600 hover:bg-green-700">Explore Collection</Button>
-                <Button variant="outline">Learn More</Button>
-              </div>
-            </div>
 
             {/* Featured Products Grid */}
             <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">

@@ -1,0 +1,36 @@
+{
+    "title": [
+        "Seeds Rooted in ",
+        {
+            "text": "Research",
+            "highlight": true
+        },
+        ", Grown for a ",
+        {
+            "text": "Better Harvest",
+            "highlight": true
+        }
+    ],
+    "subtitle": "Backed by decades of agricultural research, we bring you a wide variety of high-quality seeds designed to maximize yield, sustainability, and resilience.",
+    "primaryButton": {
+        "text": "Explore Products",
+        "link": "/products"
+    },
+    "secondaryButton": {
+        "text": "Learn More",
+        "link": "/about"
+    },
+    "image": {
+        "src": "/shashank_logo.png",
+        "alt": "Seeds variety",
+        "width": 600,
+        "height": 400
+    },
+    "backgroundPattern": {
+        "src": "/agriculture.png",
+        "alt": "Agricultural land",
+        "width": 800,
+        "height": 600,
+        "showPattern": false
+    }
+}
