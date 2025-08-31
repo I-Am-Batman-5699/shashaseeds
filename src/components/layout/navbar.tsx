@@ -3,7 +3,7 @@
 
 import Avatar from '@mui/material/Avatar';
 import Link from "next/link";
-import { useState } from "react";
+import { useEffect, useRef, useState } from "react";
 
 // Import JSON data
 import navigationData from "@/data/navigation.json";
@@ -30,6 +30,26 @@ export default function HeaderNavbar() {
     const svgIcons = icons.svg;
     const isTouchDevice = useIsTouchDevice();
 
+    const navRef = useRef<HTMLDivElement | null>(null);
+
+    useEffect(() => {
+        if (!isTouchDevice) return; // only apply for touch devices
+
+        const handleClickOutside = (event: MouseEvent | TouchEvent) => {
+            if (navRef.current && !navRef.current.contains(event.target as Node)) {
+                setExpandedItems({}); // close all dropdowns
+            }
+        };
+
+        document.addEventListener("mousedown", handleClickOutside);
+        document.addEventListener("touchstart", handleClickOutside);
+
+        return () => {
+            document.removeEventListener("mousedown", handleClickOutside);
+            document.removeEventListener("touchstart", handleClickOutside);
+        };
+    }, [isTouchDevice]);
+
     const toggleExpanded = (itemId: string) => {
         setExpandedItems(prev => ({
             ...prev,
@@ -52,7 +72,7 @@ export default function HeaderNavbar() {
             {/* ⬆ Desktop Logo ⬆ */}
 
             {/* ⬇ Desktop navigation ⬇ */}
-            <nav className="hidden lg:flex items-center gap-8 text-sm text-zinc-100 font-semibold">
+            <nav ref={navRef} className="hidden lg:flex items-center gap-8 text-sm text-zinc-100 font-semibold">
                 {navigationItems.map((item) => (
                     <div key={item.id} >
                         {!item.visible && null}
@@ -74,8 +94,7 @@ export default function HeaderNavbar() {
                                             {item.label}
                                             <SVGIcon
                                                 path={svgIcons.down as string}
-                                                className={`h-4 w-4 transition-transform duration-200 ${expandedItems[item.id] && isTouchDevice ? "rotate-180" : ""
-                                                    }`}
+                                                className={`h-4 w-4 transition-transform duration-200 ${expandedItems[item.id] && isTouchDevice ? "rotate-180" : ""} group-hover:rotate-180`}
                                             />
                                         </button>
                                         <div

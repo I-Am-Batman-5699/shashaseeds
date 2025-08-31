@@ -129,7 +129,7 @@ const BannerCarousel: React.FC<BannerCarouselProps> = ({
                                 {/* <div className="absolute bg-gradient-to-r from-zinc-800/60 via-indigo-zinc/30 to-transparent" /> */}
                                 
                                 {/* Content Overlay */}
-                                <div className="absolute inset-0 flex items-center justify-start md:p-16 sm:p-8 p-4 md:m-2 m-0">
+                                <div className="absolute inset-0 flex items-center justify-start md:p-18 sm:p-8 p-4 md:m-2 m-0">
                                     <div className="text-amber-50/90 max-w-xl">
                                         <motion.p 
                                             className="text-sm sm:text-lg md:text-2xl lg:text-4xl font-bold md:mb-4 mb-0 group-hover:text-amber-50 transition-colors duration-300"
