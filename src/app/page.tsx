@@ -64,7 +64,7 @@ export default function Home() {
   return (
     <>
       <Particles className="absolute inset-0 z-10 animate-fade-in py-0 mt-0" quantity={400} />
-      <div className="grid grid-rows-[20px_1fr_20px] items-center justify-items-center min-h-screen p-8 pb-20 gap-16 sm:p-20 font-[family-name:var(--font-geist-sans)] bg-gradient-to-r from-black from-30% to-blue-800 to-100%">
+      <div className="grid grid-rows-[20px_1fr_20px] items-center justify-items-center min-h-screen p-8 pb-20 gap-16 sm:p-20 font-[family-name:var(--font-geist-sans)] bg-gradient-to-r from-black from-30% to-blue-800 to-100% text-white">
         <Navbar />
         <main className="flex flex-col gap-[32px] row-start-2 items-center sm:items-start">
           <div className="justify-center items-center w-full border-2 p-4">
