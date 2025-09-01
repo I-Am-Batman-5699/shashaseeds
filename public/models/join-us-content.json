@@ -1,0 +1,16 @@
+{
+    "title": "Ready to Start Growing?",
+    "description": "Join thousands of satisfied gardeners and start your garden journey with our premium seeds today.",
+    "actions": [
+        {
+            "label": "Check Our Collection",
+            "href": "/products",
+            "cssClass": "font-light text-xs sm:text-sm md:text-lg rounded-2xl bg-green-700 hover:bg-green-800 px-6 py-3 text-white shadow-lg transition text-center"
+        },
+        {
+            "label": "Contact Us",
+            "href": "/contact",
+            "cssClass": "font-light text-xs sm:text-sm md:text-lg rounded-2xl bg-green-100 hover:bg-green-200/80 px-6 py-3 text-zinc-800/90 hover:text-zinc-900/90 shadow-lg transition text-center border border-green-300 hover:border-green-800"
+        }
+    ]
+}

@@ -12,6 +12,7 @@ import HeroSection from "@/sections/hero";
 import HeroSectionNormal from "@/sections/hero2";
 import BenefitsSection from "@/sections/benefits";
 import TestimonialsSection from "@/sections/testimonials";
+import JoinUsSection from "@/sections/join-us";
 
 export default function LandingPage() {
 
@@ -20,6 +21,7 @@ export default function LandingPage() {
     <div className="flex min-h-screen flex-col bg-gradient-to-br from-green-50 to-green-100 rounded-2xl shadow-xl">
       <Navbar />
 
+      <JoinUsSection/>
       <TestimonialsSection/>
       <BenefitsSection/>
 
@@ -63,7 +65,7 @@ export default function LandingPage() {
         </section>
 
         {/* Call to Action */}
-        <section className="py-12 md:py-20 bg-gradient-to-r from-green-600 via-green-700 to-yellow-600 text-white">
+        {/* <section className="py-12 md:py-20 bg-gradient-to-r from-green-600 via-green-700 to-yellow-600 text-white">
           <div className="container px-4 md:px-6 text-center">
             <h2 className="text-2xl md:text-4xl font-bold mb-4">Ready to Start Growing?</h2>
             <p className="max-w-[600px] mx-auto mb-6 opacity-90">
@@ -71,7 +73,7 @@ export default function LandingPage() {
             </p>
             <Button className="bg-white text-green-600 hover:bg-gray-100">Shop Our Collection</Button>
           </div>
-        </section>
+        </section> */}
       </main>
 
       {/* Footer */}

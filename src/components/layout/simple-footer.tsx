@@ -23,7 +23,7 @@ export interface AppData {
 	instagram: string
 }
 
-export default function Footer(props: { classNameProp: string }) {
+export default function SimpleFooter(props: { classNameProp: string }) {
 	const [appData, setAppData] = useState<AppData | null>(null);
 	const {classNameProp} = props;
 

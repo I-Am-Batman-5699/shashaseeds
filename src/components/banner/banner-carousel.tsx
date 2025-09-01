@@ -2,8 +2,9 @@
 
 import { motion } from 'framer-motion';
 import React, { useCallback, useEffect, useRef, useState } from 'react';
+import { redirect } from 'next/navigation';
 
-import { BannerCarouselProps } from '@/types/components/banner/banner';
+import { BannerCarouselProps, BannerItem } from '@/types/components/banner/banner';
 import useBreakpoint from '@/lib/breakpoint';
 
 const BannerCarousel: React.FC<BannerCarouselProps> = ({
@@ -74,6 +75,10 @@ const BannerCarousel: React.FC<BannerCarouselProps> = ({
             }
         }
     };
+
+    const handleLearnMore = (item: BannerItem) => {
+        redirect(item.href);
+    }
 
     if (!items || items.length === 0) {
         return (
@@ -155,6 +160,7 @@ const BannerCarousel: React.FC<BannerCarouselProps> = ({
                                             initial={{ opacity: 0, y: 30 }}
                                             animate={{ opacity: index === currentIndex ? 1 : 0, y: index === currentIndex ? 0 : 30 }}
                                             transition={{ delay: 0.7, duration: 0.6 }}
+                                            onClick={() => handleLearnMore(item)}
                                         >
                                             <span className="inline-flex items-center px-3 py-1 sm:px-6 sm:py-3 bg-gradient-to-r from-black/60 to-black/30 backdrop-blur-sm rounded-lg text-xs sm:text-sm md:text-lg lg:text-xl font-semibold transition-all duration-300 group-hover:scale-105">
                                                 Learn More
