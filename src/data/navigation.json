@@ -18,6 +18,14 @@
       "showChildren": true,
       "children": [
         {
+          "id": "all-products",
+          "label": "All products",
+          "href": "/products",
+          "enabled": true,
+          "visible": true,
+          "color": "none"
+        },
+        {
           "id": "vegetable-seeds",
           "label": "Vegetable Seeds",
           "href": "/products/vegetable-seeds",
@@ -69,12 +77,20 @@
       "showChildren": true,
       "children": [
         {
+          "id": "about-us",
+          "label": "About Us",
+          "href": "/about-us",
+          "enabled": true,
+          "visible": true,
+          "color": "none"
+        },
+        {
           "id": "our-story",
           "label": "Our Story",
           "href": "/about-us/our-story",
           "enabled": true,
           "visible": true,
-          "color": "blue"
+          "color": "none"
         },
         {
           "id": "mission-vision",
@@ -82,7 +98,7 @@
           "href": "/about-us/mission-vision",
           "enabled": true,
           "visible": true,
-          "color": "teal"
+          "color": "none"
         },
         {
           "id": "team",
@@ -90,7 +106,7 @@
           "href": "/about-us/team",
           "enabled": true,
           "visible": true,
-          "color": "indigo"
+          "color": "none"
         }
       ]
     },

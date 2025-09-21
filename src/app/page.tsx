@@ -5,7 +5,6 @@ import { Card, CardContent } from "@/components/ui/card";
 import { Leaf, Mail, MapPin, Phone, Star } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
-import Navbar from "@/components/layout/navbar";
 import MainCarousel from "@/components/carousel/main-carousel";
 import Banner from "@/components/banner/featured-banner";
 import HeroSection from "@/sections/hero";
@@ -19,8 +18,6 @@ export default function LandingPage() {
 
   return (
     <div className="flex min-h-screen flex-col bg-gradient-to-br from-green-50 to-green-100 rounded-2xl shadow-xl">
-      <Navbar />
-
       <JoinUsSection/>
       <TestimonialsSection/>
       <BenefitsSection/>

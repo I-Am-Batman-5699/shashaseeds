@@ -162,8 +162,8 @@ const BannerCarousel: React.FC<BannerCarouselProps> = ({
                                             transition={{ delay: 0.7, duration: 0.6 }}
                                             onClick={() => handleLearnMore(item)}
                                         >
-                                            <span className="inline-flex items-center px-3 py-1 sm:px-6 sm:py-3 bg-gradient-to-r from-black/60 to-black/30 backdrop-blur-sm rounded-lg text-xs sm:text-sm md:text-lg lg:text-xl font-semibold transition-all duration-300 group-hover:scale-105">
-                                                Learn More
+                                            <span className="inline-flex items-center px-3 py-1 sm:px-6 sm:py-3 bg-gradient-to-r from-black/60 to-black/30 backdrop-blur-sm rounded-lg text-xs sm:text-sm md:text-lg lg:text-xl font-semibold transition-all duration-300 group-hover:scale-105 z-30 cursor-pointer hover:shadow-lg hover:shadow-black/30">
+                                                {item.buttonName}
                                                 <svg className="ml-2 w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
                                                 </svg>
@@ -173,11 +173,11 @@ const BannerCarousel: React.FC<BannerCarouselProps> = ({
                                 </div>
                                 
                                 {/* Click indicator for single item */}
-                                {totalItems === 1 && (
+                                {/* {totalItems === 1 && (
                                     <div className="absolute bottom-4 right-4 bg-black/50 text-white px-3 py-1 rounded-full text-sm backdrop-blur-sm z-30">
                                         Click to explore
                                     </div>
-                                )}
+                                )} */}
                             </div>
                         </a>
                     </motion.div>

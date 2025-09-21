@@ -4,6 +4,7 @@ export interface BannerItem {
     title: string;
     subtitle?: string;
     href: string;
+    buttonName: string;
 }
 
 export interface BannerCarouselProps {

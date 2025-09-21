@@ -30,7 +30,8 @@ const Banner: React.FC = () => {
             image: item.image,
             title: item.title,
             href: item.href,
-            subtitle: item.subtitle
+            subtitle: item.subtitle,
+            buttonName: item.buttonName
         }));
     };
 

@@ -58,7 +58,7 @@ export default function HeaderNavbar() {
     };
 
     return (
-        <header className="sticky lg:px-4 min-h-15  flex items-center top-0 justify-between z-50 border-b shadow-sm bg-gradient-to-r from-green-700 from-10% via-green-600 via-45% to-green-700 to-90% backdrop-blur-xl bg-opacity-70 border-green-200">
+        <header className="sticky lg:px-4 min-h-15 flex items-center justify-between z-50 border-b shadow-xs bg-gradient-to-r from-green-700 from-10% via-green-600 via-45% to-green-700 to-90% backdrop-blur-xl bg-opacity-70 rounded-xl">
 
             {/* ⬇⬇⬇⬇⬇⬇⬇⬇⬇⬇⬇⬇⬇⬇⬇⬇⬇⬇⬇⬇⬇⬇⬇⬇⬇⬇⬇⬇⬇⬇ Desktop ⬇⬇⬇⬇⬇⬇⬇⬇⬇⬇⬇⬇⬇⬇⬇⬇⬇⬇⬇⬇⬇⬇⬇⬇⬇⬇⬇⬇⬇⬇ */}
 
@@ -108,12 +108,12 @@ export default function HeaderNavbar() {
                                             onClick={e => e.stopPropagation()}
                                         >
                                             <div className="py-2">
-                                                {item.children.map((child) => (
+                                                {item.children.map((child, index) => (
                                                     <div className={`flex items-center justify-between text-zinc-700 hover:bg-green-50 hover:text-green-600`} key={child.id}>
                                                         <Link
                                                             key={child.id}
                                                             href={child.enabled ? child.href : "#"}
-                                                            className={`${!child.enabled ? "opacity-40 cursor-not-allowed" : ""} block px-4 py-2 text-sm`}
+                                                            className={`${!child.enabled ? "opacity-40 cursor-not-allowed" : ""} block px-4 py-2 text-sm ${child.color === "none" && index === 0 ? "underline" : ""}`}
                                                             onClick={() => setExpandedItems({})}
                                                         >
                                                             {child.label}
@@ -129,7 +129,9 @@ export default function HeaderNavbar() {
                                                                             ? "bg-emerald-400"
                                                                             : child.color === "orange"
                                                                                 ? "bg-orange-400"
-                                                                                : "bg-blue-400"
+                                                                                : child.color === "none"
+                                                                                    ? ""
+                                                                                    : "bg-blue-400"
                                                                 }`}
                                                         ></div>
                                                     </div>
