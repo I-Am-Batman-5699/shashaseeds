@@ -49,7 +49,7 @@ const ProductCard = ({ product }) => {
     };
 
     return (
-        <div className="bg-white rounded-xl shadow-lg hover:shadow-xl transition-shadow duration-300 overflow-hidden relative group">
+        <div className="bg-white rounded-xl shadow-lg hover:shadow-xl transition-shadow duration-300 overflow-hidden relative group z-10">
             {/* Wishlist Icon */}
             <button
                 onClick={handleWishlistToggle}

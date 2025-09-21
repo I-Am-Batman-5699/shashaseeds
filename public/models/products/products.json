@@ -1,107 +1,288 @@
-[
-  {
-    "id": "P001",
-    "name": "Rose Seeds",
-    "category": "flower-seeds",
-    "subCategory": "roses",
-    "slug": "rose-seeds",
-    "price": 120,
-    "discount": 10,
-    "available": true,
-    "enabled": true,
-    "visible": true,
-    "new": true,
-    "sale": false,
-    "featured": true,
-    "rating": 4.5,
-    "tags": ["organic", "summer", "easy-to-grow"],
-    "images": ["/products/SHB-76-nobg.png", "/products/rose-2.png", "/products/rose-3.png"],
-    "description": "Beautiful organic rose seeds with high germination rate. Perfect for home gardens.",
-    "stock": 150,
-    "sku": "ROSE-001",
-    "createdAt": "2025-01-01T10:00:00Z",
-    "updatedAt": "2025-02-01T12:00:00Z",
-    "attributes": {
-      "color": "red",
-      "germinationRate": "95%",
-      "season": "summer",
-      "growthTime": "90 days"
-    },
-    "filters": {
-      "priceRange": "100-200",
-      "type": "flower",
-      "organic": true
-    },
-    "searchKeywords": ["rose", "flower", "garden", "organic seeds"]
-  },
-  {
-    "id": "P002",
-    "name": "Sunflower Seeds",
-    "category": "flower-seeds",
-    "subCategory": "sunflowers",
-    "slug": "sunflower-seeds",
-    "price": 5.99,
-    "discount": 10,
-    "available": true,
-    "enabled": true,
-    "visible": true,
-    "new": false,
-    "sale": true,
-    "featured": false,
-    "rating": 4.8,
-    "tags": ["easy-to-grow", "sun-loving"],
-    "images": ["/products/SHB-76-nobg.png", "/products/sunflower-2.png"],
-    "description": "Premium sunflower seeds for a beautiful garden.",
-    "stock": 200,
-    "sku": "SF-001",
-    "createdAt": "2025-03-01T10:00:00Z",
-    "updatedAt": "2025-03-10T12:00:00Z",
-    "attributes": {
-      "color": "yellow",
-      "germinationRate": "90%",
-      "season": "spring-summer",
-      "growthTime": "60 days"
-    },
-    "filters": {
-      "priceRange": "0-10",
-      "type": "flower",
-      "organic": false
-    },
-    "searchKeywords": ["sunflower", "flower", "bird food", "seeds"]
-  },
-  {
-    "id": "P003",
-    "name": "Tomato Seeds",
-    "category": "vegetable-seeds",
-    "subCategory": "heirloom-tomatoes",
-    "slug": "tomato-seeds",
-    "price": 3.49,
-    "discount": 0,
-    "available": true,
-    "enabled": true,
-    "visible": true,
-    "new": true,
-    "sale": false,
-    "featured": true,
-    "rating": 4.9,
-    "tags": ["heirloom", "non-gmo"],
-    "images": ["/products/SHB-76-nobg.png", "/shashank_logo.png", "/products/tomato-3.png"],
-    "description": "Heirloom tomato seeds for a delicious harvest.",
-    "stock": 100,
-    "sku": "TOM-001",
-    "createdAt": "2025-01-15T10:00:00Z",
-    "updatedAt": "2025-02-20T12:00:00Z",
-    "attributes": {
-      "color": "red",
-      "germinationRate": "98%",
-      "season": "summer",
-      "growthTime": "80 days"
-    },
-    "filters": {
-      "priceRange": "0-10",
-      "type": "vegetable",
-      "organic": false
-    },
-    "searchKeywords": ["tomato", "vegetable", "heirloom", "garden"]
-  }
-]
+{
+    "title": "Product List",
+    "description": "Explore our wide range of gardening products, from seeds to tools, and accessories.",
+    "products": [
+        {
+            "id": "P001",
+            "name": "Rose Seeds",
+            "category": "flower-seeds",
+            "subCategory": "roses",
+            "slug": "rose-seeds",
+            "price": 120,
+            "discount": 10,
+            "available": true,
+            "enabled": true,
+            "visible": true,
+            "new": true,
+            "sale": false,
+            "featured": true,
+            "rating": 4.5,
+            "tags": [
+                "organic",
+                "summer",
+                "easy-to-grow"
+            ],
+            "images": [
+                "/products/SHB-76-nobg.png",
+                "/products/rose-2.png",
+                "/products/rose-3.png"
+            ],
+            "description": "Beautiful organic rose seeds with high germination rate. Perfect for home gardens.",
+            "stock": 150,
+            "sku": "ROSE-001",
+            "createdAt": "2025-01-01T10:00:00Z",
+            "updatedAt": "2025-02-01T12:00:00Z",
+            "attributes": {
+                "color": "red",
+                "germinationRate": "95%",
+                "season": "summer",
+                "growthTime": "90 days"
+            },
+            "filters": {
+                "priceRange": "100-200",
+                "type": "flower",
+                "organic": true
+            },
+            "searchKeywords": [
+                "rose",
+                "flower",
+                "garden",
+                "organic seeds"
+            ]
+        },
+        {
+            "id": "P002",
+            "name": "Sunflower Seeds",
+            "category": "flower-seeds",
+            "subCategory": "sunflowers",
+            "slug": "sunflower-seeds",
+            "price": 5.99,
+            "discount": 10,
+            "available": true,
+            "enabled": true,
+            "visible": true,
+            "new": false,
+            "sale": true,
+            "featured": false,
+            "rating": 4.8,
+            "tags": [
+                "easy-to-grow",
+                "sun-loving"
+            ],
+            "images": [
+                "/products/SHB-76-nobg.png",
+                "/products/sunflower-2.png"
+            ],
+            "description": "Premium sunflower seeds for a beautiful garden.",
+            "stock": 200,
+            "sku": "SF-001",
+            "createdAt": "2025-03-01T10:00:00Z",
+            "updatedAt": "2025-03-10T12:00:00Z",
+            "attributes": {
+                "color": "yellow",
+                "germinationRate": "90%",
+                "season": "spring-summer",
+                "growthTime": "60 days"
+            },
+            "filters": {
+                "priceRange": "0-10",
+                "type": "flower",
+                "organic": false
+            },
+            "searchKeywords": [
+                "sunflower",
+                "flower",
+                "bird food",
+                "seeds"
+            ]
+        },
+        {
+            "id": "P003",
+            "name": "Tomato Seeds",
+            "category": "vegetable-seeds",
+            "subCategory": "heirloom-tomatoes",
+            "slug": "tomato-seeds",
+            "price": 3.49,
+            "discount": 0,
+            "available": true,
+            "enabled": true,
+            "visible": true,
+            "new": true,
+            "sale": false,
+            "featured": true,
+            "rating": 4.9,
+            "tags": [
+                "heirloom",
+                "non-gmo"
+            ],
+            "images": [
+                "/products/SHB-76-nobg.png",
+                "/shashank_logo.png",
+                "/products/tomato-3.png"
+            ],
+            "description": "Heirloom tomato seeds for a delicious harvest.",
+            "stock": 100,
+            "sku": "TOM-001",
+            "createdAt": "2025-01-15T10:00:00Z",
+            "updatedAt": "2025-02-20T12:00:00Z",
+            "attributes": {
+                "color": "red",
+                "germinationRate": "98%",
+                "season": "summer",
+                "growthTime": "80 days"
+            },
+            "filters": {
+                "priceRange": "0-10",
+                "type": "vegetable",
+                "organic": false
+            },
+            "searchKeywords": [
+                "tomato",
+                "vegetable",
+                "heirloom",
+                "garden"
+            ]
+        },
+        {
+            "id": "P004",
+            "name": "Rose Seeds",
+            "category": "flower-seeds",
+            "subCategory": "roses",
+            "slug": "rose-seeds",
+            "price": 120,
+            "discount": 10,
+            "available": true,
+            "enabled": true,
+            "visible": true,
+            "new": true,
+            "sale": false,
+            "featured": true,
+            "rating": 4.5,
+            "tags": [
+                "organic",
+                "summer",
+                "easy-to-grow"
+            ],
+            "images": [
+                "/products/SHB-76-nobg.png",
+                "/products/rose-2.png",
+                "/products/rose-3.png"
+            ],
+            "description": "Beautiful organic rose seeds with high germination rate. Perfect for home gardens.",
+            "stock": 150,
+            "sku": "ROSE-001",
+            "createdAt": "2025-01-01T10:00:00Z",
+            "updatedAt": "2025-02-01T12:00:00Z",
+            "attributes": {
+                "color": "red",
+                "germinationRate": "95%",
+                "season": "summer",
+                "growthTime": "90 days"
+            },
+            "filters": {
+                "priceRange": "100-200",
+                "type": "flower",
+                "organic": true
+            },
+            "searchKeywords": [
+                "rose",
+                "flower",
+                "garden",
+                "organic seeds"
+            ]
+        },
+        {
+            "id": "P005",
+            "name": "Sunflower Seeds",
+            "category": "flower-seeds",
+            "subCategory": "sunflowers",
+            "slug": "sunflower-seeds",
+            "price": 5.99,
+            "discount": 10,
+            "available": true,
+            "enabled": true,
+            "visible": true,
+            "new": false,
+            "sale": true,
+            "featured": false,
+            "rating": 4.8,
+            "tags": [
+                "easy-to-grow",
+                "sun-loving"
+            ],
+            "images": [
+                "/products/SHB-76-nobg.png",
+                "/products/sunflower-2.png"
+            ],
+            "description": "Premium sunflower seeds for a beautiful garden.",
+            "stock": 200,
+            "sku": "SF-001",
+            "createdAt": "2025-03-01T10:00:00Z",
+            "updatedAt": "2025-03-10T12:00:00Z",
+            "attributes": {
+                "color": "yellow",
+                "germinationRate": "90%",
+                "season": "spring-summer",
+                "growthTime": "60 days"
+            },
+            "filters": {
+                "priceRange": "0-10",
+                "type": "flower",
+                "organic": false
+            },
+            "searchKeywords": [
+                "sunflower",
+                "flower",
+                "bird food",
+                "seeds"
+            ]
+        },
+        {
+            "id": "P006",
+            "name": "Tomato Seeds",
+            "category": "vegetable-seeds",
+            "subCategory": "heirloom-tomatoes",
+            "slug": "tomato-seeds",
+            "price": 3.49,
+            "discount": 0,
+            "available": true,
+            "enabled": true,
+            "visible": true,
+            "new": true,
+            "sale": false,
+            "featured": true,
+            "rating": 4.9,
+            "tags": [
+                "heirloom",
+                "non-gmo"
+            ],
+            "images": [
+                "/products/SHB-76-nobg.png",
+                "/shashank_logo.png",
+                "/products/tomato-3.png"
+            ],
+            "description": "Heirloom tomato seeds for a delicious harvest.",
+            "stock": 100,
+            "sku": "TOM-001",
+            "createdAt": "2025-01-15T10:00:00Z",
+            "updatedAt": "2025-02-20T12:00:00Z",
+            "attributes": {
+                "color": "red",
+                "germinationRate": "98%",
+                "season": "summer",
+                "growthTime": "80 days"
+            },
+            "filters": {
+                "priceRange": "0-10",
+                "type": "vegetable",
+                "organic": false
+            },
+            "searchKeywords": [
+                "tomato",
+                "vegetable",
+                "heirloom",
+                "garden"
+            ]
+        }
+    ]
+}
