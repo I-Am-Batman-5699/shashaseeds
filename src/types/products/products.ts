@@ -7,26 +7,30 @@ export interface ProductProps {
 export interface Product {
   id: string
   name: string
-  category: string
-  subCategory: string
-  slug: string
+  category?: string
+  subCategory?: string
+  slug?: string
   price: number
-  discount: number
+  discountPrice?: number
+  discountPercentage?: number
+  finalPrice?: number
+  discount?: number
+  discountAvailable?: boolean
   available: boolean
   enabled: boolean
   visible: boolean
-  new: boolean
-  sale: boolean
-  featured: boolean
-  rating: number
-  tags: string[]
+  new?: boolean
+  sale?: boolean
+  featured?: boolean
+  rating?: number
+  tags?: string[]
   images: string[]
-  description: string
-  stock: number
-  sku: string
+  description?: string
+  stock?: number
+  sku?: string
   createdAt: string
   updatedAt: string
-  attributes: Attributes
+  attributes?: Attributes
   filters: Filters
   searchKeywords: string[]
 }
@@ -42,4 +46,6 @@ export interface Filters {
   priceRange: string
   type: string
   organic: boolean
+  available: boolean
+  rating: string
 }

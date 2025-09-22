@@ -1,0 +1,73 @@
+{
+    "products-page": {
+        "sections": {
+            "searchBar": true,
+            "sortControls": true,
+            "filterControls": true
+        },
+        "features": {
+            "showPrice": true,
+            "showDiscount": true,
+            "showRating": true,
+            "showTags": true,
+            "showStock": true,
+            "showNewBadge": true,
+            "showSaleBadge": true,
+            "showFeaturedBadge": true
+        },
+        "sort": {
+            "enableSortBy": true,
+            "defaultSortBy": "id-asc",
+            "availableOptions": {
+                "relevance": "Relevance",
+                "newest": "Newest",
+                "price-asc": "Price: Low to High",
+                "price-desc": "Price: High to Low",
+                "rating-desc": "Rating: High to Low"
+            }
+        },
+        "filters": {
+            "enableFilters": true,
+            "availableOptions": {
+                "type": {
+                    "enabled": true,
+                    "options": [
+                        "flower",
+                        "vegetable",
+                        "fruit",
+                        "herb"
+                    ]
+                },
+                "organic": {
+                    "enabled": true,
+                    "options": [
+                        true,
+                        false
+                    ]
+                },
+                "available": {
+                    "enabled": true,
+                    "options": [
+                        true,
+                        false
+                    ]
+                },
+                "rating": {
+                    "enabled": true,
+                    "options": [
+                        "4.5 and up",
+                        "4 and up",
+                        "3.5 and up",
+                        "3 and up"
+                    ]
+                }
+            },
+            "defaultState": {
+                "type": null,
+                "organic": null,
+                "available": null,
+                "rating": null
+            }
+        }
+    }
+}
