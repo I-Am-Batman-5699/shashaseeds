@@ -1,43 +1,134 @@
 "use client";
 
-import { useState, useRef, useEffect } from 'react';
+import { useState, useRef, useEffect, useMemo } from 'react';
 import ProductCard from '@/components/cards/ProductCard';
-import productsData from "../../../public/models/products/products.json";
-import featureToggles from "../../../public/models/feature/feature-toggle.json";
 import { motion, AnimatePresence } from 'framer-motion';
-import { ProductProps, Product, Filters } from '@/types/products/products';
+import { useSearchParams } from "next/navigation";
+import { ProductProps, Product } from '@/types/products/products';
 import { createPortal } from "react-dom";
+import { FetchItems } from "@/lib/fetcher";
+import { FilterConfig } from '@/types/products/product-page';
 
-interface ClickOutsideEvent {
+interface ClickOutsideEvent extends MouseEvent {
     target: EventTarget | null;
 }
 
-// Use the feature toggle JSON for dynamic options
-const availableFilters = featureToggles["products-page"].filters.availableOptions;
-const sortOptionsMap = featureToggles["products-page"].sort.availableOptions;
-
-const productsjson: ProductProps = productsData as ProductProps;
-const products = productsjson.products || [];
-
 export default function ProductsPage() {
+    const searchParams = useSearchParams();
+    const categoryFromUrl = searchParams.get('category');
+
+    const [products, setProducts] = useState<Product[]>([]);
+    const [config, setConfig] = useState<any | null>(null);
+    const [isLoading, setIsLoading] = useState(true);
+
     const [searchTerm, setSearchTerm] = useState('');
-    const [sortOption, setSortOption] = useState(featureToggles["products-page"].sort.defaultSortBy);
+    const [sortOption, setSortOption] = useState('id-asc');
     const [isFilterPanelOpen, setIsFilterPanelOpen] = useState(false);
     const [isSortPopoverOpen, setIsSortPopoverOpen] = useState(false);
-    const [selectedFilters, setSelectedFilters] = useState({});
+    const [isMounted, setIsMounted] = useState(false);
+
+    /*
+     * Function to simplify the URL category slug (e.g., "flower-seeds")
+     * to match the internal product filter attribute value (e.g., "flower").
+     */
+    const getSimplifiedUrlType = (categorySlug: string | null | undefined) => {
+        if (!categorySlug) return undefined;
+        return categorySlug.replace(/-seeds$/, '');
+    };
+
+    const initialSimplifiedType = getSimplifiedUrlType(categoryFromUrl);
+
+    /*
+     * Initialize selected filters state.
+     * The URL category is used to set the initial value for the 'type' filter key.
+     */
+    const [selectedFilters, setSelectedFilters] = useState<Record<string, string | boolean | undefined>>({
+        type: initialSimplifiedType
+    });
 
     const sortButtonRef = useRef<HTMLDivElement | null>(null);
     const filterPanelRef = useRef<HTMLDivElement | null>(null);
 
     const [sortRect, setSortRect] = useState<DOMRect | null>(null);
 
+    /*
+     * NEW EFFECT FOR DATA FETCHING
+     */
     useEffect(() => {
-        const handleClickOutside = (event: MouseEvent & ClickOutsideEvent) => {
-            if (sortButtonRef.current && !sortButtonRef.current.contains(event.target as Node)) {
-                setIsSortPopoverOpen(false);
+        async function loadData() {
+            setIsLoading(true);
+            try {
+                // Fetch product list and feature config in parallel
+                // FetchItems now returns { data, error, status }
+                const [productsResult, featuresResult] = await Promise.all([
+                    FetchItems({ path: "/models/products/products.json" }),
+                    FetchItems({ path: "/models/feature/feature-toggle.json" }),
+                ]);
+
+                // --- Products Data Handling ---
+                if (productsResult.error || productsResult.status === "E") {
+                    console.error("Error fetching products:", productsResult.error);
+                }
+
+                // Extract the actual data from the response object
+                const productsResponse = productsResult.data as ProductProps | null;
+                setProducts(productsResponse?.products || []);
+
+                // --- Configuration Data Handling ---
+                if (featuresResult.error || featuresResult.status === "E") {
+                    console.error("Error fetching features config:", featuresResult.error);
+                }
+
+                // Extract the actual data from the response object
+                const featuresResponse = featuresResult.data as any;
+                const pageConfig = featuresResponse?.["products-page"];
+
+                setConfig(pageConfig || null);
+
+                // Set initial sort option using the fetched config's default
+                if (pageConfig?.sort?.defaultSortBy) {
+                    setSortOption(pageConfig.sort.defaultSortBy);
+                }
+
+            } catch (error) {
+                // This catch block will only hit if Promise.all itself fails, not internal fetch errors
+                console.error("Critical error during data loading process:", error);
+            } finally {
+                setIsLoading(false);
             }
-            if (filterPanelRef.current && !filterPanelRef.current.contains(event.target as Node)) {
-                setIsFilterPanelOpen(false);
+        }
+
+        loadData();
+    }, []);
+
+    /*
+     * Effect to update the 'type' filter in state when the URL category changes,
+     * ensuring that products are filtered correctly upon navigation.
+     */
+    useEffect(() => {
+        const newSimplifiedType = getSimplifiedUrlType(categoryFromUrl);
+        setSelectedFilters(prev => ({
+            ...prev,
+            type: newSimplifiedType
+        }));
+    }, [categoryFromUrl]);
+
+    /*
+     * Set isMounted to true after the initial render to enable client-side-only features like portals.
+     */
+    useEffect(() => {
+        setIsMounted(true);
+    }, []);
+
+    /*
+     * Effect to handle click outside for the sort popover and close both popover and filter panel on 'Escape' key press.
+     */
+    useEffect(() => {
+        const handleClickOutside = (event: MouseEvent) => {
+            const mouseEvent = event as ClickOutsideEvent;
+
+            if (isSortPopoverOpen && sortButtonRef.current && !sortButtonRef.current.contains(mouseEvent.target as Node)) {
+                setIsSortPopoverOpen(false);
             }
         };
 
@@ -54,81 +145,120 @@ export default function ProductsPage() {
             document.removeEventListener('mousedown', handleClickOutside);
             document.removeEventListener("keydown", onKey);
         };
-    }, []);
+    }, [isSortPopoverOpen]);
 
-    const getFilteredProducts = (products: Product[], searchTerm: string) => {
-        if (!searchTerm) return products;
-        return products.filter(
-            (product) =>
-                product.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
-                (product.tags && product.tags.some((tag) => tag.toLowerCase().includes(searchTerm.toLowerCase())))
-        );
-    };
-
-    const getSortedProducts = (productsArr: Product[], sortOption: string) => {
-        const sorted = [...productsArr];
-        switch (sortOption) {
-            case 'price-asc':
-                sorted.sort((a, b) => a.price - b.price);
-                break;
-            case 'price-desc':
-                sorted.sort((a, b) => b.price - a.price);
-                break;
-            case 'rating-desc':
-                sorted.sort((a, b) => {
-                    if (a.rating && b.rating) {
-                        return b.rating - a.rating;
-                    }
-                    return (a.id || '').localeCompare(b.id || '');
-                });
-                break;
-            case 'newest':
-                sorted.sort((a, b) => new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime());
-                break;
-            case 'id-asc':
-                sorted.sort((a, b) => (a.id || '').localeCompare(b.id || ''));
-                break;
-        }
-        return sorted;
-    };
-
-    const getFilteredByAttributes = (products: Product[], filters: Filters) => {
-        return products.filter((product) => {
+    /*
+     * Filters products based on selected attribute filters in the `selectedFilters` state.
+     * It handles standard attribute checks (like 'type'), boolean checks ('available'), and numeric checks ('rating').
+     */
+    const getFilteredByAttributes = (productsArr: Product[], filters: Record<string, string | boolean | undefined>) => {
+        return productsArr.filter((product) => {
             for (const key in filters) {
                 const filterValue = filters[key as keyof typeof filters];
-                if (filterValue !== null) {
-                    // Check for the 'available' filter which is a top-level property
-                    if (key === 'available') {
-                        if (product.available !== filterValue) {
-                            return false;
-                        }
+
+                if (filterValue === null || filterValue === undefined) continue;
+
+                /*
+                 * Handle 'available' filter, assuming it's a top-level boolean property on the product.
+                 */
+                if (key === 'available') {
+                    if (product.available !== filterValue) {
+                        return false;
                     }
-                    // Check for the 'rating' filter
-                    else if (key === 'rating') {
-                        const numericValue = parseFloat(filterValue as string);
-                        if (product.rating === undefined || product.rating < numericValue) {
-                            return false;
-                        }
+                    continue;
+                }
+
+                /*
+                 * Handle 'rating' filter, assuming a minimum rating requirement.
+                 */
+                if (key === 'rating') {
+                    const numericValue = parseFloat(filterValue as string);
+                    if (product.rating === undefined || product.rating < numericValue) {
+                        return false;
                     }
-                    // Check for other filters (type, organic)
-                    else {
-                        if (product.filters && product.filters[key as keyof typeof product.filters] !== filterValue) {
-                            return false;
-                        }
+                    continue;
+                }
+
+                /*
+                 * Handle all other filters (e.g., 'type', 'organic') nested under 'filters' property.
+                 */
+                if (product.filters) {
+                    const productFilterValue = product.filters[key as keyof typeof product.filters];
+                    if (productFilterValue !== undefined && productFilterValue !== filterValue) {
+                        return false;
                     }
+                }
+                /*
+                 * Filter out products missing a property if a filter for that property is actively selected.
+                 */
+                else if (!product.filters || product.filters[key as keyof typeof product.filters] === undefined) {
+                    return false;
                 }
             }
             return true;
         });
     };
 
-    const handleFilterChange = (filterKey: string, value: string | boolean) => {
-        setSelectedFilters((prev) => ({
-            ...prev,
-            [filterKey]: prev[filterKey as keyof typeof prev] === value ? null : value,
-        }));
+    /*
+     * Filters products based on the search term matching the product name or any of its tags.
+     */
+    const getSearchedProducts = (products: Product[], searchTerm: string) => {
+        if (!searchTerm) return products;
+
+        const lowerCaseSearchTerm = searchTerm.toLowerCase();
+
+        return products.filter((product) => {
+            const searchMatch = product.name.toLowerCase().includes(lowerCaseSearchTerm) ||
+                (product.tags && product.tags.some(tag => tag.toLowerCase().includes(lowerCaseSearchTerm)));
+            return searchMatch;
+        });
     };
 
+    /*
+     * Sorts the product array based on the selected sorting option (price, rating, date, etc.).
+     */
+    const getSortedProducts = (productsArr: Product[], sortOption: string) => {
+        const sorted = [...productsArr];
+        switch (sortOption) {
+            case 'price-asc':
+                sorted.sort((a, b) => (a.price || 0) - (b.price || 0));
+                break;
+            case 'price-desc':
+                sorted.sort((a, b) => (b.price || 0) - (a.price || 0));
+                break;
+            case 'rating-desc':
+                sorted.sort((a, b) => (b.rating || -1) - (a.rating || -1));
+                break;
+            case 'newest':
+                sorted.sort((a, b) => new Date(b.createdAt || 0).getTime() - new Date(a.createdAt || 0).getTime());
+                break;
+            case 'id-asc':
+            default:
+                sorted.sort((a, b) => (a.id || '').localeCompare(b.id || ''));
+                break;
+        }
+        return sorted;
+    };
+
+    /*
+     * Handles the selection/deselection of a filter value.
+     * Toggles the filter off (sets to undefined) if the same value is clicked again.
+     */
+    const handleFilterChange = (filterKey: string, value: string | boolean) => {
+        setSelectedFilters((prev) => {
+            const currentValue = prev[filterKey as keyof typeof prev];
+            const newValue = currentValue === value ? undefined : value;
+
+            return {
+                ...prev,
+                [filterKey]: newValue,
+            };
+        });
+    };
+
+    /*
+     * Toggles the sort popover visibility and captures the button's position for portal rendering.
+     */
     const toggleSort = () => {
         if (!isSortPopoverOpen && sortButtonRef.current) {
             setSortRect(sortButtonRef.current.getBoundingClientRect());
@@ -136,22 +266,69 @@ export default function ProductsPage() {
         setIsSortPopoverOpen(v => !v);
     };
 
+    /*
+     * Updates the sort option and closes the popover.
+     */
     const handleSortChange = (option: string) => {
         setSortOption(option);
         setIsSortPopoverOpen(false);
     };
 
-    const isFilterActive = Object.values(selectedFilters).some((v) => v !== null && v !== undefined);
-    const isSortActive = sortOption !== featureToggles["products-page"].sort.defaultSortBy;
+    const productsPageConfig = config || {};
+    const availableFilters: FilterConfig = productsPageConfig.filters?.availableOptions || {};
+    const sortOptionsMap = productsPageConfig.sort?.availableOptions || {};
+    const defaultSortBy = productsPageConfig.sort?.defaultSortBy || 'id-asc';
+    const productsPageData = productsPageConfig.displayData || {};
 
-    const visibleProducts = getFilteredProducts(products, searchTerm);
-    const sortedProducts = getSortedProducts(visibleProducts, sortOption);
-    const finalProducts = getFilteredByAttributes(sortedProducts, selectedFilters as Filters);
+    /*
+     * Checks if any filter is currently active (i.e., not null or undefined).
+     */
+    const isFilterActive = Object.values(selectedFilters).some(v => v !== null && v !== undefined);
 
+    /*
+     * Checks if the current sort option is different from the default.
+     */
+    const isSortActive = sortOption !== defaultSortBy;
+
+    /*
+     * Memoized calculation of the final product list, dependent on the raw data, search term, filters, and sort option.
+     */
+    const finalProducts = useMemo(() => {
+        const searched = getSearchedProducts(products, searchTerm);
+        const filtered = getFilteredByAttributes(searched, selectedFilters);
+        const sorted = getSortedProducts(filtered, sortOption);
+        return sorted;
+    }, [products, searchTerm, selectedFilters, sortOption]);
+
+
+    /*
+     * A simple wrapper component for creating React Portals, safely checking if the component is mounted and running in the browser.
+     */
     const Portal = ({ children }: { children: React.ReactNode }) => {
-        if (typeof document === "undefined") return null;
+        if (!isMounted || typeof document === "undefined") return null;
         return createPortal(children, document.body);
     };
+
+    /*
+     * Creates the dynamic page title based on the URL category, falling back to the title from product data.
+     */
+    const pageTitle = categoryFromUrl
+        ? categoryFromUrl.replace(/-/g, ' ').toUpperCase()
+        : (productsPageData.defaultTitle || "PRODUCTS");
+
+
+    if (isLoading || !config) {
+        return (
+            <div className="bg-gradient-to-br from-green-50 to-green-100 min-h-[90vh] flex items-center justify-center">
+                <div className="mx-auto max-w-[90%] md:pb-8 pb-4 md:pt-4 pt-1">
+                    <div className="rounded-2xl shadow-xl md:p-4 p-2 inset-shadow-sm inset-shadow-indigo-200/50 space-y-1">
+                        <div className="md:text-2xl lg:text-3xl font-semibold text-gray-700 m-2 text-center">{productsPageData.loadingMessage || "Loading Products and Configuration..."}</div>
+                    </div>
+                </div>
+            </div>
+        );
+    }
+
 
     return (
         <div className="bg-gradient-to-br from-green-50 to-green-100">
@@ -159,28 +336,28 @@ export default function ProductsPage() {
                 <div className="rounded-2xl shadow-xl md:p-4 p-2 inset-shadow-sm inset-shadow-indigo-200/50 space-y-1">
                     <div className="container mx-auto p-4">
                         <p className='md:text-2xl lg:text-3xl font-semibold text-gray-700 m-2 text-center'>
-                            {productsjson.title || 'Our Products'}
+                            {pageTitle}
                         </p>
 
-                        {/* Search, Sort, and Filter Controls */}
+                        {/* Search, Sort, and Filter Controls Section */}
                         <div className="flex flex-col p-1 md:flex-row justify-between items-center mb-6 space-y-4 md:space-y-0 relative backdrop-blur-xl bg-opacity-70 rounded-xl">
-                            {featureToggles["products-page"].sections.searchBar && (
+                            {productsPageConfig.sections.searchBar && (
                                 <input
                                     type="text"
-                                    placeholder="Search products..."
+                                    placeholder={productsPageData.searchPlaceholder}
                                     className="border border-blue-300 rounded-full px-4 py-2 w-full md:w-1/3 shadow-md focus:ring-2 focus:ring-blue-500 transition-all text-zinc-950 inset-shadow-sm inset-shadow-green-100 outline-transparent focus:outline-2 focus:outline-blue-500"
                                     value={searchTerm}
                                     onChange={(e) => setSearchTerm(e.target.value)}
                                 />
                             )}
                             <div className="flex items-center space-x-4">
-                                {/* Sort Button */}
-                                {featureToggles["products-page"].sections.sortControls && (
+                                {/* Sort Button Section */}
+                                {productsPageConfig.sections.sortControls && (
                                     <div className="relative group" ref={sortButtonRef}>
                                         <button
                                             onClick={toggleSort}
                                             className={`relative border rounded-full p-2 shadow-sm transition-colors ${isSortActive ? 'border-blue-50 bg-blue-500 text-white' : 'border-gray-300 hover:bg-blue-100'}`}
-                                            aria-label="Change sort"
+                                            aria-label={productsPageData.sortButtonAriaLabel}
                                         >
                                             <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6" viewBox="0 0 24 24" strokeWidth={2} strokeLinecap="round" strokeLinejoin="round" stroke={isSortActive ? "white" : "#155dfc"} fill="none">
                                                 <path d="M3 4h13M3 8h9m-9 4h6m4 0l4-4m0 0l4 4m-4-4v12" />
@@ -193,55 +370,59 @@ export default function ProductsPage() {
                                     </div>
                                 )}
 
-                                {/* Filter Button */}
-                                {featureToggles["products-page"].sections.filterControls && (
+                                {/* Filter Button Section */}
+                                {productsPageConfig.sections.filterControls && (
                                     <button
                                         onClick={() => setIsFilterPanelOpen(!isFilterPanelOpen)}
                                         className={`border rounded-full p-2 shadow-sm transition-colors ${isFilterActive ? 'border-blue-50 bg-blue-500' : 'border-gray-300 hover:bg-blue-100'
                                             }`}
-                                        aria-label="Open filter panel"
+                                        aria-label={productsPageData.filterButtonAriaLabel}
                                     >
                                         <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6" fill={isFilterActive ? "#ffffff" : "#155dfc"} viewBox="0 0 24 24" stroke={isFilterActive ? "#ffffff" : "#155dfc"} strokeWidth="0.1">
-                                            <path strokeLinecap="round" strokeLinejoin="round" d="M6.17071 18C6.58254 16.8348 7.69378 16 9 16C10.3062 16 11.4175 16.8348 11.8293 18H22V20H11.8293C11.4175 21.1652 10.3062 22 9 22C7.69378 22 6.58254 21.1652 6.17071 20H2V18H6.17071ZM12.1707 11C12.5825 9.83481 13.6938 9 15 9C16.3062 9 17.4175 9.83481 17.8293 11H22V13H17.8293C17.4175 14.1652 16.3062 15 15 15C13.6938 15 12.5825 14.1652 12.1707 13H2V11H12.1707ZM6.17071 4C6.58254 2.83481 7.69378 2 9 2C10.3062 2 11.4175 2.83481 11.8293 4H22V6H11.8293C11.4175 7.16519 10.3062 8 9 8C7.69378 8 6.58254 7.16519 6.17071 6H2V4H6.17071ZM9 6C9.55228 6 10 5.55228 10 5C10 4.44772 9.55228 4 9 4C8.44772 4 8 4.44772 8 5C8 5.55228 8.44772 6 9 6ZM15 13C15.5523 13 16 12.5523 16 12C16 11.4477 15.5523 11 15 11C14.4477 11 14 11.4477 14 12C14 12.5523 14.4477 13 15 13ZM9 20C9.55228 20 10 19.5523 10 19C10 18.4477 9.55228 18 9 18C8.44772 18 8 18.4477 8 19C8 19.5523 8.44772 20 9 20Z"></path></svg>
+                                            <path d="M6.17071 18C6.58254 16.8348 7.69378 16 9 16C10.3062 16 11.4175 16.8348 11.8293 18H22V20H11.8293C11.4175 21.1652 10.3062 22 9 22C7.69378 22 6.58254 21.1652 6.17071 20H2V18H6.17071ZM12.1707 11C12.5825 9.83481 13.6938 9 15 9C16.3062 9 17.4175 9.83481 17.8293 11H22V13H17.8293C17.4175 14.1652 16.3062 15 15 15C13.6938 15 12.5825 14.1652 12.1707 13H2V11H12.1707ZM6.17071 4C6.58254 2.83481 7.69378 2 9 2C10.3062 2 11.4175 2.83481 11.8293 4H22V6H11.8293C11.4175 7.16519 10.3062 8 9 8C7.69378 8 6.58254 7.16519 6.17071 6H2V4H6.17071ZM9 6C9.55228 6 10 5.55228 10 5C10 4.44772 9.55228 4 9 4C8.44772 4 8 4.44772 8 5C8 5.55228 8.44772 6 9 6ZM15 13C15.5523 13 16 12.5523 16 12C16 11.4477 15.5523 11 15 11C14.4477 11 14 11.4477 14 12C14 12.5523 14.4477 13 15 13ZM9 20C9.55228 20 10 19.5523 10 19C10 18.4477 9.55228 18 9 18C8.44772 18 8 18.4477 8 19C8 19.5523 8.44772 20 9 20Z" />
+                                        </svg>
                                     </button>
                                 )}
                             </div>
                         </div>
 
-                        {/* Portaled Sort Popover */}
-                        {isSortPopoverOpen && sortRect && typeof document !== "undefined" && (
-                            <Portal>
-                                <motion.div
-                                    initial={{ opacity: 0, y: -6 }}
-                                    animate={{ opacity: 1, y: 0 }}
-                                    exit={{ opacity: 0, y: -6 }}
-                                    transition={{ duration: 0.12 }}
-                                    style={{
-                                        position: "absolute",
-                                        top: (sortRect.bottom + window.scrollY + 8),
-                                        left: Math.max(8, sortRect.left + window.scrollX + (sortRect.width / 2) - 96), // center-ish
-                                        width: 192,
-                                        zIndex: 9999,
-                                    }}
-                                    className="bg-white rounded-lg shadow-lg overflow-hidden"
-                                    onMouseDown={(e) => e.stopPropagation()}
-                                >
-                                    <ul className="py-2">
-                                        {Object.entries(sortOptionsMap).map(([key, value]) => (
-                                            <li
-                                                key={key}
-                                                className={`px-4 py-2 hover:bg-gray-100 cursor-pointer text-sm ${sortOption === key ? 'bg-blue-100 font-semibold text-blue-800' : 'font-normal text-zinc-800'}`}
-                                                onClick={() => handleSortChange(key)}
-                                            >
-                                                {value}
-                                            </li>
-                                        ))}
-                                    </ul>
-                                </motion.div>
-                            </Portal>
-                        )}
+                        {/* Portaled Sort Popover Section */}
+                        <AnimatePresence>
+                            {isSortPopoverOpen && sortRect && typeof document !== "undefined" && (
+                                <Portal>
+                                    <motion.div
+                                        initial={{ opacity: 0, y: -6 }}
+                                        animate={{ opacity: 1, y: 0 }}
+                                        exit={{ opacity: 0, y: -6 }}
+                                        transition={{ duration: 0.12 }}
+                                        style={{
+                                            position: "absolute",
+                                            top: (sortRect.bottom + window.scrollY + 8),
+                                            left: Math.max(8, sortRect.left + window.scrollX + (sortRect.width / 2) - 96),
+                                            width: 192,
+                                            zIndex: 9999,
+                                        }}
+                                        className="bg-white rounded-lg shadow-lg overflow-hidden"
+                                        onMouseDown={(e) => e.stopPropagation()}
+                                    >
+                                        <ul className="py-2">
+                                            {Object.entries(sortOptionsMap).map(([key, value]) => (
+                                                <li
+                                                    key={key}
+                                                    className={`px-4 py-2 hover:bg-gray-100 cursor-pointer text-sm ${sortOption === key ? 'bg-blue-100 font-semibold text-blue-800' : 'font-normal text-zinc-800'}`}
+                                                    onClick={() => handleSortChange(key)}
+                                                >
+                                                    {value as string}
+                                                </li>
+                                            ))}
+                                        </ul>
+                                    </motion.div>
+                                </Portal>
+                            )}
+                        </AnimatePresence>
 
-                        {/* Filter Panel (opens from right) */}
+
+                        {/* Filter Panel (Slide-in from right) Section */}
                         <AnimatePresence>
                             {isFilterPanelOpen && (
                                 <>
@@ -252,7 +433,7 @@ export default function ProductsPage() {
                                         className="fixed inset-0 bg-gradient-to-br from-green-50 to-green-100 bg-opacity-50 z-40"
                                         onClick={() => setIsFilterPanelOpen(false)}
                                     />
-                                    {/* Filter Panel */}
+                                    {/* Filter Panel Content */}
                                     <motion.div
                                         ref={filterPanelRef}
                                         initial={{ x: '100%' }}
@@ -262,29 +443,69 @@ export default function ProductsPage() {
                                         className="fixed inset-y-0 right-0 w-80 bg-white shadow-xl z-50 p-6 overflow-y-auto text-zinc-900"
                                     >
                                         <div className="flex justify-between items-center mb-6">
-                                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" viewBox="0 0 24 24">
+                                            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" viewBox="0 0 24 24">
                                                 <path d="M6.17071 18C6.58254 16.8348 7.69378 16 9 16C10.3062 16 11.4175 16.8348 11.8293 18H22V20H11.8293C11.4175 21.1652 10.3062 22 9 22C7.69378 22 6.58254 21.1652 6.17071 20H2V18H6.17071ZM12.1707 11C12.5825 9.83481 13.6938 9 15 9C16.3062 9 17.4175 9.83481 17.8293 11H22V13H17.8293C17.4175 14.1652 16.3062 15 15 15C13.6938 15 12.5825 14.1652 12.1707 13H2V11H12.1707ZM6.17071 4C6.58254 2.83481 7.69378 2 9 2C10.3062 2 11.4175 2.83481 11.8293 4H22V6H11.8293C11.4175 7.16519 10.3062 8 9 8C7.69378 8 6.58254 7.16519 6.17071 6H2V4H6.17071ZM9 6C9.55228 6 10 5.55228 10 5C10 4.44772 9.55228 4 9 4C8.44772 4 8 4.44772 8 5C8 5.55228 8.44772 6 9 6ZM15 13C15.5523 13 16 12.5523 16 12C16 11.4477 15.5523 11 15 11C14.4477 11 14 11.4477 14 12C14 12.5523 14.4477 13 15 13ZM9 20C9.55228 20 10 19.5523 10 19C10 18.4477 9.55228 18 9 18C8.44772 18 8 18.4477 8 19C8 19.5523 8.44772 20 9 20Z" />
                                             </svg>
-                                            <p className="text-2xl font-bold text-center">Filters</p>
-                                            <button onClick={() => setIsFilterPanelOpen(false)} className="text-gray-500 hover:text-gray-700">
+                                            <p className="text-2xl font-bold text-center">{productsPageData.filterPanelTitle}</p>
+                                            <button onClick={() => setIsFilterPanelOpen(false)} className="text-gray-500 hover:text-gray-700" aria-label={productsPageData.closeFilterPanelAriaLabel}>
                                                 <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" /></svg>
                                             </button>
                                         </div>
+                                        <hr className='-mt-4 mb-2'/>
+
+                                        {/* Dynamic Filter Options Mapping */}
                                         {Object.entries(availableFilters).map(([key, filterData]) => {
                                             if (filterData.enabled) {
+
+                                                /*
+                                                 * Calculate the simplified URL value once per filter section to check if the 'type' filter is controlled by the URL.
+                                                 */
+                                                const simplifiedUrlValue = categoryFromUrl
+                                                    ? categoryFromUrl.replace(/-seeds$/, '')
+                                                    : undefined;
+
+                                                const isUrlFilterActive = (key === 'type' && simplifiedUrlValue);
+
                                                 return (
                                                     <div key={key} className="mb-4">
-                                                        <p className="font-semibold text-lg capitalize mb-2">{key}</p>
+                                                        <p className="font-semibold text-lg capitalize mb-2">
+                                                            {/* Display the filter key, using a display name if available in the config */}
+                                                            {productsPageData.filterDisplayNames?.[key] || key}
+                                                        </p>
+
                                                         <div className="flex flex-wrap gap-2">
-                                                            {filterData.options.map((value) => (
-                                                                <button
-                                                                    key={value.toString()}
-                                                                    onClick={() => handleFilterChange(key, value as string | boolean)}
-                                                                    className={`px-3 py-1 text-sm rounded-full border transition-colors ${selectedFilters[key as keyof typeof selectedFilters] === value ? 'bg-blue-600 text-white border-blue-600' : 'bg-white text-gray-700 border-gray-300 hover:bg-gray-100'}`}
-                                                                >
-                                                                    {value.toString()}
-                                                                </button>
-                                                            ))}
+                                                            {filterData.options.map((value) => {
+
+                                                                let isSelected = selectedFilters[key as keyof typeof selectedFilters] === value;
+                                                                let isDisabled = false;
+
+                                                                /*
+                                                                 * Logic to force selection and disable the button if the filter is controlled by the URL category.
+                                                                 */
+                                                                if (isUrlFilterActive && value === simplifiedUrlValue) {
+                                                                    isSelected = true;
+                                                                    isDisabled = true;
+                                                                }
+
+                                                                const optionText = productsPageData.filterOptionDisplayNames?.[value as string] || value.toString();
+
+                                                                return (
+                                                                    <button
+                                                                        key={value.toString()}
+                                                                        onClick={isDisabled ? undefined : () => handleFilterChange(key, value as string | boolean)}
+                                                                        className={`
+                                                                            px-3 py-1 text-sm rounded-full border transition-colors capitalize
+                                                                            ${isSelected ? 'bg-blue-600 text-white border-blue-600' : 'bg-white text-gray-700 border-gray-300 hover:bg-gray-100'}
+                                                                            ${isDisabled ? 'opacity-70 cursor-not-allowed' : ''} 
+                                                                        `}
+                                                                        disabled={isDisabled as boolean}
+                                                                    >
+                                                                        {/* Use mapped display name if available, otherwise fallback to value.toString() */}
+                                                                        {optionText}
+                                                                        {isDisabled && ` (${productsPageData.fixedFilterLabel})`}
+                                                                    </button>
+                                                                );
+                                                            })}
                                                         </div>
                                                     </div>
                                                 );
@@ -299,7 +520,7 @@ export default function ProductsPage() {
 
                         <hr className='mb-2 -mt-4' />
 
-                        {/* Products Grid */}
+                        {/* Products Grid Section */}
                         <div className="mt-4">
                             {finalProducts.length > 0 ? (
                                 <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
@@ -323,8 +544,8 @@ export default function ProductsPage() {
                                             d="M19 11H5m14 0a2 2 0 012 2v2a2 2 0 01-2 2H5a2 2 0 01-2-2v-2a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0a2 2 0 002-2"
                                         />
                                     </svg>
-                                    <h2 className="text-xl font-semibold mb-2">No items found</h2>
-                                    <p>Please adjust your filters or search terms.</p>
+                                    <h2 className="text-xl font-semibold mb-2">{productsPageData.noItemsFoundTitle}</h2>
+                                    <p>{productsPageData.noItemsFoundMessage}</p>
                                 </div>
                             )}
                         </div>

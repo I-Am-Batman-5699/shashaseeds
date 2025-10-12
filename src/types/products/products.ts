@@ -1,7 +1,7 @@
 export interface ProductProps {
-  title: string
-  description: string
-  products: Product[]
+    title: string;
+    description: string;
+    products: Product[];
 }
 
 export interface Product {
@@ -31,7 +31,7 @@ export interface Product {
   createdAt: string
   updatedAt: string
   attributes?: Attributes
-  filters: Filters
+  filters: ProductFilters
   searchKeywords: string[]
 }
 
@@ -42,10 +42,10 @@ export interface Attributes {
   growthTime: string
 }
 
-export interface Filters {
-  priceRange: string
-  type: string
-  organic: boolean
-  available: boolean
-  rating: string
+export interface ProductFilters {
+    type: string;
+    organic: boolean;
+    available: boolean;
+    priceRange?: string;
+    rating?: string;
 }

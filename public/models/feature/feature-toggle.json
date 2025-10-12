@@ -20,7 +20,7 @@
             "defaultSortBy": "id-asc",
             "availableOptions": {
                 "relevance": "Relevance",
-                "newest": "Newest",
+                "newest": "Newest Arrivals",
                 "price-asc": "Price: Low to High",
                 "price-desc": "Price: High to Low",
                 "rating-desc": "Rating: High to Low"
@@ -55,10 +55,9 @@
                 "rating": {
                     "enabled": true,
                     "options": [
-                        "4.5 and up",
-                        "4 and up",
-                        "3.5 and up",
-                        "3 and up"
+                        4,
+                        3.5,
+                        3
                     ]
                 }
             },
@@ -67,6 +66,37 @@
                 "organic": null,
                 "available": null,
                 "rating": null
+            }
+        },
+        "displayData": {
+            "loadingMessage": "Loading Products and Configuration...",
+            "searchPlaceholder": "Search products...",
+            "defaultTitle": "OUR PRODUCTS",
+            "sortButtonAriaLabel": "Change sort",
+            "filterButtonAriaLabel": "Open filter panel",
+            "filterPanelTitle": "Filters",
+            "closeFilterPanelAriaLabel": "Close filter panel",
+            "fixedFilterLabel": "Fixed by URL",
+            "noItemsFoundTitle": "No items found",
+            "noItemsFoundMessage": "Please adjust your filters or search terms.",
+            "filterDisplayNames": {
+                "type": "Product Type",
+                "organic": "Organic Status",
+                "available": "In Stock",
+                "rating": "Customer Rating"
+            },
+            "filterOptionDisplayNames": {
+                "flower": "Flower Seeds",
+                "vegetable": "Vegetable Seeds",
+                "herb": "Herb Seeds",
+                "fruit": "Fruit Seeds",
+                "true": "In Stock",
+                "false": "Out of Stock",
+                "4": "4 Stars & Up",
+                "3.5": "3.5 Stars & Up",
+                "3": "3 Stars & Up",
+                "organic-true": "Organic",
+                "organic-false": "Conventional"
             }
         }
     }
