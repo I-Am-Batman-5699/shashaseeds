@@ -1,0 +1,36 @@
+{
+    "products": [
+        {
+            "id": "SHB-76",
+            "name": "Hybrid Millet seeds",
+            "imageUrl": "/assets/SHB-76.jpg",
+            "description": [
+                "High yield variety",
+                "Science-backed genetics",
+                "Rich in nutrients"
+            ]
+        },
+        {
+            "id": "SHM-4560",
+            "name": "Hybrid Mustard seeds",
+            "imageUrl": "/assets/SHM-4560.jpg",
+            "description": [
+                "लम्बी फली अधिक दाने",
+                "मोटे व चमकदार दाना",
+                "120-125 दिन में तैयार",
+                "12-14 क्विंटल/एकड़ उपज",
+                "42% आॅयल की मात्रा"
+            ]
+        },
+        {
+            "id": "SSW-407",
+            "name": "Wheat seeds",
+            "imageUrl": "/assets/SSW-407.jpg",
+            "description": [
+                "अधिक फुटान",
+                "भरपूर उत्पादन 30 से 35 क्विंटल प्रति एकड़ उपज 110 - 120 दिन में फसल तैयार दाने आकर्शक",
+                "मोटे व चमकदार 6 से 8 इंच लम्बी बालियां"
+            ]
+        }
+    ]
+}
