@@ -27,8 +27,12 @@
             ],
             "images": [
                 "/products/SHB-76-nobg.png",
-                "/productsSHB-76.png",
-                "/productsSHB-76.jng"
+                "https://placehold.co/800x800/228B22/FFFFFF?text=Basil+Seed+Pack",
+                "https://placehold.co/800x800/3CB371/FFFFFF?text=Basil+Plant+Growing",
+                "/products/SHB-76.png",
+                "https://placehold.co/800x800/6B8E23/FFFFFF?text=Basil+Leaves+Closeup",
+                "https://placehold.co/800x800/8FBC8F/FFFFFF?text=Basil+Serving+Idea",
+                "/products/SHB-76.jpg"
             ],
             "description": "Beautiful organic rose seeds with high germination rate. Perfect for home gardens.",
             "stock": 150,

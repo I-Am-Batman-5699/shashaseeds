@@ -1,24 +1,19 @@
 {
     "products": [
         {
-            "product-id": "KS-44B46",
-            "name": "First product 1",
-            "image": "/SHB-76-nobg.png"
+            "product-id": "P001",
+            "name": "Rose Seeds",
+            "image": "https://placehold.co/80x80/228B22/FFFFFF?text=Rose+Seeds"
         },
         {
-            "product-id": "KS-55C57",
-            "name": "2 - second product",
-            "image": "/SHB-76-nobg.png"
+            "product-id": "P002",
+            "name": "Sunflower Seeds",
+            "image": "https://placehold.co/80x80/FF69B4/FFFFFF?text=Sunflower+Seeds"
         },
         {
-            "product-id": "KS-66D68",
-            "name": "Third product (3)",
-            "image": "/SHB-76-nobg.png"
-        },
-        {
-            "product-id": "KS-66D68",
-            "name": "4th - product",
-            "image": "/SHB-76-nobg.png"
+            "product-id": "P003",
+            "name": "Tomato Seeds",
+            "image": "https://placehold.co/80x80/FFD700/FFFFFF?text=Tomato+Seeds"
         }
     ],
     "description": "Explore our featured products, handpicked for quality and variety. From organic seeds to gardening essentials, find everything you need to cultivate your green space.",

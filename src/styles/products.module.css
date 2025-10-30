@@ -1,0 +1,30 @@
+.arrowLeft {
+    position: absolute;
+    right: 0;
+    width: 30px;
+    height: 100%;
+    font-size: 18px;
+    display: none;
+    align-items: center;
+    justify-content: center;
+    opacity: 0;
+}
+
+.customButtom:hover .arrowLeft, .customButtom:hover .arrowLeft {
+    animation: slide-left .6s ease-out both;
+    opacity: 1;
+    display: flex;
+}
+
+/* .arrowLeft animation */
+@keyframes slide-left {
+    0% {
+        transform: translateX(2rem);
+        opacity: 0;
+    }
+
+    100% {
+        transform: translateX(0);
+        opacity: 1;
+    }
+}

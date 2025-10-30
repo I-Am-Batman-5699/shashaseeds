@@ -33,6 +33,7 @@ export interface Product {
   attributes?: Attributes
   filters: ProductFilters
   searchKeywords: string[]
+  image?: string
 }
 
 export interface Attributes {
@@ -45,7 +46,19 @@ export interface Attributes {
 export interface ProductFilters {
     type: string;
     organic: boolean;
-    available: boolean;
+    available?: boolean;
     priceRange?: string;
     rating?: string;
+}
+
+export interface FeaturedProductsProps {
+    title: string;
+    description: string;
+    products: FeaturedProduct[];
+}
+
+export interface FeaturedProduct {
+  "product-id": string
+  name: string
+  image: string
 }
