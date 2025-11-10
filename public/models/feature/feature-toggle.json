@@ -90,11 +90,11 @@
                 "vegetable": "Vegetable Seeds",
                 "herb": "Herb Seeds",
                 "fruit": "Fruit Seeds",
-                "true": "In Stock",
-                "false": "Out of Stock",
-                "4": "4 Stars & Up",
-                "3.5": "3.5 Stars & Up",
-                "3": "3 Stars & Up",
+                "available-true": "In Stock",
+                "available-false": "Out of Stock",
+                "4": "4⭐ & Up",
+                "3.5": "3.5⭐ & Up",
+                "3": "3⭐ & Up",
                 "organic-true": "Organic",
                 "organic-false": "Conventional"
             }

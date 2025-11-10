@@ -40,6 +40,7 @@ export interface ActionButton {
     icon?: string; 
     enabled: boolean;
     visible: boolean;
+    featureEnabled?: boolean;
 }
 
 export interface SocialLink {

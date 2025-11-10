@@ -108,8 +108,8 @@ export interface FilterOptionDisplayNames {
   vegetable: string
   herb: string
   fruit: string
-  true: string
-  false: string
+  "available-true": string
+  "available-false": string
   "4": string
   "3.5": string
   "3": string

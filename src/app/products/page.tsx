@@ -3,11 +3,12 @@
 import { useState, useRef, useEffect, useMemo } from 'react';
 import ProductCard from '@/components/cards/ProductCard';
 import { motion, AnimatePresence } from 'framer-motion';
-import { useSearchParams } from "next/navigation";
+import { ReadonlyURLSearchParams, useSearchParams } from "next/navigation";
 import { ProductProps, Product } from '@/types/products/products';
 import { createPortal } from "react-dom";
 import { FetchItems } from "@/lib/fetcher";
 import { FilterConfig } from '@/types/products/product-page';
+import AIDNALoader from '@/components/loaders/ClosedAIDNA';
 
 interface ClickOutsideEvent extends MouseEvent {
     target: EventTarget | null;
@@ -27,71 +28,73 @@ export default function ProductsPage() {
     const [isSortPopoverOpen, setIsSortPopoverOpen] = useState(false);
     const [isMounted, setIsMounted] = useState(false);
 
-    /*
-     * Function to simplify the URL category slug (e.g., "flower-seeds")
-     * to match the internal product filter attribute value (e.g., "flower").
-     */
-    const getSimplifiedUrlType = (categorySlug: string | null | undefined) => {
-        if (!categorySlug) return undefined;
-        return categorySlug.replace(/-seeds$/, '');
+    const urlFilterKeyMap = useMemo(() => ({
+        category: {
+            filterKey: 'type',
+            transform: (value: string) => value.replace(/-seeds$/, ''),
+        },
+        organic: {
+            filterKey: 'organic',
+            transform: (value: string) => value === 'true',
+        },
+        available: {
+            filterKey: 'available',
+            transform: (value: string) => value === 'true',
+        },
+    }), []);
+
+    const parseUrlFilters = (params: ReadonlyURLSearchParams) => {
+        const initialFilters: Record<string, string | boolean | undefined> = {};
+
+        Object.keys(urlFilterKeyMap).forEach((urlKey) => {
+            const urlValue = params.get(urlKey);
+            if (urlValue !== null) {
+                const { filterKey, transform } = urlFilterKeyMap[urlKey as keyof typeof urlFilterKeyMap];
+                initialFilters[filterKey] = transform(urlValue);
+            }
+        });
+
+        return initialFilters;
     };
 
-    const initialSimplifiedType = getSimplifiedUrlType(categoryFromUrl);
-
-    /*
-     * Initialize selected filters state.
-     * The URL category is used to set the initial value for the 'type' filter key.
-     */
-    const [selectedFilters, setSelectedFilters] = useState<Record<string, string | boolean | undefined>>({
-        type: initialSimplifiedType
-    });
+    const [selectedFilters, setSelectedFilters] = useState<Record<string, string | boolean | undefined>>(() =>
+        parseUrlFilters(searchParams)
+    );
 
     const sortButtonRef = useRef<HTMLDivElement | null>(null);
     const filterPanelRef = useRef<HTMLDivElement | null>(null);
 
     const [sortRect, setSortRect] = useState<DOMRect | null>(null);
-
-    /*
-     * NEW EFFECT FOR DATA FETCHING
-     */
     useEffect(() => {
         async function loadData() {
             setIsLoading(true);
             try {
-                // Fetch product list and feature config in parallel
-                // FetchItems now returns { data, error, status }
                 const [productsResult, featuresResult] = await Promise.all([
                     FetchItems({ path: "/models/products/products.json" }),
                     FetchItems({ path: "/models/feature/feature-toggle.json" }),
                 ]);
 
-                // --- Products Data Handling ---
                 if (productsResult.error || productsResult.status === "E") {
                     console.error("Error fetching products:", productsResult.error);
                 }
 
-                // Extract the actual data from the response object
                 const productsResponse = productsResult.data as ProductProps | null;
                 setProducts(productsResponse?.products || []);
 
-                // --- Configuration Data Handling ---
                 if (featuresResult.error || featuresResult.status === "E") {
                     console.error("Error fetching features config:", featuresResult.error);
                 }
 
-                // Extract the actual data from the response object
                 const featuresResponse = featuresResult.data as any;
                 const pageConfig = featuresResponse?.["products-page"];
 
                 setConfig(pageConfig || null);
 
-                // Set initial sort option using the fetched config's default
                 if (pageConfig?.sort?.defaultSortBy) {
                     setSortOption(pageConfig.sort.defaultSortBy);
                 }
 
             } catch (error) {
-                // This catch block will only hit if Promise.all itself fails, not internal fetch errors
                 console.error("Critical error during data loading process:", error);
             } finally {
                 setIsLoading(false);
@@ -101,28 +104,18 @@ export default function ProductsPage() {
         loadData();
     }, []);
 
-    /*
-     * Effect to update the 'type' filter in state when the URL category changes,
-     * ensuring that products are filtered correctly upon navigation.
-     */
     useEffect(() => {
-        const newSimplifiedType = getSimplifiedUrlType(categoryFromUrl);
+        const newUrlFilters = parseUrlFilters(searchParams);
         setSelectedFilters(prev => ({
-            ...prev,
-            type: newSimplifiedType
+            // ...prev,
+            ...newUrlFilters
         }));
-    }, [categoryFromUrl]);
+    }, [searchParams]);
 
-    /*
-     * Set isMounted to true after the initial render to enable client-side-only features like portals.
-     */
     useEffect(() => {
         setIsMounted(true);
     }, []);
 
-    /*
-     * Effect to handle click outside for the sort popover and close both popover and filter panel on 'Escape' key press.
-     */
     useEffect(() => {
         const handleClickOutside = (event: MouseEvent) => {
             const mouseEvent = event as ClickOutsideEvent;
@@ -147,10 +140,6 @@ export default function ProductsPage() {
         };
     }, [isSortPopoverOpen]);
 
-    /*
-     * Filters products based on selected attribute filters in the `selectedFilters` state.
-     * It handles standard attribute checks (like 'type'), boolean checks ('available'), and numeric checks ('rating').
-     */
     const getFilteredByAttributes = (productsArr: Product[], filters: Record<string, string | boolean | undefined>) => {
         return productsArr.filter((product) => {
             for (const key in filters) {
@@ -158,9 +147,6 @@ export default function ProductsPage() {
 
                 if (filterValue === null || filterValue === undefined) continue;
 
-                /*
-                 * Handle 'available' filter, assuming it's a top-level boolean property on the product.
-                 */
                 if (key === 'available') {
                     if (product.available !== filterValue) {
                         return false;
@@ -168,9 +154,6 @@ export default function ProductsPage() {
                     continue;
                 }
 
-                /*
-                 * Handle 'rating' filter, assuming a minimum rating requirement.
-                 */
                 if (key === 'rating') {
                     const numericValue = parseFloat(filterValue as string);
                     if (product.rating === undefined || product.rating < numericValue) {
@@ -179,18 +162,12 @@ export default function ProductsPage() {
                     continue;
                 }
 
-                /*
-                 * Handle all other filters (e.g., 'type', 'organic') nested under 'filters' property.
-                 */
                 if (product.filters) {
                     const productFilterValue = product.filters[key as keyof typeof product.filters];
                     if (productFilterValue !== undefined && productFilterValue !== filterValue) {
                         return false;
                     }
                 }
-                /*
-                 * Filter out products missing a property if a filter for that property is actively selected.
-                 */
                 else if (!product.filters || product.filters[key as keyof typeof product.filters] === undefined) {
                     return false;
                 }
@@ -199,9 +176,6 @@ export default function ProductsPage() {
         });
     };
 
-    /*
-     * Filters products based on the search term matching the product name or any of its tags.
-     */
     const getSearchedProducts = (products: Product[], searchTerm: string) => {
         if (!searchTerm) return products;
 
@@ -214,9 +188,6 @@ export default function ProductsPage() {
         });
     };
 
-    /*
-     * Sorts the product array based on the selected sorting option (price, rating, date, etc.).
-     */
     const getSortedProducts = (productsArr: Product[], sortOption: string) => {
         const sorted = [...productsArr];
         switch (sortOption) {
@@ -240,10 +211,6 @@ export default function ProductsPage() {
         return sorted;
     };
 
-    /*
-     * Handles the selection/deselection of a filter value.
-     * Toggles the filter off (sets to undefined) if the same value is clicked again.
-     */
     const handleFilterChange = (filterKey: string, value: string | boolean) => {
         setSelectedFilters((prev) => {
             const currentValue = prev[filterKey as keyof typeof prev];
@@ -256,9 +223,6 @@ export default function ProductsPage() {
         });
     };
 
-    /*
-     * Toggles the sort popover visibility and captures the button's position for portal rendering.
-     */
     const toggleSort = () => {
         if (!isSortPopoverOpen && sortButtonRef.current) {
             setSortRect(sortButtonRef.current.getBoundingClientRect());
@@ -266,9 +230,6 @@ export default function ProductsPage() {
         setIsSortPopoverOpen(v => !v);
     };
 
-    /*
-     * Updates the sort option and closes the popover.
-     */
     const handleSortChange = (option: string) => {
         setSortOption(option);
         setIsSortPopoverOpen(false);
@@ -280,19 +241,10 @@ export default function ProductsPage() {
     const defaultSortBy = productsPageConfig.sort?.defaultSortBy || 'id-asc';
     const productsPageData = productsPageConfig.displayData || {};
 
-    /*
-     * Checks if any filter is currently active (i.e., not null or undefined).
-     */
     const isFilterActive = Object.values(selectedFilters).some(v => v !== null && v !== undefined);
 
-    /*
-     * Checks if the current sort option is different from the default.
-     */
     const isSortActive = sortOption !== defaultSortBy;
 
-    /*
-     * Memoized calculation of the final product list, dependent on the raw data, search term, filters, and sort option.
-     */
     const finalProducts = useMemo(() => {
         const searched = getSearchedProducts(products, searchTerm);
         const filtered = getFilteredByAttributes(searched, selectedFilters);
@@ -300,18 +252,11 @@ export default function ProductsPage() {
         return sorted;
     }, [products, searchTerm, selectedFilters, sortOption]);
 
-
-    /*
-     * A simple wrapper component for creating React Portals, safely checking if the component is mounted and running in the browser.
-     */
     const Portal = ({ children }: { children: React.ReactNode }) => {
         if (!isMounted || typeof document === "undefined") return null;
         return createPortal(children, document.body);
     };
 
-    /*
-     * Creates the dynamic page title based on the URL category, falling back to the title from product data.
-     */
     const pageTitle = categoryFromUrl
         ? categoryFromUrl.replace(/-/g, ' ').toUpperCase()
         : (productsPageData.defaultTitle || "PRODUCTS");
@@ -322,13 +267,13 @@ export default function ProductsPage() {
             <div className="bg-gradient-to-br from-green-50 to-green-100 min-h-[90vh] flex items-center justify-center">
                 <div className="mx-auto max-w-[90%] md:pb-8 pb-4 md:pt-4 pt-1">
                     <div className="rounded-2xl shadow-xl md:p-4 p-2 inset-shadow-sm inset-shadow-indigo-200/50 space-y-1">
-                        <div className="md:text-2xl lg:text-3xl font-semibold text-gray-700 m-2 text-center">{productsPageData.loadingMessage || "Loading Products and Configuration..."}</div>
+                        {/* <div className="md:text-2xl lg:text-3xl font-semibold text-gray-700 m-2 text-center">{productsPageData.loadingMessage || "Loading Products and Configuration..."}</div> */}
+                        <AIDNALoader/>
                     </div>
                 </div>
             </div>
         );
     }
-
 
     return (
         <div className="bg-gradient-to-br from-green-50 to-green-100">
@@ -421,7 +366,6 @@ export default function ProductsPage() {
                             )}
                         </AnimatePresence>
 
-
                         {/* Filter Panel (Slide-in from right) Section */}
                         <AnimatePresence>
                             {isFilterPanelOpen && (
@@ -451,25 +395,28 @@ export default function ProductsPage() {
                                                 <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" /></svg>
                                             </button>
                                         </div>
-                                        <hr className='-mt-4 mb-2'/>
+                                        <hr className='-mt-4 mb-2' />
 
                                         {/* Dynamic Filter Options Mapping */}
                                         {Object.entries(availableFilters).map(([key, filterData]) => {
                                             if (filterData.enabled) {
 
-                                                /*
-                                                 * Calculate the simplified URL value once per filter section to check if the 'type' filter is controlled by the URL.
-                                                 */
                                                 const simplifiedUrlValue = categoryFromUrl
                                                     ? categoryFromUrl.replace(/-seeds$/, '')
                                                     : undefined;
 
                                                 const isUrlFilterActive = (key === 'type' && simplifiedUrlValue);
 
+                                                const urlLockedValue = selectedFilters[key as keyof typeof selectedFilters];
+
+                                                const isFilterKeyUrlLocked =
+                                                    Object.values(urlFilterKeyMap).some(map => map.filterKey === key)
+                                                    && urlLockedValue !== null
+                                                    && urlLockedValue !== undefined;
+
                                                 return (
                                                     <div key={key} className="mb-4">
                                                         <p className="font-semibold text-lg capitalize mb-2">
-                                                            {/* Display the filter key, using a display name if available in the config */}
                                                             {productsPageData.filterDisplayNames?.[key] || key}
                                                         </p>
 
@@ -479,15 +426,25 @@ export default function ProductsPage() {
                                                                 let isSelected = selectedFilters[key as keyof typeof selectedFilters] === value;
                                                                 let isDisabled = false;
 
-                                                                /*
-                                                                 * Logic to force selection and disable the button if the filter is controlled by the URL category.
-                                                                 */
+                                                                if (isUrlFilterActive && isFilterKeyUrlLocked) {
+                                                                    if (value !== urlLockedValue) {
+                                                                        return null; 
+                                                                    }
+
+                                                                    isSelected = true;
+                                                                    isDisabled = true;
+                                                                }
+
                                                                 if (isUrlFilterActive && value === simplifiedUrlValue) {
                                                                     isSelected = true;
                                                                     isDisabled = true;
                                                                 }
 
-                                                                const optionText = productsPageData.filterOptionDisplayNames?.[value as string] || value.toString();
+                                                                const specificDisplayKey = `${key}-${value.toString()}`;
+
+                                                                const optionText = productsPageData.filterOptionDisplayNames?.[specificDisplayKey]
+                                                                    || productsPageData.filterOptionDisplayNames?.[value.toString()]
+                                                                    || value.toString();
 
                                                                 return (
                                                                     <button
@@ -500,9 +457,8 @@ export default function ProductsPage() {
                                                                         `}
                                                                         disabled={isDisabled as boolean}
                                                                     >
-                                                                        {/* Use mapped display name if available, otherwise fallback to value.toString() */}
                                                                         {optionText}
-                                                                        {isDisabled && ` (${productsPageData.fixedFilterLabel})`}
+                                                                        {/* {isDisabled && ` (${productsPageData.fixedFilterLabel})`} */}
                                                                     </button>
                                                                 );
                                                             })}

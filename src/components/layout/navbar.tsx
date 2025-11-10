@@ -20,7 +20,7 @@ import { Button } from "@/components/ui/button";
 
 import useIsTouchDevice from '@/hooks/useIsTouchDevice';
 
-export default function HeaderNavbar() {
+export default function HeaderNavbar({ isLoading = false }: { isLoading?: boolean }) {
     const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
     const [expandedItems, setExpandedItems] = useState<Record<string, boolean>>({});
 
@@ -58,7 +58,7 @@ export default function HeaderNavbar() {
     };
 
     return (
-        <header className="sticky lg:px-4 min-h-15 flex items-center justify-between z-50 border-b shadow-xs bg-gradient-to-r from-green-700 from-10% via-green-600 via-45% to-green-700 to-90% backdrop-blur-xl bg-opacity-70 rounded-xl">
+        <header className={`sticky lg:px-4 min-h-15 flex items-center justify-between z-50 border-b shadow-xs bg-gradient-to-r from-green-700 from-10% via-green-600 via-45% to-green-700 to-90% backdrop-blur-xl bg-opacity-70 rounded-xl ${isLoading ? "pointer-events-none" : ""}`}>
 
             {/* ⬇⬇⬇⬇⬇⬇⬇⬇⬇⬇⬇⬇⬇⬇⬇⬇⬇⬇⬇⬇⬇⬇⬇⬇⬇⬇⬇⬇⬇⬇ Desktop ⬇⬇⬇⬇⬇⬇⬇⬇⬇⬇⬇⬇⬇⬇⬇⬇⬇⬇⬇⬇⬇⬇⬇⬇⬇⬇⬇⬇⬇⬇ */}
 
@@ -67,7 +67,9 @@ export default function HeaderNavbar() {
                 <div className="rounded-lg">
                     <Avatar alt={company.logoAlt} src={company.logo} sx={{ width: 24, height: 24 }} />
                 </div>
-                <span className="text-xl font-bold">{company.name}</span>
+                <Link href="/">
+                    <span className="text-xl font-bold">{company.name}</span>
+                </Link>
             </div>
             {/* ⬆ Desktop Logo ⬆ */}
 
@@ -156,16 +158,17 @@ export default function HeaderNavbar() {
             {/* Desktop Action Buttons */}
             <div className="hidden lg:flex items-center gap-3">
                 {actionButtons.map((button) => (
+                    button.visible && button.featureEnabled && (
                     <Button
                         key={button.id}
                         variant={button.variant as any}
-                        className={`${button.className} smallButton`}
+                        className={`${button.className} smallButton ${!button.enabled ? "opacity-50 cursor-not-allowed" : ""}`}
                         asChild
                     >
                         <Link href={button.href || "#"}>
                             {button.label}
                         </Link>
-                    </Button>
+                    </Button>)
                 ))}
                 {/* #TODO For user profile*/}
                 <div className='invisible w-8 hidden'>

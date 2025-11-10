@@ -16,6 +16,14 @@ const defaultConfig = {
   showStock: false,
 };
 
+type ProductsData = {
+  isAvailable: boolean
+  finalPrice: string
+  originalPrice: string
+  discountPercentage: number
+  isDiscountAvailable: boolean
+}
+
 const StarRating = ({ rating }: { rating: number }) => {
   const floorRating = Math.floor(rating);
   const hasHalfStar = rating % 1 !== 0;
@@ -51,6 +59,7 @@ export default function ProductDetailPage() {
   const [quantity, setQuantity] = useState(1);
   const [isInWishlist, setIsInWishlist] = useState(false);
   const [config, setConfig] = useState<Features | typeof defaultConfig>(defaultConfig);
+  const [productDetails, setProductDetails] = useState<ProductsData | null>(null);
 
   // Ref for the horizontal thumbnail scroller (for mobile)
   const horizontalThumbsRef = useRef<HTMLDivElement>(null);
@@ -107,10 +116,6 @@ export default function ProductDetailPage() {
     setQuantity(newQty);
   }, []);
 
-  const isAvailable = product && (product.available ?? true) && (product.stock ?? 1) > 0;
-
-  const finalPrice = product ? (product.price * (1 - (product.discount ?? 0) / 100)).toFixed(2) : '0.00';
-  const originalPrice = product ? product.price.toFixed(2) : '0.00';
   const discountPercentage = product?.discount ?? 0;
   const isDiscountAvailable = discountPercentage > 0;
 
@@ -125,6 +130,14 @@ export default function ProductDetailPage() {
       if (found.images && found.images.length > 0) {
         setMainImage(found.images[0]);
       }
+
+      setProductDetails({
+        isAvailable: (found.available ?? true) && (found.stock ?? 1) > 0,
+        finalPrice: (found.price * (1 - (found.discountPercentage ?? 0) / 100)).toFixed(2) || '0.00',
+        originalPrice: found.price.toFixed(2),
+        discountPercentage: found.discountPercentage ?? 0,
+        isDiscountAvailable: (found.discountPercentage ?? 0) > 0,
+      });
     }
 
     const featured = (FeaturedProductsData as FeaturedProductsProps).products.map((el) => {
@@ -145,7 +158,7 @@ export default function ProductDetailPage() {
 
   // ⭐ Action Handlers (Kept Simple)
   const handleAddToCart = () => {
-    if (!isAvailable) return;
+    if (!productDetails?.isAvailable) return;
     console.log(`Added ${quantity} x ${product!.name} to cart!`);
     alert(`Added ${quantity} x ${product!.name} to cart! (Check console)`);
   };
@@ -159,30 +172,29 @@ export default function ProductDetailPage() {
   // ⭐ Shared Action Block Component (Goal 1 & 2)
   const ActionBlock = ({ isMobile }: { isMobile: boolean }) => (
     <div className={`pt-4 space-y-4 ${isMobile ? 'border-t border-gray-200' : ''}`}>
-      {!isMobile && <h3 className="font-semibold text-gray-800 text-lg">Quick Actions</h3>}
+      {/* {!isMobile && <p className="font-semibold text-gray-800 text-lg">Quick Actions</p>} */}
 
       {/* Quantity Selector */}
       <div className="flex items-center space-x-4">
-        <h3 className="font-medium text-gray-700">Qty:</h3>
+        <p className="font-medium text-gray-700">Qty:</p>
         <div className="flex items-center border border-gray-300 rounded-lg overflow-hidden shadow-sm">
           <button
             onClick={() => handleQuantityChange(quantity - 1)}
-            disabled={quantity <= 1 || !isAvailable}
+            disabled={quantity < 1 || !productDetails?.isAvailable}
             className="p-3 bg-gray-100 text-gray-600 hover:bg-gray-200 transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
           >
             -
           </button>
           <input
-            type="number"
             min="1"
             value={quantity}
             onChange={(e) => handleQuantityChange(e.target.value)}
-            disabled={!isAvailable}
-            className="w-12 text-center border-x border-gray-300 p-2 focus:ring-green-500 focus:border-green-500 outline-none disabled:bg-gray-50 text-sm"
+            disabled={!productDetails?.isAvailable}
+            className="w-12 text-center border-x border-gray-300 p-2 focus:ring-green-500 focus:border-green-500 outline-none disabled:bg-gray-50 text-sm text-zinc-900"
           />
           <button
             onClick={() => handleQuantityChange(quantity + 1)}
-            disabled={!isAvailable}
+            disabled={!productDetails?.isAvailable}
             className="p-3 bg-gray-100 text-gray-600 hover:bg-gray-200 transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
           >
             +
@@ -194,14 +206,14 @@ export default function ProductDetailPage() {
       <div className="space-y-3">
         <button
           onClick={handleAddToCart}
-          disabled={!isAvailable}
+          disabled={!productDetails?.isAvailable}
           className={`w-full py-3 rounded-xl text-lg font-bold transition-colors shadow-lg
-                    ${!isAvailable
+                    ${!productDetails?.isAvailable
               ? 'bg-blue-700 text-white hover:bg-blue-800 disabled:opacity-70' // Notify Me Style
               : 'bg-yellow-500 text-gray-900 hover:bg-yellow-600 disabled:opacity-70' // Add to Cart Style
             }`}
         >
-          {isAvailable ? (
+          {productDetails?.isAvailable ? (
             <>
               <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" className="h-5 w-5 inline-block mr-2" fill="currentColor"><path d="M4.00436 6.41686L0.761719 3.17422L2.17593 1.76001L5.41857 5.00265H20.6603C21.2126 5.00265 21.6603 5.45037 21.6603 6.00265C21.6603 6.09997 21.6461 6.19678 21.6182 6.29L19.2182 14.29C19.0913 14.713 18.7019 15.0027 18.2603 15.0027H6.00436V17.0027H17.0044V19.0027H5.00436C4.45207 19.0027 4.00436 18.5549 4.00436 18.0027V6.41686ZM6.00436 7.00265V13.0027H17.5163L19.3163 7.00265H6.00436ZM5.50436 23.0027C4.67593 23.0027 4.00436 22.3311 4.00436 21.5027C4.00436 20.6742 4.67593 20.0027 5.50436 20.0027C6.33279 20.0027 7.00436 20.6742 7.00436 21.5027C7.00436 22.3311 6.33279 23.0027 5.50436 23.0027ZM17.5044 23.0027C16.6759 23.0027 16.0044 22.3311 16.0044 21.5027C16.0044 20.6742 16.6759 20.0027 17.5044 20.0027C18.3328 20.0027 19.0044 20.6742 19.0044 21.5027C19.0044 22.3311 18.3328 23.0027 17.5044 23.0027Z" /></svg>
               Add {quantity} to Cart
@@ -374,15 +386,15 @@ export default function ProductDetailPage() {
                   {config.showPrice && (
                     <div className="flex items-baseline flex-wrap">
                       <p className="text-3xl lg:text-4xl font-bold text-green-700 mr-4">
-                        ₹{finalPrice}
+                        ₹{productDetails?.finalPrice}
                       </p>
-                      {isDiscountAvailable && config.showDiscount && (
-                        <div className="flex items-center space-x-2">
+                      {productDetails?.isDiscountAvailable && config.showDiscount && (
+                        <div className="flex items-center space-x-1">
                           <p className="text-xl text-gray-400 line-through">
-                            ₹{originalPrice}
+                            ₹{productDetails?.originalPrice}
                           </p>
-                          <p className="text-xl text-red-600 font-medium bg-red-100 px-2 py-0.5 rounded-full">
-                            {discountPercentage}% OFF
+                          <p className="text-lg text-green-600 font-medium px-1 py-0.5 rounded-full">
+                            {productDetails?.discountPercentage}% off
                           </p>
                         </div>
                       )}
@@ -390,8 +402,8 @@ export default function ProductDetailPage() {
                   )}
 
                   {config.showStock && (
-                    <p className={`text-lg font-bold ${isAvailable ? 'text-green-600' : 'text-red-600'}`}>
-                      {isAvailable ? `In Stock (Stock: ${product.stock})` : 'Out of Stock'}
+                    <p className={`text-lg font-bold ${productDetails?.isAvailable ? 'text-green-600' : 'text-red-600'}`}>
+                      {productDetails?.isAvailable ? `In Stock (Stock: ${product.stock})` : 'Out of Stock'}
                     </p>
                   )}
                 </div>

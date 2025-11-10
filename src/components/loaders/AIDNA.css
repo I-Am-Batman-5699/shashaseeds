@@ -1,0 +1,50 @@
+.double-helix-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-width: 60vw;
+  min-height: 60vh;
+  padding: 1vmin;
+}
+
+.helix{
+    position: relative;
+    --helix-radius: 10rem;
+}
+
+.dot{
+    position: absolute;
+    transform-style: preserve-3d;
+    transform: rotate(calc(var(--k)*1turn)) translateY(var(--helix-radius));
+    height: 1.5rem;
+    width: 1.5rem;
+    padding: 1.5rem;
+}
+
+.dot::after, .dot::before{
+    --i: 0;
+    position: absolute;
+    margin: auto 1rem;
+    padding: 0.3rem;
+    border-radius: 50%;
+    animation: r 2.125s linear calc((0.5*var(--i) + 6*var(--k))*-2s) infinite;
+    content: '';
+    perspective: none;
+}
+
+.dot::after{
+    --i: 1;
+    background-color: #1595eb;
+}
+.dot::before{
+    background-color: #1ce51c;
+}
+
+@keyframes r {
+    0%{
+        transform: rotateX(0deg), translateZ(3.5vmin) rotateX(0deg);
+    }
+    100%{
+        transform: rotateX(1turn) translateZ(3.5vmin) rotateX(-1turn);
+    }
+}

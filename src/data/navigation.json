@@ -28,7 +28,7 @@
         {
           "id": "vegetable-seeds",
           "label": "Vegetable Seeds",
-          "href": "/products/vegetable-seeds",
+          "href": "/products?category=vegetable-seeds",
           "enabled": false,
           "visible": true,
           "color": "green"
@@ -36,7 +36,7 @@
         {
           "id": "flower-seeds",
           "label": "Flower Seeds",
-          "href": "/products/flower-seeds",
+          "href": "/products?category=flower-seeds",
           "enabled": true,
           "visible": true,
           "color": "yellow"
@@ -44,7 +44,7 @@
         {
           "id": "herb-seeds",
           "label": "Herb Seeds",
-          "href": "/products/herb-seeds",
+          "href": "/products?category=herb-seeds",
           "enabled": true,
           "visible": true,
           "color": "green"
@@ -52,7 +52,7 @@
         {
           "id": "fruit-seeds",
           "label": "Fruit Seeds",
-          "href": "/products/fruit-seeds",
+          "href": "/products?category=fruit-seeds",
           "enabled": true,
           "visible": true,
           "color": "orange"
@@ -60,7 +60,7 @@
         {
           "id": "organic-collection",
           "label": "Organic Collection",
-          "href": "/products/organic-collection",
+          "href": "/products?organic=true",
           "enabled": true,
           "visible": true,
           "color": "emerald"
