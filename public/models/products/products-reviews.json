@@ -1,0 +1,40 @@
+{
+    "customerReviews": {
+        "P001": [
+            {
+                "id": "P001-1",
+                "user": "Jane D.",
+                "rating": 5,
+                "date": "2025-10-01",
+                "title": "Amazing Quality!",
+                "content": "These rose seeds germinated quickly and produced a fantastic yield. Highly recommend for any flower garden. The aroma is incredible and the plants are very resilient."
+            },
+            {
+                "id": "P001-2",
+                "user": "Alex M.",
+                "rating": 4,
+                "date": "2025-10-15",
+                "title": "Very Good Product",
+                "content": "The plants are healthy, but I wish the packet had a few more seeds for the price. Overall satisfied with the flavor and growth rate."
+            }
+        ],
+        "P002": [
+            {
+                "id": "P002-1",
+                "user": "Samantha K.",
+                "rating": 5,
+                "date": "2025-09-20",
+                "title": "Best Sunflower Seeds Ever!",
+                "content": "These sunflower seeds grew into beautiful, tall plants with large blooms. The birds love them too! Definitely planting these again next season."
+            },
+            {
+                "id": "P002-2",
+                "user": "Michael B.",
+                "rating": 3,
+                "date": "2025-10-05",
+                "title": "Good but Pricey",
+                "content": "The seeds germinated well, but I found them a bit expensive compared to other brands. The quality is good, though."
+            }
+        ]
+    }
+}

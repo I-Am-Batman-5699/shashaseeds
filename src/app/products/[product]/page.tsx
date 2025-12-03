@@ -4,9 +4,13 @@ import { useParams } from "next/navigation";
 import productsData from "../../../../public/models/products/products.json";
 import productsCSS from '../../../styles/products.module.css';
 import FeaturedProductsData from "../../../../public/models/products/featured-products.json";
-import { FeaturedProduct, FeaturedProductsProps, Product } from "@/types/products/products";
+import { FeaturedProduct, FeaturedProductsProps, Product, ReviewData, Reviews, ProductsData } from "@/types/products/products";
 import FeatureToggle from "../../../../public/models/feature/feature-toggle.json";
 import { Features, FeatureToggleProps } from "@/types/featureToggle";
+import reviewsData from "../../../../public/models/products/products-reviews.json";
+import StarRating from "@/components/common/StarRating";
+import ReviewItem from "@/components/common/ReviewItem";
+import ReviewModal from "@/components/modals/new-review";
 
 const defaultConfig = {
   showPrice: false,
@@ -16,39 +20,7 @@ const defaultConfig = {
   showStock: false,
 };
 
-type ProductsData = {
-  isAvailable: boolean
-  finalPrice: string
-  originalPrice: string
-  discountPercentage: number
-  isDiscountAvailable: boolean
-}
-
-const StarRating = ({ rating }: { rating: number }) => {
-  const floorRating = Math.floor(rating);
-  const hasHalfStar = rating % 1 !== 0;
-  const emptyStars = 5 - Math.ceil(rating);
-
-  const StarIcon = ({ filled, half }: { filled?: boolean, half?: boolean }) => (
-    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" className="h-4 w-4" fill="currentColor" opacity={filled || half ? "1" : "0.3"}>
-      <path d="M11.9998 17L6.12197 20.5902L7.72007 13.8906L2.48926 9.40983L9.35479 8.85942L11.9998 2.5L14.6449 8.85942L21.5104 9.40983L16.2796 13.8906L17.8777 20.5902L11.9998 17Z" />
-      {half && <path d="M11.9998 14.6564L14.8165 16.3769L14.0507 13.1664L16.5574 11.0192L13.2673 10.7554L11.9998 7.70792V14.6564Z" fill="white" />}
-    </svg>
-  );
-
-  return (
-    <div className="flex items-center text-yellow-500">
-      {Array.from({ length: floorRating }).map((_, index) => <StarIcon key={`filled-${index}`} filled />)}
-      {hasHalfStar && <StarIcon key="half" half />}
-      {Array.from({ length: emptyStars }).map((_, index) => <StarIcon key={`empty-${index}`} />)}
-    </div>
-  );
-};
-
-// --- Main Component ---
-
 export default function ProductDetailPage() {
-  // Using a mock useParams since we are in a single file component environment
   const params = useParams();
   const productId = params.product as string;
 
@@ -60,14 +32,13 @@ export default function ProductDetailPage() {
   const [isInWishlist, setIsInWishlist] = useState(false);
   const [config, setConfig] = useState<Features | typeof defaultConfig>(defaultConfig);
   const [productDetails, setProductDetails] = useState<ProductsData | null>(null);
+  const [reviews, setReviews] = useState<ReviewData[]>([]);
+  const [isReviewModalOpen, setIsReviewModalOpen] = useState(false);
 
-  // Ref for the horizontal thumbnail scroller (for mobile)
   const horizontalThumbsRef = useRef<HTMLDivElement>(null);
 
   const totalImages = product?.images?.length ?? 0;
   const mainImageIndex = product?.images?.findIndex(img => img === mainImage) ?? -1;
-
-  // --- Scroll Synchronization Logic (Goal 3 & 4) ---
 
   const syncScrollToImage = useCallback((index: number) => {
     if (horizontalThumbsRef.current) {
@@ -75,7 +46,6 @@ export default function ProductDetailPage() {
       const thumbnail = container.children[index] as HTMLElement;
 
       if (thumbnail) {
-        // Calculate scroll position to center the active thumbnail
         const scrollPosition = thumbnail.offsetLeft - (container.offsetWidth / 2) + (thumbnail.offsetWidth / 2);
         container.scrollTo({
           left: scrollPosition,
@@ -96,14 +66,13 @@ export default function ProductDetailPage() {
     }
     const newImage = product.images[nextIndex];
     setMainImage(newImage);
-    syncScrollToImage(nextIndex); // Sync scroll on navigate
+    syncScrollToImage(nextIndex);
   };
 
   const handleThumbnailClick = (src: string, index: number) => {
     setMainImage(src);
-    syncScrollToImage(index); // Sync scroll on click
+    syncScrollToImage(index);
   };
-  // --- END Scroll Sync ---
 
   const handleQuantityChange = useCallback((value: number | string) => {
     let newQty: number;
@@ -116,14 +85,11 @@ export default function ProductDetailPage() {
     setQuantity(newQty);
   }, []);
 
-  const discountPercentage = product?.discount ?? 0;
-  const isDiscountAvailable = discountPercentage > 0;
-
-  // --- Load Data ---
   useEffect(() => {
+
     setLoading(true);
-    // Find the primary product (using the first one if the ID doesn't match the mock)
-    const found = productsData.products.find(p => p.id === productId) || productsData.products[0];
+
+    const found = productsData.products.find(p => p.id === productId);
 
     if (found) {
       setProduct(found);
@@ -151,28 +117,29 @@ export default function ProductDetailPage() {
     const featureConfig = (FeatureToggle as FeatureToggleProps)["products-page"].features;
     setConfig(featureConfig);
 
+    const productReviews = (reviewsData as Reviews)?.customerReviews[productId] || [];
+    setReviews(productReviews);
+
     setLoading(false);
   }, [productId]);
-  // --- End Load Data ---
 
-
-  // ⭐ Action Handlers (Kept Simple)
+// TODO: get that dd to cart fetaure
   const handleAddToCart = () => {
     if (!productDetails?.isAvailable) return;
-    console.log(`Added ${quantity} x ${product!.name} to cart!`);
     alert(`Added ${quantity} x ${product!.name} to cart! (Check console)`);
   };
 
+  // TODO: add the content to mailing section 
   const handleEnquiry = () => {
     console.log(`Enquiry initiated for ${product!.name}`);
     alert(`Enquiry initiated for ${product!.name}`);
   };
+
+  // TODO: implement wishlist feature
   const handleWishlistToggle = () => setIsInWishlist(!isInWishlist);
 
-  // ⭐ Shared Action Block Component (Goal 1 & 2)
   const ActionBlock = ({ isMobile }: { isMobile: boolean }) => (
     <div className={`pt-4 space-y-4 ${isMobile ? 'border-t border-gray-200' : ''}`}>
-      {/* {!isMobile && <p className="font-semibold text-gray-800 text-lg">Quick Actions</p>} */}
 
       {/* Quantity Selector */}
       <div className="flex items-center space-x-4">
@@ -207,10 +174,10 @@ export default function ProductDetailPage() {
         <button
           onClick={handleAddToCart}
           disabled={!productDetails?.isAvailable}
-          className={`w-full py-3 rounded-xl text-lg font-bold transition-colors shadow-lg
+          className={`w-full py-3 rounded-xl sm:text-sm md:text-md lg:text-md font-bold transition-colors shadow-lg
                     ${!productDetails?.isAvailable
-              ? 'bg-blue-700 text-white hover:bg-blue-800 disabled:opacity-70' // Notify Me Style
-              : 'bg-yellow-500 text-gray-900 hover:bg-yellow-600 disabled:opacity-70' // Add to Cart Style
+              ? 'bg-blue-700 text-white hover:bg-blue-800 disabled:opacity-70' 
+              : 'bg-yellow-500 text-gray-900 hover:bg-yellow-600 disabled:opacity-70' 
             }`}
         >
           {productDetails?.isAvailable ? (
@@ -227,7 +194,7 @@ export default function ProductDetailPage() {
         </button>
         <button
           onClick={handleEnquiry}
-          className="w-full border border-gray-300 rounded-xl py-3 text-sm font-semibold text-gray-800 hover:text-gray-50 bg-green-100 hover:bg-green-700 transition-colors shadow-lg"
+          className="w-full border border-gray-300 rounded-xl sm:text-sm md:text-md lg:text-md py-3 text-sm font-semibold text-gray-800 hover:text-gray-50 bg-green-100 hover:bg-green-700 transition-colors shadow-lg"
         >
           <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" className="h-5 w-5 inline-block mr-1" fill="currentColor"><path d="M17 2V4H20.0066C20.5552 4 21 4.44495 21 4.9934V21.0066C21 21.5552 20.5551 22 20.0066 22H3.9934C3.44476 22 3 21.5551 3 21.0066V4.9934C3 4.44476 3.44495 4 3.9934 4H7V2H17ZM7 6H5V20H19V6H17V8H7V6ZM15 4H9V6H15V4Z" /></svg>
           General Product Enquiry
@@ -235,8 +202,6 @@ export default function ProductDetailPage() {
       </div>
     </div>
   );
-  // --- END Action Block ---
-
 
   if (loading || !product) return (
     <div className="p-8 min-h-screen flex items-center justify-center">
@@ -282,7 +247,7 @@ export default function ProductDetailPage() {
                     <button
                       onClick={() => navigateImage("prev")}
                       disabled={totalImages <= 1}
-                      className="md:w-8 md:h-8 bg-gray-400 hover:bg-green-900 backdrop-blur-sm rounded-full shadow-lg transition-all duration-300 flex items-center justify-center text-white"
+                      className="md:w-8 md:h-8 bg-gray-200 hover:bg-gray-500 backdrop-blur-sm rounded-full shadow-lg transition-all duration-300 flex items-center justify-center text-blue-800 hover:text-white"
                     >
                       <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 15l7-7 7 7" /></svg>
                     </button>
@@ -303,7 +268,7 @@ export default function ProductDetailPage() {
                     <button
                       onClick={() => navigateImage("next")}
                       disabled={totalImages <= 1}
-                      className="md:w-8 md:h-8 bg-gray-400 hover:bg-green-900 backdrop-blur-sm rounded-full shadow-lg transition-all duration-300 flex items-center justify-center text-white"
+                      className="md:w-8 md:h-8 bg-gray-200 hover:bg-gray-500 backdrop-blur-sm rounded-full shadow-lg transition-all duration-300 flex items-center justify-center text-blue-800 hover:text-white"
                     >
                       <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" /></svg>
                     </button>
@@ -456,9 +421,25 @@ export default function ProductDetailPage() {
             <div className="mt-8 space-y-8">
               {/* Panel 1: Reviews */}
               <div className="bg-white rounded-xl p-6 shadow-xl border border-gray-100">
-                <p className="sm:text-md md:text-lg lg:text-xl font-semibold text-zinc-900 mb-4">Customer Reviews</p>
-                <p className="text-gray-700 italic">No reviews yet. Be the first!</p>
-                <button className="mt-4 text-green-600 hover:text-green-700 font-medium underline">Write a Review</button>
+                <h2 className="text-2xl font-bold text-gray-800 mb-4">Customer Reviews ({reviews.length})</h2>
+
+                {reviews.length > 0 ? (
+                  <div className="space-y-4">
+                    {reviews.map((review) => (
+                      <ReviewItem key={review.id} review={review} />
+                    ))}
+                  </div>
+                ) : (
+                  <p className="text-gray-600 italic">No reviews yet. Be the first!</p>
+                )}
+
+                <button
+                  onClick={() => setIsReviewModalOpen(true)}
+                  className="mt-4 text-green-600 hover:text-green-700 font-medium underline inline-flex items-center"
+                >
+                  <svg className="w-5 h-5 mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z" /></svg>
+                  Write a Review
+                </button>
               </div>
 
               {/* Panel 2: Similar Products */}
@@ -491,6 +472,13 @@ export default function ProductDetailPage() {
           </div>
         </div>
       </div>
+      {/* ⭐ Review Modal */}
+      <ReviewModal
+        isOpen={isReviewModalOpen}
+        productDetails={product}
+        onClose={() => setIsReviewModalOpen(false)}
+        reviews={reviews}
+      />
     </div>
   );
 }

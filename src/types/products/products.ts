@@ -62,3 +62,28 @@ export interface FeaturedProduct {
   name: string
   image: string
 }
+
+export interface Reviews {
+  customerReviews: CustomerReviews
+}
+
+export interface CustomerReviews {
+  [key: string]: ReviewData[]
+}
+
+export interface ReviewData {
+  id: string
+  user: string
+  rating: number
+  date: string
+  title: string
+  content: string
+}
+
+export interface ProductsData {
+  isAvailable: boolean
+  finalPrice: string
+  originalPrice: string
+  discountPercentage: number
+  isDiscountAvailable: boolean
+}
