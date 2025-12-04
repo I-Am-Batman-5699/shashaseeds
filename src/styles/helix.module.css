@@ -1,0 +1,117 @@
+.loader{
+    position: relative;
+    min-height: 25rem;
+    min-width: 25rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 10;
+}
+
+.loader .strand .dot{
+    width: 1rem;
+    height: 1rem;
+    position: absolute;
+    padding: 0.2rem;
+    left: 50%;
+    transform: translate3d(-50%, 0, 0) scale(1);
+    border-radius: 50%;
+    animation: helixMove 2s ease-in-out infinite;
+}
+
+.loader .strand:nth-of-type(2n-1) .dot, .loader .strand:nth-of-type(2n) .dot{
+    margin-left: calc(16rem - 7.5rem - ((var(--pair) - 1) * 1rem));
+}
+
+.loader .strand:nth-of-type(2n-1) .dot{
+    animation-delay: calc(-0.1s - ((var(--pair) - 1) * 0.2s));
+}
+
+.loader .strand:nth-of-type(2n) .dot{
+    animation-delay: calc(-1.2s - ((var(--pair) - 1) * 0.2s));
+}
+
+
+.loader .strand .dot::before{
+    content: '';
+    display: block;
+    width: 100%;
+    height: 100%;
+    border-radius: 50%;
+    animation: helixShadow-size-opacity 2s ease infinite;
+}
+
+.loader .strand:nth-of-type(2n-1) .dot::before{
+    animation-delay: calc(-0.1s - ((var(--pair) - 1) * 0.2s));
+}
+.loader .strand:nth-of-type(2n) .dot::before{
+    animation-delay: calc(-1.2s - ((var(--pair) - 1) * 0.2s));
+}
+
+.loader .strand:nth-of-type(16n-15) .dot::before,
+.loader .strand:nth-of-type(16n-13) .dot::before,
+.loader .strand:nth-of-type(16n-11) .dot::before,
+.loader .strand:nth-of-type(16n-9) .dot::before{
+    background-color: green;
+}
+.loader .strand:nth-of-type(16n-14) .dot::before,
+.loader .strand:nth-of-type(16n-12) .dot::before,
+.loader .strand:nth-of-type(16n-10) .dot::before,
+.loader .strand:nth-of-type(16n-8) .dot::before{
+    background-color: purple;
+}
+.loader .strand:nth-of-type(16n-7) .dot::before,
+.loader .strand:nth-of-type(16n-5) .dot::before,
+.loader .strand:nth-of-type(16n-3) .dot::before,
+.loader .strand:nth-of-type(16n-1) .dot::before{
+    background-color: blue;
+}
+.loader .strand:nth-of-type(16n-6) .dot::before,
+.loader .strand:nth-of-type(16n-4) .dot::before,
+.loader .strand:nth-of-type(16n-2) .dot::before,
+.loader .strand:nth-of-type(16n) .dot::before{
+    background-color: yellow;
+}
+
+@keyframes helixShadow-size-opacity {
+    0%{
+        opacity: 1;
+        transform: scale(1);
+    }
+    12.5%{
+        transform: scale(1.1);
+    }
+    25%{
+        transform: scale(1.2);
+    }
+    50%{
+        opacity: 1;
+    }
+    62.5%{
+        opacity: 0.35;
+        transform: scale(0.6);
+    }
+    75%{
+        opacity: 0.5;
+        transform: scale(0.8);
+    }
+    100%{
+        opacity: 1;
+        transform: scale(1);
+    }
+}
+
+@keyframes helixMove {
+    0%{
+        transform: translate3d(0, -2.4rem, 0);
+        z-index: 50;
+    }
+    50%{
+        transform: translate3d(0, 2.4rem, 0);
+        z-index: 100;
+    }
+    100%{
+        transform: translate3d(0, -2.4rem, 0);
+        z-index: 50;
+    }
+}

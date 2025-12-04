@@ -15,6 +15,18 @@
             "showSaleBadge": true,
             "showFeaturedBadge": true
         },
+        "actionButtons": {
+            "enableAddToCart": false,
+            "enableWishlist": true,
+            "enableEnquire": true,
+            "enableCompare": false,
+            "enableReview": false,
+            "showFeaturedBadge": true,
+            "showAddToCartButton": true,
+            "showWishlistButton": true,
+            "showEnquireButton": true,
+            "showReview": true
+        },
         "sort": {
             "enableSortBy": true,
             "defaultSortBy": "id-asc",

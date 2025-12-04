@@ -5,6 +5,7 @@ export interface FeatureToggleProps {
 export interface ProductsPage {
   sections: Sections
   features: Features
+  actionButtons: ActionButton
   sort: Sort
   filters: Filters
   displayData: DisplayData
@@ -25,6 +26,20 @@ export interface Features {
   showNewBadge: boolean
   showSaleBadge: boolean
   showFeaturedBadge: boolean
+}
+
+export interface ActionButton {
+  enableAddToCart?: boolean
+  enableWishlist?: boolean
+  enableEnquire?: boolean
+  enableCompare?: boolean
+  enableReview?: boolean
+  showFeaturedBadge?: boolean
+  showAddToCartButton?: boolean
+  showWishlistButton?: boolean
+  showEnquireButton?: boolean
+  showCompareButton?: boolean
+  showReview?: boolean
 }
 
 export interface Sort {
