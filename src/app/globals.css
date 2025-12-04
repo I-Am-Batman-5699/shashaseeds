@@ -28,3 +28,17 @@ body {
 .smallButton{
     width: 6rem;
 }
+
+@keyframes containerGlow {
+    0%, 100% {
+        box-shadow: 0 0 0.2s5rem #05f71965;
+    }
+    50% {
+        box-shadow: 0 0 1rem #ffffffa6;  
+    }
+}
+
+.glowingContainer {
+    filter: contrast(1.1); 
+    animation: containerGlow 4s ease-in-out infinite; 
+}

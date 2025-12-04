@@ -20,7 +20,7 @@
 }
 
 .loader .strand:nth-of-type(2n-1) .dot, .loader .strand:nth-of-type(2n) .dot{
-    margin-left: calc(16rem - 7.5rem - ((var(--pair) - 1) * 1rem));
+    margin-left: calc(15rem - 7.5rem - ((var(--pair) - 1) * 1rem));
 }
 
 .loader .strand:nth-of-type(2n-1) .dot{

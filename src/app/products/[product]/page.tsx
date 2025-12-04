@@ -143,7 +143,7 @@ export default function ProductDetailPage() {
     const productReviews = (reviewsData as Reviews)?.customerReviews[productId] || [];
     setReviews(productReviews);
 
-    // setLoading(false);
+    setLoading(false);
   }, [productId]);
 
   // TODO: get that dd to cart fetaure
