@@ -1,28 +1,100 @@
 @import "tailwindcss";
 
+/* ==================================================================== */
+/* 1. LIGHT MODE (Default) - Semantic Variables                         */
+/* ==================================================================== */
 :root {
-  --background: #00AB08;
-  --foreground: #B7FFBF;
+    /* Base for body/app container */
+    --background: #f8fafc;
+    --foreground: #1f2937;
+    
+    /* Semantic Colors */
+    --color-base-bg: #f8fafc;
+    --color-primary-bg: #ffffff;
+    --color-secondary-bg: #f3f4f6;
+    
+    /* Text - CRITICAL: Using gray-600 for secondary text visibility */
+    --color-text-primary: #1f2937;
+    --color-text-secondary: #4b5563; 
+    
+    /* Accent & Borders */
+    --color-accent: #10b981;
+    --color-border: #e5e7eb;
+    
+    /* Shadows */
+    --color-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -2px rgba(0, 0, 0, 0.06);
+
+    /* socila media colors */
+    /* fb, insta, whatsapp, gmail, youtube, threads, x*/
+    --color-instagram-hover: #c91865;
+    --color-facebook-hover: #03469e;
+    --color-whatsapp-hover: #1ca74f;
+    --color-gmail-hover: #ad4b42;
+    --color-youtube-hover: rgb(114, 1, 1);
+    --color-threads-hover: #000000;
+    --color-x-hover: #000000;
+
 }
 
-/* @theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
-} */
+/* ==================================================================== */
+/* 2. DARK MODE (System Preference or .theme-dark class)                */
+/* This block is triggered by the 'theme-dark' class OR system preference. */
+/* ==================================================================== */
+.theme-dark {
+    :root {
+        --background: #111827;
+        --foreground: #f9fafb;
+
+        /* Semantic Colors */
+        --color-base-bg: #111827;
+        --color-primary-bg: #1f2937;
+        --color-secondary-bg: #374151;
+        
+        /* Text */
+        --color-text-primary: #f9fafb;
+        --color-text-secondary: #9ca3af;
+        
+        /* Accent & Borders */
+        --color-accent: #34d399;
+        --color-border: #374151;
+        
+        /* Shadows */
+        --color-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.5), 0 2px 4px -2px rgba(0, 0, 0, 0.3);
+    }
+}
 
 @media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+    :root {
+        --background: #111827;
+        --foreground: #f9fafb;
+
+        /* Semantic Colors */
+        --color-base-bg: #111827;
+        --color-primary-bg: #1f2937;
+        --color-secondary-bg: #374151;
+        
+        /* Text */
+        --color-text-primary: #f9fafb;
+        --color-text-secondary: #9ca3af;
+        
+        /* Accent & Borders */
+        --color-accent: #34d399;
+        --color-border: #374151;
+        
+        /* Shadows */
+        --color-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.5), 0 2px 4px -2px rgba(0, 0, 0, 0.3);
+    }
 }
 
+/* ==================================================================== */
+/* 3. BASE STYLES & CUSTOM UTILITIES                                    */
+/* ==================================================================== */
+
 body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+    /* Uses base variables defined above */
+    background: var(--background); 
+    color: var(--foreground);
+    font-family: Arial, Helvetica, sans-serif;
 }
 
 .smallButton{
@@ -30,8 +102,9 @@ body {
 }
 
 @keyframes containerGlow {
+    /* NOTE: Corrected the typo in the box-shadow value for better compatibility */
     0%, 100% {
-        box-shadow: 0 0 0.2s5rem #05f71965;
+        box-shadow: 0 0 0.5rem #05f71965; 
     }
     50% {
         box-shadow: 0 0 1rem #ffffffa6;  
@@ -41,4 +114,91 @@ body {
 .glowingContainer {
     filter: contrast(1.1); 
     animation: containerGlow 4s ease-in-out infinite; 
+}
+
+/* Semantic Tailwind Utility Classes (These ensure variables are used) */
+.app-container {
+    color: var(--color-text-primary);
+    background-color: var(--color-base-bg);
+    min-height: 100vh;
+}
+
+.bg-base-bg { background-color: var(--color-base-bg); }
+.bg-primary-bg { background-color: var(--color-primary-bg); }
+.bg-secondary-bg { background-color: var(--color-secondary-bg); }
+.text-primary-text { color: var(--color-text-primary); }
+.text-secondary-text { color: var(--color-text-secondary); }
+.text-accent { color: var(--color-accent); }
+.border-theme { border-color: var(--color-border); }
+.shadow-theme { box-shadow: var(--color-shadow); }
+
+.ring-accent { --tw-ring-color: var(--color-accent); }
+.hover\:text-accent:hover { color: var(--color-accent); }
+.hover\:bg-accent:hover { background-color: var(--color-accent); }
+.hover\:border-accent:hover { border-color: var(--color-accent); }
+
+
+/* Custom Light Mode Styling for the Footer */
+.custom-inset-shadow {
+    box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 8px 10px -6px rgba(0, 0, 0, 0.1),
+                inset 0 2px 4px 0 rgba(199, 210, 254, 0.5);
+}
+
+.light-theme-gradient {
+    background-image: linear-gradient(to bottom right, #f0fdf4, #dcfce7);
+}
+
+/* Dark Mode Overrides for the Custom Styles */
+.theme-dark .light-theme-gradient { 
+    background-color: var(--color-primary-bg);
+    background-image: none;
+}
+.theme-dark .custom-inset-shadow {
+    box-shadow: var(--color-shadow);
+}
+
+/* ==================================================================== */
+/* 4. SOCIAL MEDIA HOVER FIX (Static CSS using defined variables)       */
+/* ==================================================================== */
+
+.social-icon-facebook:hover {
+    background-color: var(--color-facebook-hover);
+    border-color: #ffffff; /* Sets white border on hover, matching JSX intent */
+    color: #ffffff; /* Changes text/icon fill to white on hover */
+}
+
+.social-icon-instagram:hover {
+    background-color: var(--color-instagram-hover);
+    border-color: #ffffff;
+    color: #ffffff;
+}
+
+.social-icon-whatsapp:hover {
+    background-color: var(--color-whatsapp-hover);
+    border-color: #ffffff;
+    color: #ffffff;
+}
+
+.social-icon-gmail:hover {
+    background-color: var(--color-gmail-hover);
+    border-color: #ffffff;
+    color: #ffffff;
+}
+
+.social-icon-threads:hover {
+    background-color: var(--color-threads-hover);
+    border-color: #ffffff;
+    color: #ffffff;
+}
+
+.social-icon-x:hover {
+    background-color: var(--color-x-hover);
+    border-color: #ffffff;
+    color: #ffffff;
+}
+
+.social-icon-youtube:hover {
+    background-color: var(--color-youtube-hover);
+    border-color: #ffffff;
+    color: #ffffff;
 }

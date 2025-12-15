@@ -64,3 +64,11 @@ export interface FooterSection {
         href: string;
     }>;
 }
+
+export interface CSSProperties extends React.CSSProperties {
+    /**
+     * Allows for CSS variables to be passed to the style prop.
+     * e.g., style={{ '--my-variable': 'value' }}
+     */
+    [key: `--${string}`]: string | number;
+  }

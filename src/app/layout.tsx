@@ -1,7 +1,15 @@
-import type { Metadata } from "next";
+"use client";
+
+import { useState, useEffect, ReactNode } from 'react';
+import { usePathname } from 'next/navigation';
+import type { NextRouter } from 'next/router';
+
 import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
-import GlobalLoader from "@/components/loaders/GlobalLoader";
+import NextTopLoader from 'nextjs-toploader';
+import GlobalLoader from "@/components/loaders/GlobalLoader"; 
+import HeaderNavbar from "@/components/layout/navbar";
+import Footer from "@/components/layout/footer";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -13,29 +21,68 @@ const geistMono = Geist_Mono({
   subsets: ["latin"],
 });
 
-export const metadata: Metadata = {
-  title: "Shashank Seeds",
-  description: "Seeds for a bountiful harvest",
-  icons: {
-    icon: "/favicon.png",
-  }
-};
 
 export default function RootLayout({
   children,
 }: Readonly<{
   children: React.ReactNode;
 }>) {
-  return (
-    <html lang="en">
-      <body
-        className={`${geistSans.variable} ${geistMono.variable} antialiased`}
-      >
-        <GlobalLoader>
-          {children}
-        </GlobalLoader>
+    const [isLoading, setIsLoading] = useState(false); 
+    const pathname = usePathname();
 
-      </body>
-    </html>
-  );
+    useEffect(() => {
+        let routerEvents: NextRouter['events'] | undefined;
+
+        const setupRouterEvents = async () => {
+            const nextRouter: any = await import('next/router');
+            routerEvents = nextRouter.default.events;
+
+            const handleStart = (url: string) => {
+                if (url !== pathname) {
+                    setIsLoading(true);
+                }
+            };
+
+            const handleComplete = () => {
+                setIsLoading(false);
+            };
+
+            if (routerEvents) {
+                routerEvents.on('routeChangeStart', handleStart);
+                routerEvents.on('routeChangeComplete', handleComplete);
+                routerEvents.on('routeChangeError', handleComplete);
+            }
+
+            return () => {
+                if (routerEvents) {
+                    routerEvents.off('routeChangeStart', handleStart);
+                    routerEvents.off('routeChangeComplete', handleComplete);
+                    routerEvents.off('routeChangeError', handleComplete);
+                }
+            };
+        };
+
+        const cleanupPromise = setupRouterEvents();
+        return () => { cleanupPromise.then(cleanup => cleanup()); };
+    }, [pathname]);
+
+    return (
+        <html lang="en">
+            <body
+                className={`${geistSans.variable} ${geistMono.variable} antialiased flex flex-col min-h-screen bg-gradient-to-br from-green-50 to-green-100 overflow-x-hidden`}
+            >
+                <HeaderNavbar isLoading={isLoading} /> 
+
+                <main className="flex-grow relative"> 
+                    <div> 
+                        <GlobalLoader isLoading={isLoading}> 
+                            {children}
+                        </GlobalLoader>
+                    </div>
+                </main>
+                
+                <Footer /> 
+            </body>
+        </html>
+    );
 }

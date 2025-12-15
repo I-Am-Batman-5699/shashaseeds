@@ -80,7 +80,7 @@ function Drizzle() {
     }, []);
 
     return (
-        <div className="fixed inset-0 overflow-hidden pointer-events-none z-0">
+        <div className="fixed inset-0 overflow-hidden pointer-events-none z-0 top-15">
             {drizzleData.map((item, i) => (
                 <div key={item.i + "clouds"}>
                     {/* Render main clouds every even item */}
