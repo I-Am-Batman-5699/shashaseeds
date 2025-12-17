@@ -16,6 +16,8 @@
     /* Text - CRITICAL: Using gray-600 for secondary text visibility */
     --color-text-primary: #1f2937;
     --color-text-secondary: #4b5563; 
+    --color-text-heading: #1f2937;
+    --color-text-secondary-heading: #1f2937;
     
     /* Accent & Borders */
     --color-accent: #10b981;
@@ -53,6 +55,8 @@
         /* Text */
         --color-text-primary: #f9fafb;
         --color-text-secondary: #9ca3af;
+        --color-text-heading: #34d399;
+        --color-text-secondary-heading: #53eafd;
         
         /* Accent & Borders */
         --color-accent: #34d399;
@@ -76,10 +80,13 @@
         /* Text */
         --color-text-primary: #f9fafb;
         --color-text-secondary: #9ca3af;
+        --color-text-heading: #34d399;
+        --color-text-secondary-heading: #53eafd;
         
         /* Accent & Borders */
         --color-accent: #34d399;
         --color-border: #374151;
+        --color-reverse-border: #a2b2ca;
         
         /* Shadows */
         --color-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.5), 0 2px 4px -2px rgba(0, 0, 0, 0.3);
@@ -128,8 +135,11 @@ body {
 .bg-secondary-bg { background-color: var(--color-secondary-bg); }
 .text-primary-text { color: var(--color-text-primary); }
 .text-secondary-text { color: var(--color-text-secondary); }
+.text-heading { color: var( --color-text-heading); }
+.text-secondary-heading { color: var( --color-text-secondary-heading); }
 .text-accent { color: var(--color-accent); }
 .border-theme { border-color: var(--color-border); }
+.border-reverse-theme { border-color: var(--color-reverse-border); }
 .shadow-theme { box-shadow: var(--color-shadow); }
 
 .ring-accent { --tw-ring-color: var(--color-accent); }
