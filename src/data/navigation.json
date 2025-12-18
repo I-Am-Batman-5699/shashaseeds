@@ -87,7 +87,7 @@
         {
           "id": "our-story",
           "label": "Our Story",
-          "href": "/about-us/our-story",
+          "href": "/about-us?section=our-story",
           "enabled": true,
           "visible": true,
           "color": "none"
@@ -95,7 +95,7 @@
         {
           "id": "mission-vision",
           "label": "Mission & Vision",
-          "href": "/about-us/mission-vision",
+          "href": "/about-us?section=our-mission",
           "enabled": true,
           "visible": true,
           "color": "none"
@@ -103,7 +103,7 @@
         {
           "id": "team",
           "label": "Our Team",
-          "href": "/about-us/team",
+          "href": "/about-us?section=our-team",
           "enabled": true,
           "visible": true,
           "color": "none"
