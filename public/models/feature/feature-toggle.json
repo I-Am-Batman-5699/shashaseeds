@@ -111,5 +111,16 @@
                 "organic-false": "Conventional"
             }
         }
+    },
+    "about-us-page": {
+        "sections": {
+            "showFounderProfile": true,
+            "showBenefits": true,
+            "showTestimonials": true,
+            "showMission": true,
+            "showStory": true,
+            "showMissionVision": true,
+            "showTeam": true
+        }
     }
 }

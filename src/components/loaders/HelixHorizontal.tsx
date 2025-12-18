@@ -5,29 +5,27 @@ import classes from "@/styles/helix.module.css";
 const points = 32;
 
 const HelixHorizontal: React.FC = () => (
-    <div className="rounded-2xl shadow-xl md:p-4 p-2 inset-shadow-sm inset-shadow-indigo-200/50 space-y-1 min-w-[80vw] flex items-center justify-center min-h-[80vh] bg-gray-700">
-        <div className={`bg-zinc-950 rounded-full p-4 glowingContainer`}>
-            <div className={classes.loader}>
-                {
-                    Array.from({ length: points }).map((_, index) => {
-                        const strandNumber = index + 1;
-                        const pairNumber = Math.ceil(strandNumber / 2);
+    <div className="bg-gradient-to-br from-green-50 to-green-100 text-zinc-800 dark:from-slate-900 dark:to-slate-950 rounded-2xl border border-theme backdrop-blur-md shadow-lg">
+        <div className={classes.loader}>
+            {
+                Array.from({ length: points }).map((_, index) => {
+                    const strandNumber = index + 1;
+                    const pairNumber = Math.ceil(strandNumber / 2);
 
-                        return (
-                            <div
-                                key={index}
-                                className={classes.strand}
-                                style={{
-                                    '--n': strandNumber,
-                                    '--pair': pairNumber
-                                } as React.CSSProperties}
-                            >
-                                <div className={classes.dot} />
-                            </div>
-                        );
-                    })
-                }
-            </div>
+                    return (
+                        <div
+                            key={index}
+                            className={classes.strand}
+                            style={{
+                                '--n': strandNumber,
+                                '--pair': pairNumber
+                            } as React.CSSProperties}
+                        >
+                            <div className={classes.dot} />
+                        </div>
+                    );
+                })
+            }
         </div>
     </div>
 );

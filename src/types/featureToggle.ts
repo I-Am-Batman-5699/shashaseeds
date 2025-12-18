@@ -1,5 +1,6 @@
 export interface FeatureToggleProps {
   "products-page": ProductsPage
+  "about-us-page": AboutUsPage
 }
 
 export interface ProductsPage {
@@ -130,4 +131,18 @@ export interface FilterOptionDisplayNames {
   "3": string
   "organic-true": string
   "organic-false": string
+}
+
+export interface AboutUsPage {
+  sections: AboutUsPageSection
+}
+
+export interface AboutUsPageSection {
+  showFounderProfile: boolean
+  showBenefits: boolean
+  showTestimonials: boolean
+  showMission: boolean
+  showStory: boolean
+  showMissionVision: boolean
+  showTeam: boolean
 }

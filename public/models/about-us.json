@@ -1,0 +1,97 @@
+{
+    "owner": {
+        "name": "Shashank Sharma",
+        "title": "Founder & Chief Genomic Officer (CGO)",
+        "bio": "Visionary architect of Shashank Seeds. Dedicated to synthesizing ecological sustainability with advanced genomic data streams to create climate-resilient cultivars.",
+        "image": "/shashank_logo.png",
+        "credentials": [
+            "AI-Driven Agriculture Certified",
+            "Sustainable Bio-Engineering PhD",
+            "Patent: Hyper-Adaptive Seed Coating"
+        ],
+        "vision": "To cultivate a future where every seed holds the maximum potential for global nourishment and environmental regeneration."
+    },
+    "benefits": [
+        {
+            "id": 1,
+            "title": "Genomic Resilience",
+            "icon": "helix",
+            "description": "Utilizing deep learning models to screen and enhance seed DNA against 21st-century climate variability."
+        },
+        {
+            "id": 2,
+            "title": "Precision Cultivation Protocols",
+            "icon": "target",
+            "description": "Our seeds are pre-calibrated for maximum yield with minimal resource expenditure, guided by predictive analytics."
+        },
+        {
+            "id": 3,
+            "title": "Sustainable Synthesis",
+            "icon": "recycle",
+            "description": "Closed-loop breeding cycles ensure ecological balance, reducing environmental impact by 85% compared to traditional farming."
+        }
+    ],
+    "testimonials": [
+        {
+            "id": 1,
+            "user": "Dr. Alok V.",
+            "title": "Groundbreaking Yields",
+            "content": "The 'Astro-Corn' line delivered a 40% yield increase in arid conditions. This isn't farming; it's bio-engineering excellence.",
+            "source": "Research Institute of Uttar Pradesh"
+        },
+        {
+            "id": 2,
+            "user": "Priya S.",
+            "title": "Future of Farming",
+            "content": "The seed-to-harvest data provided was invaluable. It felt like planting success before the seed even hit the soil.",
+            "source": "Agri-Tech Startup CEO"
+        },
+        {
+            "id": 3,
+            "user": "Rajesh K.",
+            "title": "Ethical & Efficient",
+            "content": "Shashank Seeds provides unmatched genetic purity and ethical sourcing. A critical partner for large-scale sustainable projects.",
+            "source": "Global NGO Director"
+        }
+    ],
+    "mission": {
+        "title": "The Synthesis: Nurturing Nature, Driven by Data",
+        "description": "Shashank Seeds operates at the intersection of genetic science and sustainable ecology. We are not just selling seeds; we are deploying bio-coded solutions. Our mission is to secure global food systems by engineering hyper-efficient, resilient plant life using proprietary AI-driven genomic mapping."
+    },
+    "story": {
+        "title": "Chronicle of Genesis",
+        "content": "Born in the high-altitude labs of 2022, Shashank Seeds began as a radical experiment in data-driven botany. We realized that traditional farming reached its ceiling; the future required a leap into bio-digital synthesis. From a single workstation to a global leader in genomic agriculture, our story is one of relentless iteration and environmental devotion.",
+        "milestones": [
+            "2022: Initial Genomic Mapping established",
+            "2023: First Climate-Proof cultivar harvest",
+            "2024: Launch of Bio-Code V2.0"
+        ]
+    },
+    "missionVision": {
+        "mission": {
+            "title": "Core Mission",
+            "text": "To optimize global nutrient yields by deploying hyper-efficient, climate-resilient seed technologies through a protocol of precision genetics."
+        },
+        "vision": {
+            "title": "Future Vision",
+            "text": "A world where agricultural scarcity is archived in history, and planetary rejuvenation is powered by the seeds we engineer today."
+        }
+    },
+    "team": [
+        {
+            "name": "Dr. Elena Vance",
+            "role": "Head of Genomic Sequences",
+            "image": "https://placehold.co/100x100/06B6D4/FFFFFF?text=EV"
+        },
+        {
+            "name": "Marcus Thorne",
+            "role": "Lead Bio-Architect",
+            "image": "https://placehold.co/100x100/10B981/FFFFFF?text=MT"
+        },
+        {
+            "name": "Sarah J. Miller",
+            "role": "Climate Analytics Chief",
+            "image": "https://placehold.co/100x100/06B6D4/FFFFFF?text=SM"
+        }
+    ]
+}

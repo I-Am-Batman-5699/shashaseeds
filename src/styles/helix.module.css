@@ -1,7 +1,7 @@
 .loader{
     position: relative;
-    min-height: 25rem;
-    min-width: 25rem;
+    min-height: 10rem;
+    min-width: 10rem;
     display: flex;
     justify-content: center;
     align-items: center;
