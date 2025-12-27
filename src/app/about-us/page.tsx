@@ -1,5 +1,6 @@
 "use client";
 import React, { useEffect, useRef, useState, useCallback, useContext, createContext, Dispatch, SetStateAction } from "react";
+import { useSearchParams } from "next/navigation";
 import DynamicIcon, { IconName } from "../../components/ui/dynamicIcon";
 import { Company, CompanyInfo } from "@/types/company";
 import { FetchItems } from "@/lib/fetcher";
@@ -7,7 +8,7 @@ import HelixHorizontal from "@/components/loaders/HelixHorizontal";
 import company from "@/data/company.json";
 import { AboutUsPageSection, FeatureToggleProps } from "@/types/featureToggle";
 import AIDNALoader from "@/components/loaders/ClosedAIDNA";
-import { AboutUs } from "@/types/aboutUS";
+import { AboutUs } from "@/types/aboutUs";
 
 const ScrollFadeIn = ({ children, direction = 'up', delay = 0, className = '', id, scrollMarginClass = "scroll-mt-24" }: { children: React.ReactNode, direction?: 'up' | 'left' | 'right' | 'down', delay?: number, className?: string, id?: string, scrollMarginClass?: string }) => {
     const [isVisible, setIsVisible] = useState(false);
@@ -127,6 +128,8 @@ export default function AboutUsFuturistic() {
     const [appContext, setAppContext] = useState<AboutUs>();
     const [appContextLoading, setAppContextLoading] = useState(true);
 
+    const searchParams = useSearchParams();
+
     const fetchItems = async (path: string, setContent: Dispatch<SetStateAction<any>>, modelName?: string, setLoading?: (flag: boolean) => void) => {
         const response = await FetchItems({ path: path });
         if (response.status === "S" && response.data) {
@@ -160,6 +163,12 @@ export default function AboutUsFuturistic() {
         fetchAbouUs();
         setCompanyData(company.companyInfo);
         setCompanyDataLoading(false);
+        setTimeout(() => {
+            const sectionFromURL = searchParams.get('section');
+            if (sectionFromURL) {
+                scrollTo(sectionFromURL);
+            }
+        }, 1000)
     }, []);
 
     return (
