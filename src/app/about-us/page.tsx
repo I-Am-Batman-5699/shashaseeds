@@ -224,7 +224,7 @@ export default function AboutUsFuturistic() {
                     {/* --- SECTION 2: OUR STORY --- */}
                     {!featuresVisible?.showStory ? null : (
 
-                        <ScrollFadeIn id="our-story" scrollMarginClass="scroll-mt-36" direction="up">
+                        <ScrollFadeIn id="our-story" scrollMarginClass="scroll-mt-40" direction="up">
                             <section>
                                 <div className="flex items-center space-x-4 mb-8">
                                     <p className="text-3xl md:text-4xl font-black tracking-tighter italic">
@@ -260,7 +260,7 @@ export default function AboutUsFuturistic() {
 
                     {/* --- SECTION 3: MISSION & VISION --- */}
                     {!featuresVisible?.showMissionVision ? null : (
-                        <ScrollFadeIn id="our-mission" delay={100} scrollMarginClass="scroll-mt-36">
+                        <ScrollFadeIn id="our-mission" delay={100} scrollMarginClass="scroll-mt-40">
                             <div className="flex items-center space-x-4 mb-8">
                                 <p className="text-3xl md:text-4xl font-black tracking-tighter italic">
                                     <span className="text-heading">Our Mission and Vision</span>
@@ -341,7 +341,7 @@ export default function AboutUsFuturistic() {
                     {/* --- 6. VALIDATED PEER REPORTS (TESTIMONIALS) --- */}
                     {!featuresVisible?.showTestimonials ? null : (
                         <section className="py-2">
-                            <ScrollFadeIn direction="left" delay={300} id="peer-reports">
+                            <ScrollFadeIn direction="left" delay={300} id="peer-reports" scrollMarginClass="scroll-mt-40">
                                 <p className="sm:text-xl m-2 md:text-3xl lg:text-4xl font-extrabold text-heading mb-2 text-center inline-block pb-2">
                                     Validated Pier Reports
                                 </p>
@@ -370,8 +370,8 @@ export default function AboutUsFuturistic() {
 
                     {/* --- SECTION 7: OUR TEAM --- */}
                     {!featuresVisible?.showTeam ? null : (
-                        <ScrollFadeIn delay={100} scrollMarginClass="scroll-mt-36" id="our-team">
-                            <section>
+                        <section className="py-2">
+                            <ScrollFadeIn delay={100} scrollMarginClass="scroll-mt-40" id="our-team">
                                 <div className="text-center mb-8">
                                     <DynamicIcon name="users" className="w-12 h-12 text-accent mx-auto mb-4" />
                                     <p className="sm:text-xl m-2 md:text-3xl lg:text-4xl font-black tracking-widest text-heading">
@@ -397,8 +397,8 @@ export default function AboutUsFuturistic() {
                                         ))}
                                     </div>
                                 )}
-                            </section>
-                        </ScrollFadeIn>
+                            </ScrollFadeIn>
+                        </section>
                     )}
 
                     {/* --- 8. COMPLIANCE & DATA MESSAGE --- */}

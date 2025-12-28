@@ -1,11 +1,15 @@
 import React from "react";
 import classes from "@/styles/helix.module.css";
 
+interface HelixProps {
+  customClass?: string; // Made optional with '?' to match your default value ""
+}
+
 // multiple of 16 for smoothness
 const points = 32;
 
-const HelixHorizontal: React.FC = () => (
-    <div className="bg-gradient-to-br from-green-50 to-green-100 text-zinc-800 dark:from-slate-900 dark:to-slate-950 rounded-2xl border border-theme backdrop-blur-md shadow-lg">
+const HelixHorizontal: React.FC<HelixProps> = ({ customClass = "" }) => (
+    <div className={`max-w-5xl mx-auto space-y-10 from-green-50 to-green-100 text-zinc-800 dark:from-slate-900 dark:to-slate-950 rounded-2xl border border-theme backdrop-blur-md ${customClass}`}>
         <div className={classes.loader}>
             {
                 Array.from({ length: points }).map((_, index) => {

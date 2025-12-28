@@ -5,8 +5,8 @@ import classes from "@/styles/double-helix.module.css";
 const points = 56;
 
 const DoubleHelix: React.FC = () => (
-    <div className="rounded-2xl shadow-xl md:p-4 p-2 inset-shadow-sm inset-shadow-indigo-200/50 space-y-1 min-w-[80vw] flex items-center justify-center min-h-[80vh] bg-gray-700">
-        <div className="bg-zinc-950 rounded-full p-4 glowingContainer">
+    <div className="md:p-4 p-2 space-y-1 min-w-[80vw] flex items-center justify-center min-h-[80vh]">
+        <div className="rounded-full p-4 glowingContainer">
             <div className={classes.items}>
                 {
                     Array.from({ length: points }).map((_, index) => {

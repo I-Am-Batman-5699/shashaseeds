@@ -1,0 +1,48 @@
+{
+    "hero": {
+        "tag": "Organic Growth Protocol",
+        "titleMain": "Bio",
+        "titleAccent": "Farm",
+        "description": "Scalable organic systems designed to restore soil health and maximize yield naturally."
+    },
+    "tips": [
+        {
+            "id": "soil",
+            "title": "Microbial Soil Health",
+            "desc": "Deploy cover crops and minimal-tillage to foster mycorrhizal fungi, improving soil structure and carbon sequestration at scale.",
+            "iconName": "dna"
+        },
+        {
+            "id": "water",
+            "title": "Hydration Management",
+            "desc": "Utilize contour swales and organic mulching to maximize rainwater retention, reducing irrigation needs by up to 40%.",
+            "iconName": "waves"
+        },
+        {
+            "id": "diversity",
+            "title": "Polyculture Buffers",
+            "desc": "Implement multi-species companion planting to naturally suppress weeds and provide habitat for beneficial predatory insects.",
+            "iconName": "sprout"
+        },
+        {
+            "id": "cycle",
+            "title": "Nutrient Recycling",
+            "desc": "Scale organic matter return through green manures and vermicompost tea to eliminate dependency on synthetic fertilizers.",
+            "iconName": "recycle"
+        },
+        {
+            "id": "monitoring",
+            "title": "Bio-Observation",
+            "desc": "Monitor indicator species like bees and earthworms to assess ecosystem stability and crop health in real-time.",
+            "iconName": "eye"
+        }
+    ],
+    "outro": {
+    "titlePrefix": "System",
+    "stateActive": "Flourishing",
+    "stateIdle": "Hibernating",
+    "btnAction": "Initiate Growth",
+    "btnLoading": "Watering...",
+    "btnSuccess": "Photosynthesis Active"
+  }
+}
