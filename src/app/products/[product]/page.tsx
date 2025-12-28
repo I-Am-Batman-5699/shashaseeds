@@ -168,12 +168,12 @@ export default function ProductDetailPage() {
       {/* Quantity Selector */}
       {actionButtonConfig.showAddToCartButton && (
         <div className="flex items-center space-x-4">
-          <p className="font-medium text-gray-700">Qty:</p>
+          <p className="font-medium text-zinc-700 dark:text-green-50">Qty:</p>
           <div className="flex items-center border border-gray-300 rounded-lg overflow-hidden shadow-sm">
             <button
               onClick={() => handleQuantityChange(quantity - 1)}
               disabled={quantity < 1 || !productDetails?.isAvailable}
-              className="p-3 bg-gray-100 text-gray-600 hover:bg-gray-200 transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
+              className="p-3 bg-gray-100 dark:bg-gray-900 text-gray-600 dark:text-green-100 hover:bg-gray-200 dark:hover:bg-gray-950 transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
             >
               -
             </button>
@@ -182,12 +182,12 @@ export default function ProductDetailPage() {
               value={quantity}
               onChange={(e) => handleQuantityChange(e.target.value)}
               disabled={!productDetails?.isAvailable}
-              className="w-12 text-center border-x border-gray-300 p-2 focus:ring-green-500 focus:border-green-500 outline-none disabled:bg-gray-50 text-sm text-zinc-900"
+              className="w-12 text-center border-x border-gray-300 p-2 focus:ring-green-500 focus:border-green-500 outline-none disabled:bg-gray-50 text-sm text-zinc-900 dark:text-green-50"
             />
             <button
               onClick={() => handleQuantityChange(quantity + 1)}
               disabled={!productDetails?.isAvailable}
-              className="p-3 bg-gray-100 text-gray-600 hover:bg-gray-200 transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
+              className="p-3 bg-gray-100 dark:bg-gray-900 text-gray-600 dark:text-green-100 hover:bg-gray-200 dark:hover:bg-gray-950 transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
             >
               +
             </button>
@@ -205,7 +205,7 @@ export default function ProductDetailPage() {
               ${!actionButtonConfig.enableAddToCart ? "opacity-40 cursor-not-allowed" : ""}
                     ${!productDetails?.isAvailable
                 ? 'bg-blue-700 text-white hover:bg-blue-800 disabled:opacity-70'
-                : 'bg-yellow-500 text-gray-900 hover:bg-yellow-600 disabled:opacity-70'
+                : 'bg-yellow-500 text-gray-900 hover:bg-yellow-600 dark:bg-orange-500 dark:text-green-50 dark:hover:bg-orange-600 disabled:opacity-70'
               }`}
           >
             {productDetails?.isAvailable ? (
@@ -223,7 +223,7 @@ export default function ProductDetailPage() {
         )}
         <button
           onClick={!actionButtonConfig.enableEnquire ? () => { } : handleEnquiry}
-          className={`w-full border border-gray-300 rounded-xl sm:text-sm md:text-md lg:text-md py-3 text-sm font-semibold text-gray-800 hover:text-gray-50 bg-green-100 hover:bg-green-700 transition-colors shadow-lg ${!actionButtonConfig.enableEnquire ? "opacity-40 cursor-not-allowed" : ""}`}
+          className={`w-full border border-gray-300 rounded-xl sm:text-sm md:text-md lg:text-md py-3 text-sm font-semibold text-primary-text  hover:text-white dark:hover:text-white bg-accent hover:bg-green-700 dark:hover:bg-green-600 transition-colors shadow-lg ${!actionButtonConfig.enableEnquire ? "opacity-40 cursor-not-allowed" : ""}`}
         >
           <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" className="h-5 w-5 inline-block mr-1" fill="currentColor"><path d="M17 2V4H20.0066C20.5552 4 21 4.44495 21 4.9934V21.0066C21 21.5552 20.5551 22 20.0066 22H3.9934C3.44476 22 3 21.5551 3 21.0066V4.9934C3 4.44476 3.44495 4 3.9934 4H7V2H17ZM7 6H5V20H19V6H17V8H7V6ZM15 4H9V6H15V4Z" /></svg>
           General Product Enquiry
@@ -239,10 +239,10 @@ export default function ProductDetailPage() {
         <div className="rounded-2xl shadow-xl space-y-1 inset-shadow-sm dark:inset-shadow-indigo-900/50">
           <div className="max-w-7xl mx-auto px-4 py-8">
             <div className={productsCSS.customButtom}>
-              <a href="/products" className="inline-flex items-center text-green-600 hover:text-green-700 font-medium mb-6 transition-colors">
+              <a href="/products" className="inline-flex items-center text-accent font-medium hover:text-green-700 mb-6 transition-colors">
                 <LucideIconCustom
                   name="chevronLeft"
-                  className="w-5 h-5"
+                  className="w-5 h-5 font-semibold"
                 />
                 Back to Products
               </a>
@@ -254,7 +254,7 @@ export default function ProductDetailPage() {
                 :
                 <div>
                   {/* ⭐ MAIN GRID CONTAINER: Left 40% (Image + Desktop Actions) | Right 60% (Info + Mobile Actions) */}
-                  <div className="flex flex-col gap-6 md:grid md:grid-cols-[40%_60%] bg-gradient-to-br from-green-50 to-green-100 dark:from-slate-900 dark:to-slate-950 p-4 lg:p-6 rounded-2xl shadow-xl inset-shadow-sm dark:inset-shadow-indigo-900/50">
+                  <div className="flex flex-col gap-6 md:grid md:grid-cols-[40%_60%] bg-gradient-to-br from-green-50 to-green-100 dark:from-slate-900 dark:to-slate-950 p-4 lg:p-6 rounded-2xl shadow-2xl inset-shadow-sm dark:inset-shadow-indigo-900/50">
 
                     {/* 1. LEFT COLUMN: Image Gallery + Desktop Actions (40%) */}
                     <div className="flex flex-col gap-4">
@@ -370,7 +370,7 @@ export default function ProductDetailPage() {
                     <div className="space-y-6">
                       {/* Product Name & Category */}
                       <div>
-                        <p className=" sm:text-2xl md:text-3xl lg:text-4xl font-extrabold text-gray-900">{product.name}</p>
+                        <p className=" sm:text-2xl md:text-3xl lg:text-4xl font-extrabold text-gray-900 dark:text-green-50">{product.name}</p>
                         <p className="mt-2 text-sm text-gray-500">Category: {product.category}</p>
                       </div>
 
@@ -385,15 +385,15 @@ export default function ProductDetailPage() {
 
                         {config.showPrice && (
                           <div className="flex items-baseline flex-wrap">
-                            <p className="text-3xl lg:text-4xl font-bold text-green-700 mr-4">
+                            <p className="text-2xl lg:text-3xl text-green-700 mr-4 font-semibold">
                               ₹{productDetails?.finalPrice}
                             </p>
                             {productDetails?.isDiscountAvailable && config.showDiscount && (
                               <div className="flex items-center space-x-1">
-                                <p className="text-xl text-gray-400 line-through">
+                                <p className="text-lg text-gray-400 line-through">
                                   ₹{productDetails?.originalPrice}
                                 </p>
-                                <p className="text-lg text-green-600 font-medium px-1 py-0.5 rounded-full">
+                                <p className="text-md text-green-600 font-medium px-1 py-0.5 rounded-full">
                                   {productDetails?.discountPercentage}% off
                                 </p>
                               </div>
@@ -416,19 +416,19 @@ export default function ProductDetailPage() {
                       {/* Description and other Details (Rest of the Product Info) */}
                       {product.description && (
                         <div className="prose max-w-none pt-4 border-t border-gray-100">
-                          <p className="sm:text-lg md:text-xl font-bold text-gray-900 mb-2">Description</p>
-                          <p className="text-gray-600">{product.description}</p>
+                          <p className="sm:text-xl md:text-2xl font-bold text-gray-900 dark:text-green-50 mb-2">Description</p>
+                          <p className="text-zinc-600 dark:text-zinc-200">{product.description}</p>
                         </div>
                       )}
 
                       {product.attributes && Object.keys(product.attributes).length > 0 && (
                         <div className="border-t border-gray-200 pt-4">
-                          <p className="sm:text-lg md:text-xl font-bold text-gray-900 mb-3">Specifications</p>
+                          <p className="sm:text-lg md:text-xl font-bold text-gray-900 dark:text-green-50 mb-3">Specifications</p>
                           <dl className="grid grid-cols-2 gap-x-4 gap-y-3 sm:grid-cols-2 lg:grid-cols-3 text-sm">
                             {Object.entries(product.attributes).map(([key, value]) => (
-                              <div key={key} className="sm:col-span-1 bg-gray-50 p-2 rounded-lg">
-                                <dt className="text-xs font-medium text-gray-500 uppercase tracking-wider">{key.replace('_', ' ')}</dt>
-                                <dd className="mt-1 text-base font-semibold text-gray-800">{value}</dd>
+                              <div key={key} className="sm:col-span-1 bg-gradient-to-br from-green-50 to-green-100 dark:from-slate-900 dark:to-slate-950 p-2 rounded-lg">
+                                <dt className="text-xs font-medium text-gray-400 uppercase tracking-wider">{key.replace('_', ' ')}</dt>
+                                <dd className="mt-1 text-base font-semibold text-gray-500 dark:text-gray-300">{value}</dd>
                               </div>
                             ))}
                           </dl>
@@ -437,12 +437,12 @@ export default function ProductDetailPage() {
 
                       {config.showTags && product.tags && product.tags.length > 0 && (
                         <div className="border-t border-gray-200 pt-4">
-                          <p className="sm:text-md md:text-lg font-semibold text-gray-900 mb-2">Tags</p>
+                          <p className="sm:text-lg md:text-xl font-semibold text-gray-900 dark:text-green-50  mb-2">Tags</p>
                           <div className="flex flex-wrap gap-2">
                             {product.tags.map((tag, index) => (
                               <span
                                 key={index}
-                                className="inline-flex items-center px-3 py-1 rounded-full text-xs font-medium bg-green-200 text-green-800 shadow-sm"
+                                className="inline-flex items-center px-3 py-1 rounded-full text-xs font-medium bg-green-200 dark:bg-green-700 text-green-800 dark:text-green-200 shadow-sm"
                               >
                                 # {tag}
                               </span>
@@ -455,8 +455,8 @@ export default function ProductDetailPage() {
 
                   <div className="mt-8 space-y-8">
                     {/* Panel 1: Reviews */}
-                    <div className="bg-white rounded-xl p-6 shadow-xl border border-gray-100">
-                      <p className="sm:text-lg md:text-2xl font-bold text-gray-800 mb-4">Customer Reviews ({reviews.length})</p>
+                    <div className="bg-white dark:bg-slate-950 rounded-xl p-6 shadow-2xl">
+                      <p className="sm:text-lg md:text-2xl font-bold text-slate-900 dark:text-whitetext-slate-900 dark:text-white mb-4">Customer Reviews ({reviews.length})</p>
 
                       {reviews.length > 0 ? (
                         <div className="space-y-4">
@@ -465,14 +465,14 @@ export default function ProductDetailPage() {
                           ))}
                         </div>
                       ) : (
-                        <p className="text-gray-600 italic">No reviews yet. Be the first!</p>
+                        <p className="text-slate-700 dark:text-green-100 italic">No reviews yet. Be the first!</p>
                       )}
 
                       {
                         actionButtonConfig.showReview && (
                           <button
                             onClick={() => !actionButtonConfig.enableReview ? () => { } : setIsReviewModalOpen(true)}
-                            className={`mt-4 text-green-600 hover:text-green-700 font-medium underline inline-flex items-center
+                            className={`mt-4 text-green-600 dark:text-green-400 hover:text-green-700 font-medium underline inline-flex items-center
                         ${!actionButtonConfig.enableReview ? "opacity-40 cursor-not-allowed" : ""}
                         `}
                           >
@@ -484,11 +484,11 @@ export default function ProductDetailPage() {
                     </div>
 
                     {/* Panel 2: Similar Products */}
-                    <div className="bg-white rounded-xl p-6 shadow-xl border border-gray-100">
-                      <p className="sm:text-md md:text-lg lg:text-xl font-semibold text-zinc-900 mb-4">Products in spot light</p>
+                    <div className="bg-white dark:bg-slate-950 rounded-2xl p-6 shadow-xl">
+                      <p className="sm:text-md md:text-lg lg:text-xl font-semibold text-zinc-900 dark:text-zinc-100  mb-4">Products in spot light</p>
                       <div className="flex overflow-x-auto space-x-4 py-2">
                         {featuredProducts && featuredProducts.map((fp) => (
-                          <a key={fp.id} href={`/products/${fp.id}`} className="flex-shrink-0 w-48 p-3 border rounded-xl hover:shadow-lg  inset-shadow-xs dark:inset-shadow-indigo-900/50 transition-transform hover:scale-105 duration-200 bg-gradient-to-br from-green-50 to-green-100">
+                          <a key={fp.id} href={`/products/${fp.id}`} className="flex-shrink-0 w-48 p-3 rounded-xl hover:shadow-lg  inset-shadow-xs dark:inset-shadow-indigo-900/50 transition-transform hover:scale-105 duration-200 bg-gradient-to-br from-green-100 to-green-200 dark:from-slate-900 dark:to-slate-950">
                             <div className="relative w-full aspect-square mb-2 rounded overflow-hidden">
                               <img
                                 src={fp.image}
@@ -497,7 +497,7 @@ export default function ProductDetailPage() {
                                 onError={(e) => (e.currentTarget.src = 'https://placehold.co/80x80/AAAAAA/FFFFFF?text=Error')}
                               />
                             </div>
-                            <p className="font-medium text-sm text-gray-800 truncate">{fp.name}</p>
+                            <p className="font-medium text-sm text-gray-800 dark:text-green-100 truncate">{fp.name}</p>
                             <div className="flex items-center space-x-1">
                               <StarRating rating={fp.rating ?? 0} />
                               <span className="text-gray-400 text-xs">({fp.rating?.toFixed(1)})</span>

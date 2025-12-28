@@ -33,14 +33,14 @@ const ReviewModal = ({ isOpen, onClose, productDetails, reviews }: { isOpen: boo
     if (!isOpen) return null;
 
     return (
-        <div className="fixed inset-0 bg-zinc-800/10 backdrop-blur-xs z-50 flex items-center justify-center p-4" onClick={onClose}>
+        <div className="fixed inset-0 bg-zinc-800/10 backdrop-blur-sm z-50 flex items-center justify-center p-4" onClick={onClose}>
             <div
-                className="bg-gradient-to-br from-white to-green-50 rounded-2xl shadow-2xl w-full max-w-lg p-6 md:p-8 transform transition-all scale-100 duration-300"
+                className="bg-gradient-to-br from-green-100 to-green-200 dark:from-slate-900 dark:to-slate-950 rounded-2xl shadow-2xl w-full max-w-lg p-6 md:p-8 transform transition-all scale-100 duration-300 border border-reverse-theme"
                 onClick={(e) => e.stopPropagation()}
             >
                 <div className="flex justify-between items-start border-b pb-4 mb-4">
-                    <p className="sm:text:md md:text-xl font-semibold text-zinc-900">Write a Review for {productDetails.name}</p>
-                    <button onClick={onClose} className="text-gray-400 hover:text-gray-600 transition-colors p-1 rounded-full bg-gray-50">
+                    <p className="sm:text:md md:text-xl font-semibold text-zinc-900 dark:text-zinc-100">Write a Review for {productDetails.name}</p>
+                    <button onClick={onClose} className="text-cyan-400 hover:text-gray-600 transition-colors p-1 rounded-full bg-transparent dark:bg-gray-600/50">
                         <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M6 18L18 6M6 6l12 12" /></svg>
                     </button>
                 </div>
@@ -48,7 +48,7 @@ const ReviewModal = ({ isOpen, onClose, productDetails, reviews }: { isOpen: boo
                 <form onSubmit={handleSubmit} className="space-y-4">
                     {/* Rating Input */}
                     <div>
-                        <label className="block md:text-sm lg:text-md font-medium text-gray-700 mb-1">Your Rating:</label>
+                        <label className="block md:text-sm lg:text-md font-medium text-gray-700 dark:text-gray-300 mb-1">Your Rating:</label>
                         <div className="flex space-x-1">
                             {[1, 2, 3, 4, 5].map((star) => (
                                 <button
@@ -66,7 +66,7 @@ const ReviewModal = ({ isOpen, onClose, productDetails, reviews }: { isOpen: boo
 
                     {/* Title Input */}
                     <div>
-                        <label htmlFor="review-title" className="block md:text-sm lg:text-md font-medium text-gray-700">Review Title</label>
+                        <label htmlFor="review-title" className="block md:text-sm lg:text-md font-medium text-gray-700 dark:text-gray-300">Review Title</label>
                         <input
                             id="review-title"
                             type="text"
@@ -74,13 +74,13 @@ const ReviewModal = ({ isOpen, onClose, productDetails, reviews }: { isOpen: boo
                             onChange={(e) => setReviewTitle(e.target.value)}
                             required
                             placeholder="Summarize your experience"
-                            className="mt-1 block w-full rounded-lg border-gray-300 shadow-sm focus:border-green-500 focus:ring-green-500 p-3 border text-zinc-950"
+                            className="mt-1 block w-full rounded-lg border-gray-300 shadow-sm focus:border-green-500 focus:ring-green-500 p-3 border text-zinc-950 dark:text-green-50"
                         />
                     </div>
 
                     {/* Content Input */}
                     <div>
-                        <label htmlFor="review-content" className="block md:text-sm lg:text-md font-medium text-gray-700">Your Detailed Review</label>
+                        <label htmlFor="review-content" className="block md:text-sm lg:text-md font-medium text-gray-700 dark:text-gray-300">Your Detailed Review</label>
                         <textarea
                             id="review-content"
                             rows={4}
@@ -88,7 +88,7 @@ const ReviewModal = ({ isOpen, onClose, productDetails, reviews }: { isOpen: boo
                             onChange={(e) => setReviewContent(e.target.value)}
                             required
                             placeholder="What did you like or dislike?"
-                            className="mt-1 block w-full rounded-lg border-gray-300 shadow-sm focus:border-green-500 focus:ring-green-500 p-3 border text-zinc-950"
+                            className="mt-1 block w-full rounded-lg border-gray-300 shadow-sm focus:border-green-500 focus:ring-green-500 p-3 border text-zinc-950 dark:text-green-50"
                         />
                     </div>
 

@@ -20,7 +20,7 @@
             "enableWishlist": true,
             "enableEnquire": true,
             "enableCompare": false,
-            "enableReview": false,
+            "enableReview": true,
             "showFeaturedBadge": true,
             "showAddToCartButton": true,
             "showWishlistButton": true,
