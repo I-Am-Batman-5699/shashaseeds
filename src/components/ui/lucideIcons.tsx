@@ -11,7 +11,8 @@ import {
   Sparkles, 
   Droplets, 
   LucideProps, 
-  Eye
+  Eye,
+  ChevronLeft
 } from 'lucide-react';
 
 const icons = {
@@ -25,6 +26,7 @@ const icons = {
   flower2: Flower2,
   sparkles: Sparkles,
   droplets: Droplets,
+  chevronLeft: ChevronLeft
 } as const;
 
 export type IconName = keyof typeof icons;

@@ -191,7 +191,7 @@ const HorizontalCarousel: React.FC<HorizontalCarouselProps> = ({
                             whileHover={relativeIndex === 0 ? { scale: style.scale * 1.1 } : {}}
                         >
                             <a href={item.href} className="no-underline">
-                                <div className="flex flex-col items-center group cursor-pointer justify-center shadow-sm hover:shadow-md transition-shadow duration-300 rounded-xl inset-shadow-sm inset-shadow-indigo-200/50">
+                                <div className="flex flex-col items-center group cursor-pointer justify-center shadow-sm hover:shadow-md transition-shadow duration-300 rounded-xl inset-shadow-sm dark:inset-shadow-indigo-900/50">
                                     <div className="mt-2 sm:mt-1 mb-1 relative w-30 h-30 md:w-40 md:h-40 rounded-xl overflow-hidden p-1">
                                         <Image
                                             width={400}

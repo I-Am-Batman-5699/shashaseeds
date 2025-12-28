@@ -264,10 +264,9 @@ export default function ProductsPage() {
 
     if (isLoading || !config) {
         return (
-            <div className="bg-gradient-to-br from-green-50 to-green-100 min-h-[90vh] flex items-center justify-center">
+            <div className=" bg-gradient-to-br from-green-100 to-green-200 dark:from-slate-900 dark:to-slate-950 min-h-[90vh] flex items-center justify-center">
                 <div className="mx-auto max-w-[90%] md:pb-8 pb-4 md:pt-4 pt-1">
-                    <div className="rounded-2xl shadow-xl md:p-4 p-2 inset-shadow-sm inset-shadow-indigo-200/50 space-y-1">
-                        {/* <div className="md:text-2xl lg:text-3xl font-semibold text-gray-700 m-2 text-center">{productsPageData.loadingMessage || "Loading Products and Configuration..."}</div> */}
+                    <div className="rounded-2xl shadow-xl md:p-4 p-2 inset-shadow-sm dark:inset-shadow-indigo-900/50 space-y-1">
                         <AIDNALoader/>
                     </div>
                 </div>
@@ -276,11 +275,11 @@ export default function ProductsPage() {
     }
 
     return (
-        <div className="bg-gradient-to-br from-green-50 to-green-100">
+        <div className="bg-gradient-to-br from-green-100 to-green-200 dark:from-slate-900 dark:to-slate-950">
             <div className="mx-auto max-w-[90%] md:pb-8 pb-4 md:pt-4 pt-1">
-                <div className="rounded-2xl shadow-xl md:p-4 p-2 inset-shadow-sm inset-shadow-indigo-200/50 space-y-1">
+                <div className="rounded-2xl shadow-xl md:p-4 p-2 inset-shadow-sm dark:inset-shadow-indigo-900/50 space-y-1">
                     <div className="container mx-auto p-4">
-                        <p className='md:text-2xl lg:text-3xl font-semibold text-gray-700 m-2 text-center'>
+                        <p className='md:text-2xl lg:text-3xl font-semibold text-gray-700 dark:text-gray-200 m-2 text-center'>
                             {pageTitle}
                         </p>
 
@@ -290,7 +289,7 @@ export default function ProductsPage() {
                                 <input
                                     type="text"
                                     placeholder={productsPageData.searchPlaceholder}
-                                    className="border border-blue-300 rounded-full px-4 py-2 w-full md:w-1/3 shadow-md focus:ring-2 focus:ring-blue-500 transition-all text-zinc-950 inset-shadow-sm inset-shadow-green-100 outline-transparent focus:outline-2 focus:outline-blue-500"
+                                    className="border border-blue-300 rounded-full px-4 py-2 w-full md:w-1/3 shadow-md transition-all text-zinc-950 dark:text-green-50 inset-shadow-xs inset-shadow-green-100/50 outline-transparent focus:outline-1 focus:outline-cyan-400"
                                     value={searchTerm}
                                     onChange={(e) => setSearchTerm(e.target.value)}
                                 />
@@ -301,17 +300,17 @@ export default function ProductsPage() {
                                     <div className="relative group" ref={sortButtonRef}>
                                         <button
                                             onClick={toggleSort}
-                                            className={`relative border rounded-full p-2 shadow-sm transition-colors ${isSortActive ? 'border-blue-50 bg-blue-500 text-white' : 'border-gray-300 hover:bg-blue-100'}`}
+                                            className={`border relative rounded-full p-2 shadow-sm transition-colors ${isSortActive ? 'border-blue-50 bg-blue-950 dark:bg-blue-700 text-green-50' : ' hover:bg-blue-100 border border-theme-reverse'}`}
                                             aria-label={productsPageData.sortButtonAriaLabel}
                                         >
-                                            <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6" viewBox="0 0 24 24" strokeWidth={2} strokeLinecap="round" strokeLinejoin="round" stroke={isSortActive ? "white" : "#155dfc"} fill="none">
+                                            <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6" viewBox="0 0 24 24" strokeWidth={2} strokeLinecap="round" strokeLinejoin="round" stroke={isSortActive ? "white" : "#6f788b"} fill="none">
                                                 <path d="M3 4h13M3 8h9m-9 4h6m4 0l4-4m0 0l4 4m-4-4v12" />
                                             </svg>
                                         </button>
-                                        <div className="absolute left-1/2 transform -translate-x-1/2 -top-12 opacity-0 group-hover:opacity-100 transition-opacity duration-200 bg-gray-800 text-white text-xs rounded-lg py-1 px-2 pointer-events-none z-30">
+                                        {/* <div className="absolute left-1/2 transform -translate-x-1/2 -top-12 opacity-0 group-hover:opacity-100 transition-opacity duration-200 bg-gray-800 text-white text-xs rounded-lg py-1 px-2 pointer-events-none z-30">
                                             {sortOptionsMap[sortOption as keyof typeof sortOptionsMap]}
                                             <div className="absolute left-1/2 transform -translate-x-1/2 bottom-0 h-2 rotate-45 bg-gray-800 -mb-1 overflow-x-auto"></div>
-                                        </div>
+                                        </div> */}
                                     </div>
                                 )}
 
@@ -319,11 +318,10 @@ export default function ProductsPage() {
                                 {productsPageConfig.sections.filterControls && (
                                     <button
                                         onClick={() => setIsFilterPanelOpen(!isFilterPanelOpen)}
-                                        className={`border rounded-full p-2 shadow-sm transition-colors ${isFilterActive ? 'border-blue-50 bg-blue-500' : 'border-gray-300 hover:bg-blue-100'
-                                            }`}
+                                        className={`border rounded-full p-2 shadow-sm transition-colors ${isFilterActive ? 'border-blue-50 bg-blue-950 dark:bg-blue-700 text-green-50' : 'hover:bg-blue-100 border border-theme-reverse'}`}
                                         aria-label={productsPageData.filterButtonAriaLabel}
                                     >
-                                        <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6" fill={isFilterActive ? "#ffffff" : "#155dfc"} viewBox="0 0 24 24" stroke={isFilterActive ? "#ffffff" : "#155dfc"} strokeWidth="0.1">
+                                        <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6" fill={isFilterActive ? "#ffffff" : "#6f788b"} viewBox="0 0 24 24" stroke={isFilterActive ? "#ffffff" : "#6f788b"} strokeWidth="0.1">
                                             <path d="M6.17071 18C6.58254 16.8348 7.69378 16 9 16C10.3062 16 11.4175 16.8348 11.8293 18H22V20H11.8293C11.4175 21.1652 10.3062 22 9 22C7.69378 22 6.58254 21.1652 6.17071 20H2V18H6.17071ZM12.1707 11C12.5825 9.83481 13.6938 9 15 9C16.3062 9 17.4175 9.83481 17.8293 11H22V13H17.8293C17.4175 14.1652 16.3062 15 15 15C13.6938 15 12.5825 14.1652 12.1707 13H2V11H12.1707ZM6.17071 4C6.58254 2.83481 7.69378 2 9 2C10.3062 2 11.4175 2.83481 11.8293 4H22V6H11.8293C11.4175 7.16519 10.3062 8 9 8C7.69378 8 6.58254 7.16519 6.17071 6H2V4H6.17071ZM9 6C9.55228 6 10 5.55228 10 5C10 4.44772 9.55228 4 9 4C8.44772 4 8 4.44772 8 5C8 5.55228 8.44772 6 9 6ZM15 13C15.5523 13 16 12.5523 16 12C16 11.4477 15.5523 11 15 11C14.4477 11 14 11.4477 14 12C14 12.5523 14.4477 13 15 13ZM9 20C9.55228 20 10 19.5523 10 19C10 18.4477 9.55228 18 9 18C8.44772 18 8 18.4477 8 19C8 19.5523 8.44772 20 9 20Z" />
                                         </svg>
                                     </button>
@@ -347,14 +345,14 @@ export default function ProductsPage() {
                                             width: 192,
                                             zIndex: 9999,
                                         }}
-                                        className="bg-white rounded-lg shadow-lg overflow-hidden"
+                                        className="bg-gradient-to-br from-green-50 to-green-100 text-zinc-800 dark:from-slate-900 dark:to-slate-950 dark:text-zinc-50 border border-theme rounded-lg shadow-lg overflow-hidden"
                                         onMouseDown={(e) => e.stopPropagation()}
                                     >
                                         <ul className="py-2">
                                             {Object.entries(sortOptionsMap).map(([key, value]) => (
                                                 <li
                                                     key={key}
-                                                    className={`px-4 py-2 hover:bg-gray-100 cursor-pointer text-sm ${sortOption === key ? 'bg-blue-100 font-semibold text-blue-800' : 'font-normal text-zinc-800'}`}
+                                                    className={`px-4 py-2 text-zinc-800 dark:text-zinc-50 hover:bg-green-50 dark:hover:bg-slate-900 hover:text-green-600 cursor-pointer text-sm ${sortOption === key ? 'bg-blue-100 dark:bg-blue-950 font-semibold text-blue-800' : 'font-normal text-zinc-800'}`}
                                                     onClick={() => handleSortChange(key)}
                                                 >
                                                     {value as string}
@@ -374,7 +372,7 @@ export default function ProductsPage() {
                                         initial={{ opacity: 0 }}
                                         animate={{ opacity: 0.5 }}
                                         exit={{ opacity: 0 }}
-                                        className="fixed inset-0 bg-gradient-to-br from-green-50 to-green-100 bg-opacity-50 z-40"
+                                        className={`fixed inset-0 bg-gradient-to-br from-green-50/40 to-green-100/40 dark:from-slate-900/40 dark:to-slate-950/40 z-[68] backdrop-blur-sm transition-opacity duration-300 ${isFilterPanelOpen ? "opacity-100" : "opacity-0 pointer-events-none"}`}
                                         onClick={() => setIsFilterPanelOpen(false)}
                                     />
                                     {/* Filter Panel Content */}
@@ -384,7 +382,7 @@ export default function ProductsPage() {
                                         animate={{ x: 0 }}
                                         exit={{ x: '100%' }}
                                         transition={{ type: 'tween', duration: 0.3 }}
-                                        className="fixed inset-y-0 right-0 w-80 bg-white shadow-xl z-50 p-6 overflow-y-auto text-zinc-900"
+                                        className="fixed inset-y-0 right-0 w-80 bg-gradient-to-br from-green-50 to-green-100 text-zinc-800 dark:from-slate-900 dark:to-slate-950 dark:text-zinc-50 border border-theme z-69 p-6 overflow-y-auto mt-18 mb-2 rounded-2xl shadow-2xl mr-1"
                                     >
                                         <div className="flex justify-between items-center mb-6">
                                             <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" viewBox="0 0 24 24">
@@ -452,7 +450,7 @@ export default function ProductsPage() {
                                                                         onClick={isDisabled ? undefined : () => handleFilterChange(key, value as string | boolean)}
                                                                         className={`
                                                                             px-3 py-1 text-sm rounded-full border transition-colors capitalize
-                                                                            ${isSelected ? 'bg-blue-600 text-white border-blue-600' : 'bg-white text-gray-700 border-gray-300 hover:bg-gray-100'}
+                                                                            ${isSelected ? 'bg-blue-900 hover:bg-blue-700 text-white border-blue-600' : 'bg-white dark:bg-zinc-950 border-gray-300 text-zinc-800 dark:text-zinc-50 hover:bg-green-50 dark:hover:bg-slate-900 hover:text-green-600 dark:hover:bg-'}
                                                                             ${isDisabled ? 'opacity-70 cursor-not-allowed' : ''} 
                                                                         `}
                                                                         disabled={isDisabled as boolean}
@@ -474,7 +472,7 @@ export default function ProductsPage() {
                         </AnimatePresence>
 
 
-                        <hr className='mb-2 -mt-4' />
+                        <div className="h-px border-t border-reverse-theme" />
 
                         {/* Products Grid Section */}
                         <div className="mt-4">

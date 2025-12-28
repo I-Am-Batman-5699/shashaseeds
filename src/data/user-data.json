@@ -1,8 +1,8 @@
 {
   "user": {
     "id": "user_123",
-    "name": "Arjun Kumar",
-    "email": "arjun.kumar@example.com",
+    "name": "Jon Snow",
+    "email": "jon.snow@example.com",
     "avatar": "/shashank_logo.png",
     "isLoggedIn": false
   },

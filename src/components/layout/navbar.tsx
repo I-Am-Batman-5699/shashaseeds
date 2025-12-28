@@ -74,7 +74,6 @@ export default function HeaderNavbar({ isLoading = false }: { isLoading?: boolea
         console.log("User logged out (dummy)");
     };
 
-    // 🔧 FIX 2: Toggle profile overlay (open/close)
     const toggleProfile = () => {
         setProfileOpen(prev => !prev);
     };
@@ -87,12 +86,11 @@ export default function HeaderNavbar({ isLoading = false }: { isLoading?: boolea
 
     return (
         <>
-            {/* 🔧 FIX 1: Updated navbar theme */}
             <header
-                className={`mt-0.5 top-0 sticky z-[100] w-full ${loadingClass} bg-gradient-to-br from-green-50 to-green-100 dark:from-slate-900 dark:to-slate-950`}
+                className={`mt-0.5 top-0 sticky z-[100] w-full ${loadingClass}  bg-gradient-to-br from-green-50 to-green-100 text-zinc-800 dark:from-slate-900 dark:to-slate-950 dark:text-zinc-50`}
                 aria-disabled={isLoading}
             >
-                <div className={`lg:px-4 min-h-15 flex items-center justify-between border border-theme backdrop-blur-md shadow-lg bg-gradient-to-br from-green-50/50 to-green-100/50 dark:from-slate-900/50 dark:to-slate-950/50 rounded-2xl m-0.5`}>
+                <div className={`lg:px-4 min-h-15 flex items-center justify-between border border-theme backdrop-blur-md shadow-lg  bg-gradient-to-br from-green-50 to-green-100 text-zinc-800 dark:from-slate-900 dark:to-slate-950 dark:text-zinc-50 rounded-2xl m-0.5`}>
 
                     {/* ⬇⬇⬇⬇⬇⬇⬇⬇⬇⬇⬇⬇⬇⬇⬇⬇⬇⬇⬇⬇⬇⬇⬇⬇⬇⬇⬇⬇⬇⬇ Desktop ⬇⬇⬇⬇⬇⬇⬇⬇⬇⬇⬇⬇⬇⬇⬇⬇⬇⬇⬇⬇⬇⬇⬇⬇⬇⬇⬇⬇⬇⬇ */}
 
@@ -115,7 +113,7 @@ export default function HeaderNavbar({ isLoading = false }: { isLoading?: boolea
                     </div>
 
                     {/* Desktop navigation (UNCHANGED) */}
-                    <nav ref={navRef} className="hidden lg:flex items-center gap-8 text-sm text-zinc-100 font-semibold">
+                    <nav ref={navRef} className="hidden lg:flex items-center gap-8 text-sm text-zinc-800 dark:text-zinc-50 font-semibold">
                         {navigationItems.map((item) => (
                             <div key={item.id}>
                                 {!item.visible && null}
@@ -124,7 +122,7 @@ export default function HeaderNavbar({ isLoading = false }: { isLoading?: boolea
                                         {item.enabled && item.children && item.showChildren ? (
                                             <div>
                                                 <button
-                                                    className="flex items-center gap-1 hover:text-zinc-50 transition-colors duration-100 ease-in-out hover:scale-105"
+                                                    className="flex items-center gap-1 hover:text-accent transition-colors duration-100 ease-in-out hover:scale-105"
                                                     onClick={(e) => {
                                                         if (isTouchDevice) {
                                                             e.stopPropagation();
@@ -142,7 +140,7 @@ export default function HeaderNavbar({ isLoading = false }: { isLoading?: boolea
                                                 </button>
                                                 <div
                                                     className={`
-                                                        absolute top-full left-0 mt-1 w-48 bg-white border border-gray-200 rounded-md shadow-lg
+                                                        absolute top-full left-0 mt-1 w-48 bg-gradient-to-br from-green-50 to-green-100 text-zinc-800 dark:from-slate-900 dark:to-slate-950 dark:text-zinc-50 border border-theme rounded-md shadow-lg
                                                         transition-all duration-200
                                                         ${item.children && (expandedItems[item.id] ? "opacity-100 visible" : "opacity-0 invisible")}
                                                         group-hover:opacity-100 group-hover:visible
@@ -152,7 +150,7 @@ export default function HeaderNavbar({ isLoading = false }: { isLoading?: boolea
                                                 >
                                                     <div className="py-2">
                                                         {item.children.map((child, index) => (
-                                                            <div className={`flex items-center justify-between text-zinc-700 hover:bg-green-50 hover:text-green-600`} key={child.id}>
+                                                            <div className={`flex items-center justify-between text-zinc-800 dark:text-zinc-50 hover:bg-green-50 dark:hover:bg-slate-900 hover:text-green-600`} key={child.id}>
                                                                 <Link
                                                                     key={child.id}
                                                                     href={child.enabled ? child.href : "#"}
@@ -185,7 +183,7 @@ export default function HeaderNavbar({ isLoading = false }: { isLoading?: boolea
                                         ) : (
                                             <Link
                                                 href={item.enabled ? item.href : "#"}
-                                                className={`hover:text-zinc-600 transition-colors duration-100 ease-in-out hover:scale-105 ${!item.enabled ? "opacity-50 cursor-not-allowed" : ""}`}
+                                                className={`hover:text-accent transition-colors duration-100 ease-in-out hover:scale-105 ${!item.enabled ? "opacity-50 cursor-not-allowed" : ""}`}
                                             >
                                                 {item.label}
                                             </Link>
@@ -198,11 +196,8 @@ export default function HeaderNavbar({ isLoading = false }: { isLoading?: boolea
 
                     {/* Desktop Right Section - Logo */}
                     <div className="hidden lg:flex items-center gap-3">
-                        <div className="rounded-lg">
-                            <Avatar alt={company.logoAlt} src={company.logo} sx={{ width: 32, height: 32 }} />
-                        </div>
                         <Link href="/">
-                            <span className="text-lg font-bold text-zinc-50">{company.name}</span>
+                            <span className="text-lg font-bold text-zinc-800 dark:text-zinc-50">{company.name}</span>
                         </Link>
                     </div>
 
@@ -214,14 +209,14 @@ export default function HeaderNavbar({ isLoading = false }: { isLoading?: boolea
                             <HamburgerButton mobileMenuOpen={mobileMenuOpen} setMobileMenuOpen={setMobileMenuOpen} />
                         </div>
                         {/* Logo and Company Name (center) */}
-                        <div className="flex flex-row items-center mx-auto text-amber-50">
-                            <div className="p-2 rounded-lg">
+                        <div className="flex flex-row items-center mx-auto text-zinc-800 dark:text-zinc-50 mr-2 p1">
+                            {/* <div className="p-2 rounded-lg">
                                 <Avatar alt={company.logoAlt} src={company.logo} sx={{ width: 24, height: 24 }} />
-                            </div>
+                            </div> */}
                             <span className="text-xl font-bold">{company.name}</span>
                         </div>
                         {/* Profile Icon (Mobile) */}
-                        <div className="mr-1">
+                        {/* <div className="mr-1">
                             <button
                                 onClick={(e) => {
                                     e.stopPropagation();
@@ -236,7 +231,7 @@ export default function HeaderNavbar({ isLoading = false }: { isLoading?: boolea
                                     sx={{ width: 32, height: 32 }}
                                 />
                             </button>
-                        </div>
+                        </div> */}
                     </div>
 
                     {/* Mobile Menu Overlay */}

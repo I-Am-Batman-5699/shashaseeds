@@ -12,6 +12,7 @@ import StarRating from "@/components/common/StarRating";
 import ReviewItem from "@/components/common/ReviewItem";
 import ReviewModal from "@/components/modals/new-review";
 import HelixHorizontal from "@/components/loaders/HelixHorizontal";
+import LucideIconCustom from "@/components/ui/lucideIcons";
 
 const defaultConfig = {
   features: {
@@ -233,15 +234,16 @@ export default function ProductDetailPage() {
 
 
   return (
-    <div className="bg-gradient-to-br from-green-50 to-green-100 min-h-screen">
+    <div className="bg-gradient-to-br from-green-50 to-green-100 dark:from-slate-900 dark:to-slate-950 min-h-screen">
       <div className="mx-auto max-w-[90%] md:pb-8 pb-4 md:pt-4 pt-1">
-        <div className="rounded-2xl shadow-xl space-y-1 inset-shadow-sm inset-shadow-indigo-200/50">
+        <div className="rounded-2xl shadow-xl space-y-1 inset-shadow-sm dark:inset-shadow-indigo-900/50">
           <div className="max-w-7xl mx-auto px-4 py-8">
             <div className={productsCSS.customButtom}>
               <a href="/products" className="inline-flex items-center text-green-600 hover:text-green-700 font-medium mb-6 transition-colors">
-                <span className={productsCSS.arrowLeft}>
-                  <svg className="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M15 19l-7-7 7-7" /></svg>
-                </span>
+                <LucideIconCustom
+                  name="chevronLeft"
+                  className="w-5 h-5"
+                />
                 Back to Products
               </a>
             </div>
@@ -252,7 +254,7 @@ export default function ProductDetailPage() {
                 :
                 <div>
                   {/* ⭐ MAIN GRID CONTAINER: Left 40% (Image + Desktop Actions) | Right 60% (Info + Mobile Actions) */}
-                  <div className="flex flex-col gap-6 md:grid md:grid-cols-[40%_60%] bg-white p-4 lg:p-6 rounded-2xl shadow-xl inset-shadow-sm inset-shadow-indigo-200/50">
+                  <div className="flex flex-col gap-6 md:grid md:grid-cols-[40%_60%] bg-gradient-to-br from-green-50 to-green-100 dark:from-slate-900 dark:to-slate-950 p-4 lg:p-6 rounded-2xl shadow-xl inset-shadow-sm dark:inset-shadow-indigo-900/50">
 
                     {/* 1. LEFT COLUMN: Image Gallery + Desktop Actions (40%) */}
                     <div className="flex flex-col gap-4">
@@ -264,7 +266,7 @@ export default function ProductDetailPage() {
                           actionButtonConfig.showWishlistButton && (
                             <button
                               onClick={handleWishlistToggle}
-                              className={`absolute top-2 right-2 p-2 rounded-full bg-white bg-opacity-80 hover:bg-opacity-100 transition-all z-10 shadow-lg 
+                              className={`absolute top-2 right-2 p-2 rounded-full bg-white dark:bg-zinc-700 bg-opacity-80 hover:bg-opacity-100 transition-all z-10 shadow-lg 
                        ${isInWishlist ? 'text-red-500' : 'text-gray-400 hover:text-red-400'}
                        ${!actionButtonConfig.enableWishlist ? "opacity-40 cursor-not-allowed" : ""}
                       `}
@@ -280,7 +282,7 @@ export default function ProductDetailPage() {
                           <button
                             onClick={() => navigateImage("prev")}
                             disabled={totalImages <= 1}
-                            className="md:w-8 md:h-8 bg-gray-200 hover:bg-gray-500 backdrop-blur-sm rounded-full shadow-lg transition-all duration-300 flex items-center justify-center text-blue-800 hover:text-white"
+                            className="md:w-8 md:h-8 bg-green-200 dark:bg-zinc-600 hover:bg-green-300 dark:hover:bg-zinc-800 backdrop-blur-sm rounded-full shadow-lg transition-all duration-300 flex items-center justify-center text-blue-600 dark:text-blue-200 hover:text-blue-800 dark:hover:text-blue-400"
                           >
                             <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 15l7-7 7 7" /></svg>
                           </button>
@@ -301,7 +303,7 @@ export default function ProductDetailPage() {
                           <button
                             onClick={() => navigateImage("next")}
                             disabled={totalImages <= 1}
-                            className="md:w-8 md:h-8 bg-gray-200 hover:bg-gray-500 backdrop-blur-sm rounded-full shadow-lg transition-all duration-300 flex items-center justify-center text-blue-800 hover:text-white"
+                            className="md:w-8 md:h-8 bg-green-200 dark:bg-zinc-600 hover:bg-green-300 dark:hover:bg-zinc-800 backdrop-blur-sm rounded-full shadow-lg transition-all duration-300 flex items-center justify-center text-blue-600 dark:text-blue-200 hover:text-blue-800 dark:hover:text-blue-400"
                           >
                             <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" /></svg>
                           </button>
@@ -309,7 +311,7 @@ export default function ProductDetailPage() {
 
                         {/* Main image container */}
                         <div className="flex-1">
-                          <div className="relative w-full aspect-square md:h-full md:aspect-auto bg-green-50 rounded-lg overflow-hidden shadow-md">
+                          <div className="relative w-full aspect-square md:h-full md:aspect-auto bg-green-100 dark:bg-slate-800 rounded-xl overflow-hidden shadow-lg inset-shadow-sm">
                             {mainImage && (
                               <img
                                 src={mainImage}
@@ -327,7 +329,7 @@ export default function ProductDetailPage() {
                         <button
                           onClick={() => navigateImage("prev")}
                           disabled={totalImages <= 1}
-                          className="p-2 mr-2 bg-gray-100 rounded-full text-gray-600 hover:bg-gray-200 disabled:opacity-50 transition-colors"
+                          className="p-2 mr-2 bg-green-200 dark:bg-zinc-600 hover:bg-green-300 dark:hover:bg-zinc-800  rounded-full text-blue-600 dark:text-blue-200 hover:text-blue-800 dark:hover:text-blue-400  disabled:opacity-50 transition-colors"
                         >
                           <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" /></svg>
                         </button>
@@ -350,7 +352,7 @@ export default function ProductDetailPage() {
                         <button
                           onClick={() => navigateImage("next")}
                           disabled={totalImages <= 1}
-                          className="p-2 ml-2 bg-gray-100 rounded-full text-gray-600 hover:bg-gray-200 disabled:opacity-50 transition-colors"
+                          className="p-2 ml-2 bg-green-200 dark:bg-zinc-600 hover:bg-green-300 dark:hover:bg-zinc-800  rounded-full text-blue-600 dark:text-blue-200 hover:text-blue-800 dark:hover:text-blue-400 disabled:opacity-50 transition-colors"
                         >
                           <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" /></svg>
                         </button>
@@ -486,7 +488,7 @@ export default function ProductDetailPage() {
                       <p className="sm:text-md md:text-lg lg:text-xl font-semibold text-zinc-900 mb-4">Products in spot light</p>
                       <div className="flex overflow-x-auto space-x-4 py-2">
                         {featuredProducts && featuredProducts.map((fp) => (
-                          <a key={fp.id} href={`/products/${fp.id}`} className="flex-shrink-0 w-48 p-3 border rounded-xl hover:shadow-lg  inset-shadow-xs inset-shadow-indigo-200/50 transition-transform hover:scale-105 duration-200 bg-gradient-to-br from-green-50 to-green-100">
+                          <a key={fp.id} href={`/products/${fp.id}`} className="flex-shrink-0 w-48 p-3 border rounded-xl hover:shadow-lg  inset-shadow-xs dark:inset-shadow-indigo-900/50 transition-transform hover:scale-105 duration-200 bg-gradient-to-br from-green-50 to-green-100">
                             <div className="relative w-full aspect-square mb-2 rounded overflow-hidden">
                               <img
                                 src={fp.image}
@@ -515,7 +517,7 @@ export default function ProductDetailPage() {
       {/* ⭐ Review Modal */}
       <ReviewModal
         isOpen={isReviewModalOpen}
-        productDetails={ product as Product}
+        productDetails={product as Product}
         onClose={() => setIsReviewModalOpen(false)}
         reviews={reviews}
       />

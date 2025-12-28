@@ -59,14 +59,14 @@ export default function TestimonialsSection() {
             <div className="max-w-[90%] xl:max-w-[80%] mx-auto md:pb-8 pb-4 md:pt-4 pt-1">
                 {
                     testimonialContentLoading &&
-                    <div className="flex items-center justify-center flex-row align-middle rounded-2xl shadow-xl md:p-4 p-2 inset-shadow-sm inset-shadow-indigo-200/50 space-y-1">
+                    <div className="flex items-center justify-center flex-row align-middle rounded-2xl shadow-xl md:p-4 p-2 inset-shadow-sm dark:inset-shadow-indigo-900/50 space-y-1">
                         <div>
                             <p className="text-gray-700">Fetching latest testimonials...</p>
                         </div>
                     </div>
                 }
                 {testimonialContent && testimonialContent.testimonials && testimonialContentLoading === false &&
-                    <div className={`rounded-2xl shadow-xl md:p-4 p-2 inset-shadow-sm inset-shadow-indigo-200/50 space-y-1`}>
+                    <div className={`rounded-2xl shadow-xl md:p-4 p-2 inset-shadow-sm dark:inset-shadow-indigo-900/50 space-y-1`}>
                         <section className="py-12 md:py-20">
                             <div className="container px-2 md:px-4 mx-auto text-zinc-950/90">
                                 <div className="text-center mb-10">

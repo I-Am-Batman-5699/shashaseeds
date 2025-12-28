@@ -55,12 +55,12 @@ const ProductCard = ({ product }: Props) => {
     };
 
     return (
-        <div className="bg-gradient-to-br from-green-50 to-green-100 transition-transform duration-200 hover:scale-102">
-            <div className="rounded-xl shadow-md hover:shadow-xl transition-shadow duration-300 overflow-hidden relative group z-20 inset-shadow-sm inset-shadow-indigo-200/50 space-y-1">
+        <div className="bg-gradient-to-br from-green-50 to-green-100 dark:from-slate-900 dark:to-slate-950 transition-transform duration-200 hover:scale-102">
+            <div className="rounded-xl shadow-md hover:shadow-xl transition-shadow duration-300 overflow-hidden relative group z-20 inset-shadow-sm dark:inset-shadow-indigo-900/50 space-y-1">
                 {/* Wishlist Icon */}
                 <button
                     onClick={handleWishlistToggle}
-                    className={`absolute top-3 right-3 p-2 rounded-full bg-white bg-opacity-80 hover:bg-opacity-100 transition-all z-10 ${isInWishlist ? 'text-red-500' : 'text-gray-400 hover:text-red-400'
+                    className={`absolute top-3 right-3 p-2 rounded-full bg-white dark:bg-zinc-700 bg-opacity-80 hover:bg-opacity-100 transition-all z-10 ${isInWishlist ? 'text-red-500' : 'text-gray-400 hover:text-red-400'
                         }`}
                     aria-label={isInWishlist ? 'Remove from wishlist' : 'Add to wishlist'}
                 >
@@ -97,14 +97,14 @@ const ProductCard = ({ product }: Props) => {
                             <>
                                 <button
                                     onClick={(e) => { e.preventDefault(); e.stopPropagation(); prevImage(); }}
-                                    className="absolute inset-shadow-sm left-2 top-1/2 -translate-y-1/2 bg-green-50 hover:bg-green-100 rounded-full p-2 shadow-md opacity-0 group-hover:opacity-100 transition-opacity duration-300 z-10 border border-blue-100"
+                                    className="absolute inset-shadow-sm left-2 top-1/2 -translate-y-1/2 bg-green-50 dark:bg-zinc-800 hover:bg-green-100 dark:hover:bg-zinc-900 rounded-full p-2 shadow-md opacity-0 group-hover:opacity-100 transition-opacity duration-300 z-10 border border-blue-100"
                                     aria-label="Previous image"
                                 >
                                     <svg xmlns="http://www.w3.org/2000/svg" className="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="#155dfc"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" /></svg>
                                 </button>
                                 <button
                                     onClick={(e) => { e.preventDefault(); e.stopPropagation(); nextImage(); }}
-                                    className="absolute inset-shadow-sm right-2 top-1/2 -translate-y-1/2 bg-green-50 hover:bg-green-100 rounded-full p-2 shadow-md opacity-0 group-hover:opacity-100 transition-opacity duration-300 z-10 border border-blue-100"
+                                    className="absolute inset-shadow-sm right-2 top-1/2 -translate-y-1/2 bg-green-50 dark:bg-zinc-800 hover:bg-green-100 dark:hover:bg-zinc-900 rounded-full p-2 shadow-md opacity-0 group-hover:opacity-100 transition-opacity duration-300 z-10 border border-blue-100"
                                     aria-label="Next image"
                                 >
                                     <svg xmlns="http://www.w3.org/2000/svg" className="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="#155dfc"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" /></svg>
@@ -118,7 +118,7 @@ const ProductCard = ({ product }: Props) => {
                 <div className="p-4 mt-2">
                     {/* products name */}
                     <Link href={`/products/${product.id}`} passHref>
-                        <p className="sm:text:md md:text-xl font-semibold truncate hover:underline cursor-pointer text-zinc-800">{product.name}</p>
+                        <p className="sm:text:md md:text-xl font-semibold truncate hover:underline cursor-pointer text-zinc-800 dark:text-zinc-100">{product.name}</p>
                     </Link>
 
                     {/* products id */}
@@ -172,7 +172,7 @@ const ProductCard = ({ product }: Props) => {
                             className={`w-full py-2 rounded-md text-sm font-semibold transition-colors
                                 ${!isAvailable
                                     ? 'bg-blue-700 text-white hover:bg-blue-800'
-                                    : 'bg-yellow-500 text-white hover:bg-yellow-600'
+                                    : 'bg-yellow-500 dark:bg-orange-500 text-white hover:bg-yellow-600 dark:hover:bg-orange-600'
                                 } ${!isAvailable && 'opacity-90'}`}
                         >
                             <div className="flex flex-row items-center justify-center">

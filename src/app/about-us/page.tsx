@@ -55,7 +55,7 @@ const ScrollFadeIn = ({ children, direction = 'up', delay = 0, className = '', i
         <div
             id={id}
             ref={ref}
-            className={`${baseTransition} ${isVisible ? visibleClasses : transformClasses} ${scrollMarginClass} rounded-2xl shadow-xl md:p-4 p-2 inset-shadow-sm inset-shadow-indigo-200/50 dark:inset-shadow-indigo-900/50`}
+            className={`${baseTransition} ${isVisible ? visibleClasses : transformClasses} ${scrollMarginClass} rounded-2xl shadow-xl md:p-4 p-2 inset-shadow-sm dark:inset-shadow-indigo-900/50 dark:inset-shadow-indigo-900/50`}
             style={{ transitionDelay: `${delay}ms` }}
         >
             {children}

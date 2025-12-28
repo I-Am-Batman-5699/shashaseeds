@@ -60,14 +60,14 @@ export default function BenefitsSection() {
             <div className="max-w-[90%] xl:max-w-[80%] mx-auto md:pb-8 pb-4 md:pt-4 pt-1">
                 {
                     benefitContentLoading &&
-                    <div className="flex items-center justify-center flex-row align-middle rounded-2xl shadow-xl md:p-4 p-2 inset-shadow-sm inset-shadow-indigo-200/50 space-y-1">
+                    <div className="flex items-center justify-center flex-row align-middle rounded-2xl shadow-xl md:p-4 p-2 inset-shadow-sm dark:inset-shadow-indigo-900/50 space-y-1">
                         <div>
                             <p className="text-gray-700">Fetching latest benifits...</p>
                         </div>
                     </div>
                 }
                 {benefitContent && benefitContentLoading === false &&
-                    <div className={`rounded-2xl shadow-xl md:p-4 p-2 inset-shadow-sm inset-shadow-indigo-200/50 space-y-1`}>
+                    <div className={`rounded-2xl shadow-xl md:p-4 p-2 inset-shadow-sm dark:inset-shadow-indigo-900/50 space-y-1`}>
                         <section className="py-6 md:py-14">
                             <div className="container px-2 md:px-4 mx-auto text-zinc-950/90">
                                 <div className="text-center mb-10">
@@ -83,7 +83,7 @@ export default function BenefitsSection() {
                                         benefitContent.benefits.map((benefit, index) => (
                                             <div key={index + 'benefits'}>
                                                 {benefit.visible &&
-                                                    <div className="flex flex-col items-center text-center p-4 shadow-sm rounded-lg inset-shadow-xs inset-shadow-indigo-200/50">
+                                                    <div className="flex flex-col items-center text-center p-4 shadow-sm rounded-lg inset-shadow-xs dark:inset-shadow-indigo-900/50">
                                                         <div className="bg-green-100 p-3 rounded-full mb-4">
                                                             {getIconComponent(benefit.iconName || "leaf")}
                                                         </div>

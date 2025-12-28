@@ -62,16 +62,15 @@ export default function ProfileOverlay({
     <>
       {/* Backdrop - Below navbar (z-[95]) */}
       <div
-        className={`fixed inset-0 bg-black/40 backdrop-blur-sm z-[95] transition-opacity duration-300 ${isOpen ? "opacity-100" : "opacity-0 pointer-events-none"
+        className={`fixed inset-0 bg-gradient-to-br from-green-50/40 to-green-100/40 dark:from-slate-900/40 dark:to-slate-950/40  backdrop-blur-sm z-[95] transition-opacity duration-300 ${isOpen ? "opacity-100" : "opacity-0 pointer-events-none"
           }`}
       />
 
-      {/* 🔧 FIX 3: Overlay starts below navbar, above content */}
       <div
         ref={overlayRef}
         className={`
           fixed top-[4.5rem] left-0 h-[calc(100vh-4.5rem)] w-80 z-[96]
-          bg-gradient-to-br from-green-100 to-green-200 dark:from-slate-900 dark:to-slate-950
+          bg-gradient-to-br from-green-50 to-green-100 dark:from-slate-900 dark:to-slate-950
           border border-theme shadow-2xl
           rounded-2xl
           transform transition-transform duration-300 ease-out
@@ -109,9 +108,9 @@ export default function ProfileOverlay({
               />
             </div>
             <div className="flex-1">
-              <h3 className="text-lg font-bold text-primary-text">
+              <p className="text-lg font-bold text-primary-text">
                 {isLoggedIn ? user.name : "Unknown User"}
-              </h3>
+              </p>
               {isLoggedIn && (
                 <p className="text-sm text-secondary-text truncate mt-1">
                   {user.email}
@@ -131,7 +130,7 @@ export default function ProfileOverlay({
                   onLogin();
                   onClose();
                 }}
-                className="w-full bg-accent hover:bg-accent/90 text-white rounded-xl h-11 font-semibold shadow-lg transition-all hover:shadow-xl hover:scale-[1.02]"
+                className="w-full bg-inverse dark:bg-inverse hover:bg-accent text-inverse dark:text-inverse rounded-xl h-11 font-semibold shadow-lg transition-all hover:shadow-xl hover:scale-[1.02] border border-theme"
               >
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
@@ -164,7 +163,6 @@ export default function ProfileOverlay({
               ))}
           </div>
 
-          {/* 🔧 FIX 4: Theme Toggle with actual functionality */}
           <div className="p-4 bg-primary-bg border border-theme rounded-2xl shadow-inner mb-6">
             <ThemeToggle />
           </div>

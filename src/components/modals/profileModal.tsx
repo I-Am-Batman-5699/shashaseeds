@@ -47,11 +47,10 @@ export default function MobileProfileModal({
     <>
       {/* Backdrop - Below navbar */}
       <div
-        className="fixed inset-0 bg-black/50 backdrop-blur-sm z-[95] animate-in fade-in duration-200"
+        className="fixed inset-0 bg-gradient-to-br from-green-50/40 to-green-100/40 dark:from-slate-900/40 dark:to-slate-950/40 backdrop-blur-sm z-[95] animate-in fade-in duration-200"
         onClick={onClose}
       />
 
-      {/* 🔧 FIX 1 & 3: Centered Modal with consistent theme */}
       <div className="fixed inset-0 z-[96] flex items-center justify-center p-4">
         <div
           className="
@@ -92,9 +91,9 @@ export default function MobileProfileModal({
                 />
               </div>
               <div className="flex-1">
-                <h3 className="text-xl font-bold text-primary-text">
+                <p className="text-xl font-bold text-primary-text">
                   {isLoggedIn ? user.name : "Unknown User"}
-                </h3>
+                </p>
                 {isLoggedIn && (
                   <p className="text-sm text-secondary-text mt-1">
                     {user.email}
@@ -109,7 +108,7 @@ export default function MobileProfileModal({
             </div>
 
             {/* Divider */}
-            <div className="h-px border-t border-theme" />
+            <div className="h-px border-t border-reverse-theme" />
 
             {/* Action Buttons */}
             <div className="space-y-3">
@@ -119,7 +118,7 @@ export default function MobileProfileModal({
                     onLogin();
                     onClose();
                   }}
-                  className="w-full bg-accent hover:bg-accent/90 text-white rounded-xl h-12 font-semibold shadow-lg transition-all hover:shadow-xl hover:scale-[1.02]"
+                  className="w-full bg-inverse dark:bg-inverse hover:bg-accent text-inverse dark:text-inverse rounded-xl h-12 font-semibold shadow-lg transition-all hover:shadow-xl hover:scale-[1.02]"
                 >
                   <svg
                     xmlns="http://www.w3.org/2000/svg"
