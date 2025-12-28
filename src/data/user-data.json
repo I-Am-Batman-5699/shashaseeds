@@ -1,0 +1,14 @@
+{
+  "user": {
+    "id": "user_123",
+    "name": "Arjun Kumar",
+    "email": "arjun.kumar@example.com",
+    "avatar": "/shashank_logo.png",
+    "isLoggedIn": false
+  },
+  "unknownUser": {
+    "name": "Unknown User",
+    "email": "",
+    "avatar": "/shashank_logo.png"
+  }
+}

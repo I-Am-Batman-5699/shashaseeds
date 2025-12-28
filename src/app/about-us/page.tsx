@@ -175,7 +175,7 @@ export default function AboutUsFuturistic() {
         <div className="flex flex-col min-h-screen bg-gradient-to-br from-green-50 to-green-100 text-zinc-800 dark:from-slate-900 dark:to-slate-950 dark:text-zinc-50">
             {
                 featuresLoading ? <AIDNALoader /> : (
-                    <div className="mx-auto mt-2 lg:max-w-[90%] w-full sticky top-18 z-50 flex flex-wrap items-center justify-between gap-4 p-3 rounded-2xl border border-theme backdrop-blur-md shadow-lg bg-gradient-to-br from-green-50/50 to-green-100/50 text-zinc-800 dark:from-slate-900/50 dark:to-slate-950/50">
+                    <div className="mx-auto mt-2 lg:max-w-[90%] w-full sticky top-18 z-[69] flex flex-wrap items-center justify-between gap-4 p-3 rounded-2xl border border-theme backdrop-blur-md shadow-lg bg-gradient-to-br from-green-50/50 to-green-100/50 text-zinc-800 dark:from-slate-900/50 dark:to-slate-950/50">
                         <nav className="flex items-center space-x-1 sm:space-x-4 sm:flex-row flex-wrap justify-start w-full">
                             <button onClick={() => scrollTo('our-story')} className="px-3 py-1.5 text-[10px] sm:text-xs font-bold uppercase tracking-widest text-secondary-text hover:text-accent transition-colors">
                                 Story

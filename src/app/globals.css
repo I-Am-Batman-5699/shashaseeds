@@ -36,6 +36,8 @@
     --color-threads-hover: #000000;
     --color-x-hover: #000000;
 
+     --color-cyber: #10b981; /* Green-500 for light mode */
+
 }
 
 /* ==================================================================== */
@@ -64,6 +66,7 @@
         
         /* Shadows */
         --color-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.5), 0 2px 4px -2px rgba(0, 0, 0, 0.3);
+        --color-cyber: #53eafd; /* Cyan for dark mode - matches your About Us */
     }
 }
 
@@ -90,6 +93,7 @@
         
         /* Shadows */
         --color-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.5), 0 2px 4px -2px rgba(0, 0, 0, 0.3);
+        --color-cyber: #53eafd; /* Cyan for dark mode - matches your About Us */
     }
 }
 
@@ -211,4 +215,52 @@ body {
     background-color: var(--color-youtube-hover);
     border-color: #ffffff;
     color: #ffffff;
+}
+
+/* Cyber utility class */
+.text-cyber { 
+    color: var(--color-cyber); 
+}
+
+.border-cyber { 
+    border-color: var(--color-cyber); 
+}
+
+.bg-cyber { 
+    background-color: var(--color-cyber); 
+}
+
+.hover\:text-cyber:hover { 
+    color: var(--color-cyber); 
+}
+
+.hover\:border-cyber:hover { 
+    border-color: var(--color-cyber); 
+}
+
+/* Animation utilities (if not already present) */
+@keyframes pulse-slow {
+    0%, 100% {
+        opacity: 1;
+    }
+    50% {
+        opacity: 0.6;
+    }
+}
+
+.animate-pulse-slow {
+    animation: pulse-slow 3s ease-in-out infinite;
+}
+
+@keyframes spin-slow {
+    from {
+        transform: rotate(0deg);
+    }
+    to {
+        transform: rotate(360deg);
+    }
+}
+
+.animate-spin-slow {
+    animation: spin-slow 20s linear infinite;
 }

@@ -231,7 +231,7 @@ export default function App() {
     <div className="bg-white dark:bg-slate-950 text-slate-900 dark:text-white transition-colors duration-700 min-h-screen">
       {
         gardeningTipsLoading ? <HelixHorizontal customClass="relative top-20" /> : (
-          <nav className="fixed top-20 left-1/2 -translate-x-1/2 z-[100] bg-white/70 dark:bg-slate-900/70 backdrop-blur-md border border-emerald-500/10 px-6 py-2 rounded-full shadow-xl flex gap-6">
+          <nav className="fixed top-20 left-1/2 -translate-x-1/2 z-[69] bg-white/70 dark:bg-slate-900/70 backdrop-blur-md border border-emerald-500/10 px-6 py-2 rounded-full shadow-xl flex gap-6">
             {gardeningTips && Array.isArray(gardeningTips) && gardeningTips.map(f => (
               <button
                 key={f.id}
