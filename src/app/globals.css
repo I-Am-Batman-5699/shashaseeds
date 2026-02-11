@@ -22,7 +22,7 @@
     --color-text-inverse: #f9fafb;
     
     /* Accent & Borders */
-    --color-accent: #10b981;
+    --color-accent: #068158;
     --color-border: #e5e7eb;
     --color-reverse-border: #a2b2ca;
     
@@ -39,7 +39,7 @@
     --color-threads-hover: #000000;
     --color-x-hover: #000000;
 
-     --color-cyber: #10b981; /* Green-500 for light mode */
+     --color-cyber: #024d46; /* Green-500 for light mode */
 
 }
 
@@ -153,6 +153,7 @@ body {
 .border-theme { border-color: var(--color-border); }
 .border-reverse-theme { border-color: var(--color-reverse-border); }
 .shadow-theme { box-shadow: var(--color-shadow); }
+.border-accent { border-color: var(--color-accent); }
 
 .ring-accent { --tw-ring-color: var(--color-accent); }
 .hover\:text-accent:hover { color: var(--color-accent); }

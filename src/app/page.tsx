@@ -12,15 +12,14 @@ export default function LandingPage() {
 
 
   return (
-    <div className="flex min-h-screen flex-col bg-gradient-to-br from-green-50 to-green-100 rounded-2xl shadow-xl">
+    <div className="flex min-h-screen flex-col bg-gradient-to-br from-green-100 to-green-200 dark:from-slate-900 dark:to-slate-950 rounded-2xl shadow-xl">
       <JoinUsSection/>
-      <TestimonialsSection/>
-      <BenefitsSection/>
-
       <Banner />
       <MainCarousel />
       <HeroSection />
       <HeroSectionNormal />
+      <BenefitsSection/>
+      <TestimonialsSection/>
     </div>
   )
 }

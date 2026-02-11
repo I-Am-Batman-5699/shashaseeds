@@ -69,7 +69,7 @@ export default function RootLayout({
     return (
         <html lang="en">
             <body
-                className={`${geistSans.variable} ${geistMono.variable} antialiased flex flex-col min-h-screen bg-gradient-to-br from-green-50 to-green-100 overflow-x-hidden`}
+                className={`${geistSans.variable} ${geistMono.variable} antialiased flex flex-col min-h-screen bg-gradient-to-br from-green-100 to-green-200 dark:from-slate-900 dark:to-slate-950 overflow-x-hidden`}
             >
                 <HeaderNavbar isLoading={isLoading} /> 
 

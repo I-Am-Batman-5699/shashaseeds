@@ -1,21 +1,38 @@
 {
     "products": [
         {
-            "product-id": "P001",
-            "name": "Rose Seeds",
-            "image": "https://placehold.co/80x80/228B22/FFFFFF?text=Rose+Seeds"
+            "product-id": "SHB-76",
+            "name": "Hybrid Millet seeds",
+            "image": "/products/SHB-76.png",
+            "description": [
+                "High yield variety",
+                "Science-backed genetics",
+                "Rich in nutrients"
+            ]
         },
         {
-            "product-id": "P002",
-            "name": "Sunflower Seeds",
-            "image": "https://placehold.co/80x80/FF69B4/FFFFFF?text=Sunflower+Seeds"
+            "product-id": "SHM-4560",
+            "name": "Hybrid Mustard seeds",
+            "image": "/products/SHB-76.jpg",
+            "description": [
+                "Long pods, more grains",
+                "Fat and shiny grains",
+                "Mature in 120-125 days",
+                "Yield 12-14 quintals/acre",
+                "42% oil content"
+            ]
         },
         {
-            "product-id": "P003",
-            "name": "Tomato Seeds",
-            "image": "https://placehold.co/80x80/FFD700/FFFFFF?text=Tomato+Seeds"
+            "product-id": "SSW-407",
+            "name": "Wheat seeds",
+            "image": "/products/SHB-76-nobg.png",
+            "description": [
+                "High germination",
+                "Abundant production (30 to 35 quintals per acre), harvest in 110-120 days, attractive grains",
+                "Thick and shiny ears, 6 to 8 inches long"
+            ]
         }
     ],
     "description": "Explore our featured products, handpicked for quality and variety. From organic seeds to gardening essentials, find everything you need to cultivate your green space.",
-    "title": "Featured Products"  
+    "title": "Featured Products"
 }

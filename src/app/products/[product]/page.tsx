@@ -249,7 +249,38 @@ export default function ProductDetailPage() {
             </div>
             {
               loading || !product ? (
-                <HelixHorizontal />
+                loading ? <HelixHorizontal /> :
+                  < div className="bg-gradient-to-br from-green-50 to-green-100 dark:from-slate-900 dark:to-slate-950 min-h-[40vh]">
+                    <div className="mx-auto max-w-[90%] py-12 flex flex-col items-center justify-center text-center">
+                      <div className="bg-white dark:bg-slate-900 p-10 rounded-3xl shadow-2xl space-y-6 max-w-lg border border-green-100 dark:border-slate-800">
+                        <div className="flex justify-center">
+                          {/* Large Icon matching your style */}
+                          <div className="p-4 bg-red-50 dark:bg-red-900/20 rounded-full">
+                            <LucideIconCustom name="messageCircleX" className="w-18 h-18 text-red-500" />
+                          </div>
+                        </div>
+
+                        <div className="space-y-2">
+                          <h1 className="text-3xl font-extrabold text-gray-900 dark:text-green-50">
+                            Product Not Found
+                          </h1>
+                          <p className="text-zinc-600 dark:text-zinc-400">
+                            We couldn't find the product <span className="font-mono text-accent">"{productId}"</span>.
+                            It might have been removed or the link is incorrect.
+                          </p>
+                        </div>
+
+                        <div className={productsCSS.customButtom}>
+                          <a
+                            href="/products"
+                            className="inline-flex items-center justify-center w-full px-6 py-3 bg-accent hover:bg-green-700 text-white font-bold rounded-xl transition-all shadow-lg hover:shadow-green-500/20"
+                          >
+                            Browse All Products
+                          </a>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
               )
                 :
                 <div>
@@ -521,6 +552,6 @@ export default function ProductDetailPage() {
         onClose={() => setIsReviewModalOpen(false)}
         reviews={reviews}
       />
-    </div>
+    </div >
   );
 }
