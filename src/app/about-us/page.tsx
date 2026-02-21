@@ -1,8 +1,8 @@
 "use client";
-import React, { useEffect, useRef, useState, useCallback, useContext, createContext, Dispatch, SetStateAction } from "react";
+import React, { useEffect, useRef, useState, Dispatch, SetStateAction } from "react";
 import { useSearchParams } from "next/navigation";
 import DynamicIcon, { IconName } from "../../components/ui/dynamicIcon";
-import { Company, CompanyInfo } from "@/types/company";
+import { CompanyInfo } from "@/types/company";
 import { FetchItems } from "@/lib/fetcher";
 import HelixHorizontal from "@/components/loaders/HelixHorizontal";
 import company from "@/data/company.json";

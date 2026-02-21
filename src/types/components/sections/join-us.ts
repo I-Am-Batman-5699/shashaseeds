@@ -1,5 +1,6 @@
 export interface JoinUSProps {
   title: string
+  decorativeElementText: string
   description: string
   actions: Action[]
 }

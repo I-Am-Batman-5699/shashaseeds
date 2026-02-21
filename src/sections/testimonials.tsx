@@ -1,16 +1,16 @@
 "use client";
-import Image from "next/image";
-import { Card, CardContent, CardFooter } from "@/components/ui/card";
+
+import { Card, CardContent } from "@/components/ui/card";
 import { Star, Camera } from "lucide-react";
 import { useEffect, useState } from "react";
 import { FetchItems } from "@/lib/fetcher";
 import { TestimonialProps, Testimonial } from "@/types/components/sections/testimonials";
 import { Avatar } from "@mui/material";
 import ProofModal from "@/components/modals/proof";
-
+import HelixHorizontal from "@/components/loaders/HelixHorizontal";
+import ScrollFadeIn from "@/components/animations/ScrollFadeIn";
 
 export default function TestimonialsSection() {
-
     const [testimonialContent, setTestimonialContent] = useState<TestimonialProps>();
     const [testimonialContentLoading, setTestimonialContentLoading] = useState(true);
     const [openModal, setOpenModal] = useState(false);
@@ -19,19 +19,9 @@ export default function TestimonialsSection() {
     const fetchItems = async () => {
         const response = await FetchItems({ path: '/models/testimonials-content.json' });
         if (response.status === "S" && response.data) {
-            setTestimonialContent(transformItemsData(response.data));
-        }
-        else if (response.status === "E") {
-            console.error(response.error);
-        }
-        else {
-            console.error("Unknown error occurred while fetching testimonials content");
+            setTestimonialContent(response.data as TestimonialProps);
         }
         setTestimonialContentLoading(false);
-    }
-
-    const transformItemsData = (item: unknown) => {
-        return item as TestimonialProps;
     }
 
     const getInitials = (name: string) => {
@@ -39,86 +29,122 @@ export default function TestimonialsSection() {
     }
 
     const onTestimonyProofClick = (testimonial: Testimonial) => {
-        console.log("Clicked proof for:", testimonial);
         setSlectedTestimony(testimonial);
         setOpenModal(true);
     }
 
     useEffect(() => {
         fetchItems();
-        setTestimonialContentLoading(true);
     }, []);
 
     return (
-        <div className="bg-gradient-to-br from-green-50 to-green-100">
+        <div className="flex flex-col text-zinc-800 dark:text-zinc-50 transition-colors duration-500 ">
             <ProofModal
                 isOpen={openModal}
                 onClose={() => setOpenModal(false)}
-                testimony= {selectedTestimony}
+                testimony={selectedTestimony}
             />
-            <div className="max-w-[90%] xl:max-w-[80%] mx-auto md:pb-8 pb-4 md:pt-4 pt-1">
-                {
-                    testimonialContentLoading &&
-                    <div className="flex items-center justify-center flex-row align-middle rounded-2xl shadow-xl md:p-4 p-2 inset-shadow-sm dark:inset-shadow-indigo-900/50 space-y-1">
-                        <div>
-                            <p className="text-gray-700">Fetching latest testimonials...</p>
-                        </div>
+
+            <div className="mx-auto lg:min-w-[95%] xl:max-w-7xl md:pb-16 pb-8 md:pt-8 pt-2 px-4 sm:px-6 lg:px-8">
+                
+                {/* 1. Loader: Helix DNA DNA Pattern */}
+                {testimonialContentLoading ? (
+                    <div className="flex items-center justify-center py-32">
+                        <HelixHorizontal />
                     </div>
-                }
-                {testimonialContent && testimonialContent.testimonials && testimonialContentLoading === false &&
-                    <div className={`rounded-2xl shadow-xl md:p-4 p-2 inset-shadow-sm dark:inset-shadow-indigo-900/50 space-y-1`}>
-                        <section className="py-12 md:py-20">
-                            <div className="container px-2 md:px-4 mx-auto text-zinc-950/90">
-                                <div className="text-center mb-10">
-                                    <p className="text:xl sm:text-2xl md:text-3xl lg:text-4xl font-bold">
+                ) : (
+                    testimonialContent && (
+                        <div className="space-y-8 rounded-2xl border border-theme  shadow-lg md:p-4 p-2 inset-shadow-xs dark:inset-shadow-indigo-900/50 backdrop-blur-md">
+                            
+                            {/* 2. Header: Futuristic DNA Style */}
+                            <ScrollFadeIn direction="down">
+                                <div className="text-center space-y-4">
+                                    <h2 className="text-4xl md:text-5xl lg:text-6xl font-black uppercase tracking-tighter text-zinc-950 dark:text-zinc-100">
                                         {testimonialContent.section.title}
-                                    </p>
-                                    <p className="text-muted-foreground mt-2 max-w-[700px] mx-auto">
-                                        {testimonialContent.section.description}
+                                    </h2>
+                                    <p className="text-zinc-600 dark:text-zinc-400 font-mono text-md md:text-lg max-w-2xl mx-auto">
+                                        <span className="text-green-500 animate-pulse">::</span> {testimonialContent.section.description}
                                     </p>
                                 </div>
+                            </ScrollFadeIn>
 
-                                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-                                    {testimonialContent.testimonials.map((testimonial, index) => (
-                                        <Card key={index} className="">
-                                            <CardContent className="p-6">
-                                                <div className="flex items-center gap-1 mb-4">
-                                                    {[...Array(5)].map((_, i) => (
-                                                        <Star
-                                                            key={i}
-                                                            className={`h-4 w-4 ${i < testimonial.rating ? "text-yellow-400 fill-yellow-400" : "text-zinc-800/50"}`}
-                                                        />
-                                                    ))}
+                            {/* 3. Grid: Staggered Verified Logs */}
+                            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                                {testimonialContent.testimonials.map((testimonial, index) => (
+                                    <ScrollFadeIn 
+                                        key={index} 
+                                        direction="up" 
+                                        delay={index * 120}
+                                    >
+                                        <Card className="group relative h-full bg-white/40 dark:bg-zinc-900/40 backdrop-blur-xl border-zinc-200/50 dark:border-zinc-800/50 shadow-xl hover:border-green-500/40 transition-all duration-500 overflow-hidden">
+                                            <CardContent className="p-8 flex flex-col h-full">
+                                                
+                                                {/* Rating & Action Button */}
+                                                <div className="flex items-center justify-between mb-6">
+                                                    <div className="flex gap-1">
+                                                        {[...Array(5)].map((_, i) => (
+                                                            <Star
+                                                                key={i}
+                                                                className={`h-4 w-4 ${i < testimonial.rating ? "text-green-500 fill-green-500" : "text-zinc-300 dark:text-zinc-700"}`}
+                                                            />
+                                                        ))}
+                                                    </div>
+                                                    <button 
+                                                        onClick={() => onTestimonyProofClick(testimonial)}
+                                                        className="p-2 rounded-lg bg-zinc-100 dark:bg-zinc-800 text-zinc-500 hover:text-green-500 hover:bg-green-500/10 transition-colors"
+                                                        title="View Proof"
+                                                    >
+                                                        <Camera className="h-4 w-4" />
+                                                    </button>
                                                 </div>
-                                                <p className="italic mb-4">&ldquo;{testimonial.comment}&rdquo;</p>
-                                                <div className="flex items-center justify-between gap-3">
-                                                    <div className="flex items-center">
-                                                        <div className="relative h-10 w-10 rounded-full overflow-hidden bg-green-100">
-                                                            <Avatar
-                                                                src={testimonial.image}
-                                                                alt={`${getInitials(testimonial.name)}'s profile`}
-                                                                className="border border-green-500/70"
-                                                            >
-                                                                {getInitials(testimonial.name)}
-                                                            </Avatar>
-                                                        </div>
-                                                        <div className="flex flex-col items-start align-middle justify-center ml-2">
-                                                            <p className="sm:text-md md:text-lg font-normal">{testimonial.name}</p>
-                                                            <p className="text-sm font-extralight text-muted-foreground text-zinc-400">{testimonial.location}</p>
-                                                        </div>
+
+                                                {/* Testimonial Body */}
+                                                <div className="flex-grow">
+                                                    <p className="text-lg italic leading-relaxed text-zinc-700 dark:text-zinc-300 mb-8">
+                                                        &ldquo;{testimonial.comment}&rdquo;
+                                                    </p>
+                                                </div>
+
+                                                {/* User Info / Metadata Footer */}
+                                                <div className="pt-6 border-t border-zinc-200/50 dark:border-zinc-800/50 flex items-center gap-4">
+                                                    <Avatar
+                                                        src={testimonial.image}
+                                                        className="border-2 border-green-500/50 w-12 h-12"
+                                                        sx={{ width: 48, height: 48 }}
+                                                    >
+                                                        {getInitials(testimonial.name)}
+                                                    </Avatar>
+                                                    <div className="flex flex-col">
+                                                        <span className="font-bold text-zinc-900 dark:text-zinc-100 leading-none">
+                                                            {testimonial.name}
+                                                        </span>
+                                                        <span className="text-xs font-mono uppercase tracking-widest text-zinc-400 mt-1">
+                                                            {testimonial.location}
+                                                        </span>
                                                     </div>
-                                                    <div className="relative bottom-1/6 flex justify-end b-10 align-bottom items-end pt-6">
-                                                        <Camera className="h-4 w-4 sm:h-6 sm:w-6 text-zinc-600/50" onClick={() => onTestimonyProofClick(testimonial)} />
-                                                    </div>
+                                                </div>
+                                                
+                                                {/* Corner Decorative Accent */}
+                                                <div className="absolute top-0 right-0 p-1">
+                                                    <div className="w-8 h-8 border-t border-r border-zinc-300 dark:border-zinc-700 opacity-20" />
                                                 </div>
                                             </CardContent>
                                         </Card>
-                                    ))}
-                                </div>
+                                    </ScrollFadeIn>
+                                ))}
                             </div>
-                        </section>
-                    </div>
-                }
+
+                            {/* Decorative System Footer */}
+                            <ScrollFadeIn direction="up" delay={600}>
+                                <div className="text-center opacity-30 pt-2">
+                                    <p className="text-[0.8rem] text-cyber font-mono tracking-[0.4em] uppercase">
+                                        Data.Verified // Transmission.Complete
+                                    </p>
+                                </div>
+                            </ScrollFadeIn>
+                        </div>
+                    )
+                )}
             </div>
         </div>
     );

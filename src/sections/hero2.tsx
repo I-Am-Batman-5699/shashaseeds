@@ -4,104 +4,108 @@ import React, { useEffect, useState } from 'react';
 import Image from "next/image";
 import { FetchItems } from "@/lib/fetcher";
 import { THeroContent } from "@/types/components/sections/hero";
+import HelixHorizontal from "@/components/loaders/HelixHorizontal";
+import ScrollFadeIn from "@/components/animations/ScrollFadeIn";
 
 export default function HeroSectionNormal() {
-
     const [heroContent, setHeroContent] = useState<THeroContent>();
     const [heroContentLoading, setHeroContentLoading] = useState(true);
 
     const fetchItems = async () => {
         const response = await FetchItems({ path: '/models/hero-content.json' });
         if (response.status === "S" && response.data) {
-            setHeroContent(transformItemsData(response.data));
-        }
-        else if (response.status === "E") {
-            console.error(response.error);
-        }
-        else {
-            console.error("Unknown error occurred while fetching hero content");
+            setHeroContent(response.data as THeroContent);
+        } else {
+            console.error("Error fetching hero content");
         }
         setHeroContentLoading(false);
     }
 
-    const transformItemsData = (item: unknown) => {
-        return item as THeroContent;
-    }
-
     useEffect(() => {
         fetchItems();
-        setHeroContentLoading(true);
     }, []);
 
     return (
-        <div className="bg-gradient-to-br from-green-50 to-green-100">
-            <div className="max-w-[95%] mx-auto md:pb-8 pb-4 md:pt-4 pt-1">
-                {
-                    heroContentLoading &&
-                    <div className="flex items-center justify-center flex-row align-middle rounded-2xl shadow-xl md:p-4 p-2 inset-shadow-sm dark:inset-shadow-indigo-900/50 space-y-1">
-                        <div>
-                            <p className="text-gray-700">Fetching latest updates...</p>
-                        </div>
+        <div className="flex flex-col text-zinc-800 dark:text-zinc-50 min-h-[70vh] justify-center">
+            <div className="mx-auto lg:min-w-[95%] xl:max-w-7xl md:pb-8 pb-4 md:pt-4 pt-1 flex-1 px-4 sm:px-6 lg:px-8">
+
+                {/* 1. Improved UX: DNA Helix Loader */}
+                {heroContentLoading ? (
+                    <div className="flex items-center justify-center py-32">
+                        <HelixHorizontal />
                     </div>
-                }
-                {heroContent && heroContentLoading === false &&
-                    <div className={`rounded-2xl shadow-xl md:p-4 p-2 inset-shadow-sm dark:inset-shadow-indigo-900/50 space-y-1`}>
-                        <section className={`relative overflow-hidden ${heroContent.backgroundPattern.showPattern ? 'bg-zinc-900/70' : ''}`}>
-                            {/* Background pattern */}
-                            {heroContent.backgroundPattern.showPattern &&
-                                <div className="absolute inset-0 opacity-60">
-                                    <Image
-                                        src={heroContent.backgroundPattern.src}
-                                        alt={heroContent.backgroundPattern.alt}
-                                        fill
-                                        className="object-cover"
-                                    />
+                ) : (
+                    heroContent && (
+                        /* 2. Style Update: Applied ScrollFadeIn with glassmorphism */
+                        <ScrollFadeIn direction="up" className="relative">
+                            <section className={`relative overflow-hidden rounded-3xl backdrop-blur-xl shadow-2xl px-6 py-12 md:py-20`}>
+
+                                {/* Background Image/Pattern Logic */}
+                                {heroContent.backgroundPattern.showPattern && (
+                                    <div className="absolute inset-0 opacity-20 pointer-events-none">
+                                        <Image
+                                            src={heroContent.backgroundPattern.src}
+                                            alt={heroContent.backgroundPattern.alt}
+                                            fill
+                                            className="object-cover"
+                                        />
+                                    </div>
+                                )}
+
+                                <div className="relative z-10 mx-auto max-w-5xl flex flex-col justify-center items-center text-center">
+
+                                    {/* 3. Futuristic Heading Style */}
+                                    <h1 className="text-4xl md:text-6xl lg:text-7xl font-black uppercase tracking-tighter text-zinc-950 dark:text-zinc-100 drop-shadow-md leading-none">
+                                        {heroContent.title && (typeof heroContent.title === 'object') && heroContent.title.map((part, index) =>
+                                            typeof part === 'string' ? (
+                                                <span key={index}>{part} </span>
+                                            ) : (
+                                                <span
+                                                    key={index}
+                                                    className={part.highlight ? "text-green-600 dark:text-green-400 inline-block" : ""}
+                                                >
+                                                    {part.text}
+                                                </span>
+                                            )
+                                        )}
+                                    </h1>
+
+                                    {/* 4. Sub-description Style */}
+                                    <p className="mt-8 text-md md:text-lg lg:text-xl text-zinc-600 dark:text-zinc-400 font-mono leading-relaxed max-w-3xl">
+                                        {heroContent.subtitle}
+                                    </p>
+
+                                    {/* 5. Action Buttons (Unified UI) */}
+                                    <div className="mt-10 flex flex-wrap items-center justify-center gap-6">
+                                        <a
+                                            href={heroContent.primaryButton.link}
+                                            className="px-8 py-3 rounded-xl bg-zinc-950 dark:bg-zinc-100 text-white dark:text-zinc-950 font-bold tracking-tight hover:scale-105 transition-transform shadow-xl"
+                                        >
+                                            {heroContent.primaryButton.text}
+                                        </a>
+                                        <a
+                                            href={heroContent.secondaryButton.link}
+                                            className="px-8 py-3 rounded-xl border border-zinc-300 dark:border-zinc-700 font-bold hover:bg-zinc-100 dark:hover:bg-zinc-800 transition-colors"
+                                        >
+                                            {heroContent.secondaryButton.text}
+                                        </a>
+                                    </div>
+
                                 </div>
-                            }
-
-                            <div className="relative mx-auto max-w-7xl px-6 lg:py-16 md:py-10 py-6 flex flex-col justify-center items-center align-middle lg:px-12">
-                                <p className={`md:text-4xl text-xl font-semibold ${heroContent.backgroundPattern.showPattern ? 'text-amber-50' : 'text-green-900'} sm:text-2xl lg:text-6xl`}>
-                                    {heroContent.title && (typeof heroContent.title === 'object') && heroContent.title.map((part, index) =>
-                                        typeof part === 'string' ? (<span key={index}>{part} </span>) :
-                                            part.highlight ? (<span key={index} className={`${heroContent.backgroundPattern.showPattern ? 'text-green-300' : 'text-green-700'} font-bold`}>{part.text} </span>) :
-                                                (<span key={index}>{part.text} </span>)
-                                    )}
-                                </p>
-
-                                <p className={`mt-6 text-md md:text-lg lg:text-xl ${heroContent.backgroundPattern.showPattern ? 'text-amber-50' : 'text-green-800'}  leading-relaxed`}>
-                                    {heroContent.subtitle}
-                                </p>
-
-                                <div className="mt-4 md:mt-8 flex gap-y-2 flex-col md:gap-4 md:flex-row">
-                                    <a
-                                        href={heroContent.primaryButton.link}
-                                        className="font-semibold text-sm md:text-lg rounded-2xl bg-green-700 hover:bg-green-800 px-6 py-3 text-white shadow-lg transition text-center"
-                                    >
-                                        {heroContent.primaryButton.text}
-                                    </a>
-                                    <a
-                                        href={heroContent.secondaryButton.link}
-                                        className={`font-semibold text-sm md:text-lg rounded-2xl border border-green-600 hover:border-green-800 hover:bg-green-100 px-6 py-3 text-green-700 transition text-center ${heroContent.backgroundPattern.showPattern ? 'bg-green-50/80' : ''}`}
-                                    >
-                                        {heroContent.secondaryButton.text}
-                                    </a>
-                                </div>
-                            </div>
-
-                            <div>
+                                {/* Decorative Icon Element */}
                                 <div className="absolute bottom-0 right-0 opacity-20 mr-1 mb-1 hidden sm:block">
                                     <Image
                                         src={heroContent.image.src}
                                         alt={heroContent.image.alt}
-                                        width={heroContent.image.width/4}
-                                        height={heroContent.image.height/4}
+                                        width={300}
+                                        height={300}
                                         className="object-center object-contain opacity-90 rounded-[50%] shadow-lg bg-gradient-to-br from-green-50 to-green-100"
                                     />
                                 </div>
-                            </div>
-                        </section>
-                    </div>
-                }
+                            </section>
+                        </ScrollFadeIn>
+                    )
+                )}
             </div>
         </div>
     );

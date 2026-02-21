@@ -1,39 +1,57 @@
 {
     "customerReviews": {
-        "P001": [
+        "SHB-76": [
             {
-                "id": "P001-1",
-                "user": "Jane D.",
+                "id": "SHB-76-review-1",
+                "user": "Ramesh P.",
                 "rating": 5,
                 "date": "2025-10-01",
-                "title": "Amazing Quality!",
-                "content": "These rose seeds germinated quickly and produced a fantastic yield. Highly recommend for any flower garden. The aroma is incredible and the plants are very resilient."
+                "title": "Excellent Millet Yield",
+                "content": "Outstanding germination and uniform crop stand. The millet showed strong drought tolerance and delivered impressive grain quality. Very satisfied with the performance."
             },
             {
-                "id": "P001-2",
-                "user": "Alex M.",
+                "id": "SHB-76-review-2",
+                "user": "Lakshmi N.",
                 "rating": 4,
                 "date": "2025-10-15",
-                "title": "Very Good Product",
-                "content": "The plants are healthy, but I wish the packet had a few more seeds for the price. Overall satisfied with the flavor and growth rate."
+                "title": "Healthy Crop Growth",
+                "content": "Good early vigor and consistent growth throughout the season. Yield was strong even in moderate rainfall conditions. Recommended for reliable millet cultivation."
             }
         ],
-        "P002": [
+        "SHM-4560": [
             {
-                "id": "P002-1",
-                "user": "Samantha K.",
+                "id": "SHM-4560-review-1",
+                "user": "Vikram S.",
                 "rating": 5,
                 "date": "2025-09-20",
-                "title": "Best Sunflower Seeds Ever!",
-                "content": "These sunflower seeds grew into beautiful, tall plants with large blooms. The birds love them too! Definitely planting these again next season."
+                "title": "High Oil Content Mustard",
+                "content": "Excellent germination and uniform flowering. The pods were well filled and the oil content was noticeably high. Delivered very good market returns."
             },
             {
-                "id": "P002-2",
-                "user": "Michael B.",
-                "rating": 3,
+                "id": "SHM-4560-review-2",
+                "user": "Anita R.",
+                "rating": 4,
                 "date": "2025-10-05",
-                "title": "Good but Pricey",
-                "content": "The seeds germinated well, but I found them a bit expensive compared to other brands. The quality is good, though."
+                "title": "Strong and Productive",
+                "content": "Plants were sturdy with good branching and pod formation. Slightly sensitive to late rain, but overall yield and seed quality were impressive."
+            }
+        ],
+        "SSW-407": [
+            {
+                "id": "SSW-407-review-1",
+                "user": "Harpreet K.",
+                "rating": 5,
+                "date": "2025-11-01",
+                "title": "Outstanding Wheat Performance",
+                "content": "Very high germination with thick, shiny ears. The crop matured within 115 days and produced around 32 quintals per acre. Grain size and uniformity were excellent."
+            },
+            {
+                "id": "SSW-407-review-2",
+                "user": "Mahesh T.",
+                "rating": 4,
+                "date": "2025-11-12",
+                "title": "Reliable and High Yielding",
+                "content": "Strong plant structure and attractive grains. Harvest was timely and consistent across the field. A dependable wheat variety for commercial farming."
             }
         ]
     }

@@ -5,44 +5,7 @@ import { BannerItem } from '@/types/components/banner/banner';
 import BannerCarousel from '@/components/banner/banner-carousel';
 import HelixHorizontal from "@/components/loaders/HelixHorizontal";
 import appContext from "../../../public/models/appContentTexts.json";
-
-const ScrollFadeIn = ({ children, direction = 'up', delay = 0, className = '' }: { children: React.ReactNode, direction?: 'up' | 'left' | 'right' | 'down', delay?: number, className?: string }) => {
-    const [isVisible, setIsVisible] = useState(false);
-    const ref = useRef<HTMLDivElement>(null);
-
-    useEffect(() => {
-        const observer = new IntersectionObserver(
-            ([entry]) => {
-                if (entry.isIntersecting) {
-                    setIsVisible(true);
-                    observer.unobserve(entry.target);
-                }
-            },
-            { threshold: 0.1 }
-        );
-        if (ref.current) observer.observe(ref.current);
-        return () => { if (ref.current) observer.unobserve(ref.current); };
-    }, []);
-
-    const baseTransition = `transition-all duration-1000 ease-out ${className}`;
-    let transformClasses = 'opacity-0';
-    if (direction === 'up') transformClasses += ' translate-y-8';
-    else if (direction === 'left') transformClasses += ' -translate-x-8';
-    else if (direction === 'right') transformClasses += ' translate-x-8';
-    else if (direction === 'down') transformClasses += ' -translate-y-8';
-
-    const visibleClasses = 'opacity-100 translate-y-0 translate-x-0';
-
-    return (
-        <div
-            ref={ref}
-            className={`${baseTransition} ${isVisible ? visibleClasses : transformClasses} rounded-2xl border border-theme bg-gradient-to-br from-green-50/50 to-green-100/50 dark:from-slate-900/50 dark:to-slate-950/50 shadow-xl md:p-4 p-2 inset-shadow-xs dark:inset-shadow-indigo-900/50 backdrop-blur-md`}
-            style={{ transitionDelay: `${delay}ms` }}
-        >
-            {children}
-        </div>
-    );
-};
+import ScrollFadeIn from "@/components/animations/ScrollFadeIn";
 
 const Banner: React.FC = () => {
     const [items, setItems] = useState<BannerItem[]>([]);
@@ -78,7 +41,7 @@ const Banner: React.FC = () => {
                         {/* Status Bar decorative element typical of your futuristic UI */}
                         <div className="flex items-center justify-between px-4 py-2 border-b border-gray-600/50 mb-2">
                             <span className="text-[0.65rem] font-mono uppercase tracking-widest text-accent animate-pulse">
-                                ● Featured Products
+                                ● Hot News
                             </span>
                             <span className="text-[0.5rem] font-mono text-cyber">
                                 app version: {appData.version}

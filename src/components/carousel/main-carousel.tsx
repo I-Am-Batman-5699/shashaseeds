@@ -4,44 +4,7 @@ import React, { useEffect, useState, useRef } from 'react';
 import HorizontalCarousel from '@/components/carousel/horizontal-carousel';
 import { FeaturedItems, CarouselItem, CarouselItemDisplay } from "@/types/components/carousel/mainCarosal";
 import HelixHorizontal from "@/components/loaders/HelixHorizontal";
-
-const ScrollFadeIn = ({ children, direction = 'up', delay = 0, className = '' }: { children: React.ReactNode, direction?: 'up' | 'left' | 'right' | 'down', delay?: number, className?: string }) => {
-    const [isVisible, setIsVisible] = useState(false);
-    const ref = useRef<HTMLDivElement>(null);
-
-    useEffect(() => {
-        const observer = new IntersectionObserver(
-            ([entry]) => {
-                if (entry.isIntersecting) {
-                    setIsVisible(true);
-                    observer.unobserve(entry.target);
-                }
-            },
-            { threshold: 0.1 }
-        );
-        if (ref.current) observer.observe(ref.current);
-        return () => { if (ref.current) observer.unobserve(ref.current); };
-    }, []);
-
-    const baseTransition = `transition-all duration-1000 ease-out ${className}`;
-    let transformClasses = 'opacity-0';
-    if (direction === 'up') transformClasses += ' translate-y-8';
-    else if (direction === 'left') transformClasses += ' -translate-x-8';
-    else if (direction === 'right') transformClasses += ' translate-x-8';
-    else if (direction === 'down') transformClasses += ' -translate-y-8';
-
-    const visibleClasses = 'opacity-100 translate-y-0 translate-x-0';
-
-    return (
-        <div
-            ref={ref}
-            className={`${baseTransition} ${isVisible ? visibleClasses : transformClasses} rounded-2xl border border-theme shadow-lg md:p-4 p-2 inset-shadow-xs dark:inset-shadow-indigo-900/50 backdrop-blur-md`}
-            style={{ transitionDelay: `${delay}ms` }}
-        >
-            {children}
-        </div>
-    );
-};
+import ScrollFadeIn from "@/components/animations/ScrollFadeIn";
 
 const MainCarousel: React.FC = () => {
     const [products, setProducts] = useState<CarouselItemDisplay[]>([]);
