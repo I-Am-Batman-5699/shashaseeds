@@ -11,6 +11,7 @@
   "dependencies": {
     "@emotion/react": "^11.14.0",
     "@emotion/styled": "^11.14.0",
+    "@marsidev/react-turnstile": "^1.4.2",
     "@mui/material": "^7.1.0",
     "@neondatabase/serverless": "^1.0.0",
     "@prisma/adapter-neon": "^6.7.0",
@@ -26,6 +27,7 @@
     "nextjs-toploader": "^3.9.17",
     "react": "^19.1.0",
     "react-dom": "^19.1.0",
+    "resend": "^6.9.2",
     "tailwind-merge": "^3.3.1",
     "ua-parser-js": "^2.0.4",
     "ws": "^8.18.2"
