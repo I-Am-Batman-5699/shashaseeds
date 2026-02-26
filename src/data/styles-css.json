@@ -1,0 +1,6 @@
+{
+    "global-css-classes": {
+        "content-container-class": "flex flex-col text-zinc-800 dark:text-zinc-50",
+        "content-container-wrapper-class": "mx-auto lg:min-w-[95%] xl:max-w-7xl w-full md:pb-8 pb-4 md:pt-4 pt-1"
+    }
+}

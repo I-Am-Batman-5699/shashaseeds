@@ -1,309 +1,164 @@
 {
     "title": "Product List",
-    "description": "Explore our wide range of gardening products, from seeds to tools, and accessories.",
+    "description": "Explore our premium range of high-yield agricultural seeds.",
     "products": [
         {
-            "id": "P001",
-            "name": "Rose Seeds",
-            "category": "flower-seeds",
-            "subCategory": "roses",
-            "slug": "rose-seeds",
-            "price": 120,
-            "discountPrice": 12,
+            "id": "SHB-76",
+            "name": "Millet Seeds",
+            "category": "field-seeds",
+            "subCategory": "millet",
+            "slug": "millet-seeds-shb-76",
+            "price": 1200,
+            "discountPrice": 120,
             "discountAvailable": true,
             "discountPercentage": 10,
-            "finalPrice": 108,
+            "finalPrice": 1080,
             "available": true,
             "enabled": true,
             "visible": true,
             "new": true,
             "sale": false,
             "featured": true,
-            "rating": 4.5,
+            "rating": 4.6,
             "tags": [
-                "organic",
-                "summer",
-                "easy-to-grow"
+                "high-yield",
+                "drought-tolerant",
+                "field-crop"
             ],
             "images": [
                 "/products/SHB-76-nobg.png",
-                "https://placehold.co/800x800/228B22/FFFFFF?text=Basil+Seed+Pack",
-                "https://placehold.co/800x800/3CB371/FFFFFF?text=Basil+Plant+Growing",
-                "/products/SHB-76.png",
-                "https://placehold.co/800x800/6B8E23/FFFFFF?text=Basil+Leaves+Closeup",
-                "https://placehold.co/800x800/8FBC8F/FFFFFF?text=Basil+Serving+Idea",
-                "/products/SHB-76.jpg"
+                "https://placehold.co/800x800/556B2F/FFFFFF.png?text=Millet+Seeds",
+                "/products/SHB-76.jpg",
+                "https://placehold.co/800x800/8FBC8F/FFFFFF.png?text=Millet+Field",
+                "https://placehold.co/800x800/6B8E23/FFFFFF.png?text=Millet+Crop"
             ],
-            "description": "Beautiful organic rose seeds with high germination rate. Perfect for home gardens.",
+            "description": "Premium quality millet seeds with high germination rate and strong field performance.",
             "stock": 150,
-            "sku": "ROSE-001",
+            "sku": "MILLET-76",
             "createdAt": "2025-01-01T10:00:00Z",
             "updatedAt": "2025-02-01T12:00:00Z",
             "attributes": {
-                "color": "red",
                 "germinationRate": "95%",
-                "season": "summer",
-                "growthTime": "90 days"
+                "season": "kharif",
+                "cropDuration": "85-95 days",
+                "yieldPotential": "High"
             },
             "filters": {
-                "priceRange": "100-200",
-                "type": "flower",
-                "organic": true
+                "priceRange": "1000-1500",
+                "type": "field-crop",
+                "certified": true
             },
             "searchKeywords": [
-                "rose",
-                "flower",
-                "garden",
-                "organic seeds"
+                "millet",
+                "bajra",
+                "field seeds",
+                "high yield"
             ]
         },
         {
-            "id": "P002",
-            "name": "Sunflower Seeds",
-            "category": "flower-seeds",
-            "subCategory": "sunflowers",
-            "slug": "sunflower-seeds",
-            "price": 5.99,
-            "discountPrice": 0.59,
+            "id": "SHM-4560",
+            "name": "Mustard Seeds",
+            "category": "field-seeds",
+            "subCategory": "mustard",
+            "slug": "mustard-seeds-shm-4560",
+            "price": 900,
+            "discountPrice": 90,
             "discountAvailable": true,
             "discountPercentage": 10,
-            "finalPrice": 5.40,
+            "finalPrice": 810,
             "available": true,
             "enabled": true,
             "visible": true,
             "new": false,
             "sale": true,
-            "featured": false,
-            "rating": 4.8,
+            "featured": true,
+            "rating": 4.4,
             "tags": [
-                "easy-to-grow",
-                "sun-loving"
+                "oilseed",
+                "high-oil-content",
+                "rabi-crop"
             ],
             "images": [
-                "/products/SHB-76-nobg.png",
-                "/products/sunflower-2.png"
+                "/products/SHM-4560-nobg.png",
+                "https://placehold.co/800x800/DAA520/FFFFFF.png?text=Mustard+Seeds",
+                "/products/SHM-4560.jpg",
+                "https://placehold.co/800x800/FFD700/000000?text=Mustard+Field",
+                "https://placehold.co/800x800/F0E68C/000000?text=Mustard+Crop"
             ],
-            "description": "Premium sunflower seeds for a beautiful garden.",
+            "description": "High oil-content mustard seeds with uniform growth and excellent yield performance.",
             "stock": 200,
-            "sku": "SF-001",
+            "sku": "MUSTARD-4560",
             "createdAt": "2025-03-01T10:00:00Z",
             "updatedAt": "2025-03-10T12:00:00Z",
             "attributes": {
-                "color": "yellow",
-                "germinationRate": "90%",
-                "season": "spring-summer",
-                "growthTime": "60 days"
+                "germinationRate": "92%",
+                "season": "rabi",
+                "cropDuration": "110-120 days",
+                "oilContent": "High"
             },
             "filters": {
-                "priceRange": "0-10",
-                "type": "flower",
-                "organic": false
+                "priceRange": "800-1000",
+                "type": "oilseed",
+                "certified": true
             },
             "searchKeywords": [
-                "sunflower",
-                "flower",
-                "bird food",
-                "seeds"
+                "mustard",
+                "sarson",
+                "oilseed crop",
+                "rabi seeds"
             ]
         },
         {
-            "id": "P003",
-            "name": "Tomato Seeds",
-            "category": "vegetable-seeds",
-            "subCategory": "heirloom-tomatoes",
-            "slug": "tomato-seeds",
-            "price": 3.49,
-            "discountPrice": 0.34,
+            "id": "SSW-407",
+            "name": "Wheat Seeds",
+            "category": "field-seeds",
+            "subCategory": "wheat",
+            "slug": "wheat-seeds-ssw-407",
+            "price": 1500,
+            "discountPrice": 150,
             "discountAvailable": true,
             "discountPercentage": 10,
-            "finalPrice": 3.15,
+            "finalPrice": 1350,
             "available": true,
             "enabled": true,
             "visible": true,
             "new": true,
             "sale": false,
             "featured": true,
-            "rating": 4.9,
+            "rating": 4.7,
             "tags": [
-                "heirloom",
-                "non-gmo"
+                "high-yield",
+                "rabi-crop",
+                "premium-grain"
             ],
             "images": [
-                "/products/SHB-76-nobg.png",
-                "/shashank_logo.png",
-                "/products/tomato-3.png"
+                "/products/SSW-407-nobg.png",
+                "https://placehold.co/800x800/CD853F/FFFFFF.png?text=Wheat+Seeds",
+                "/products/SSW-407.jpg",
+                "https://placehold.co/800x800/F5DEB3/000000?text=Wheat+Field",
+                "https://placehold.co/800x800/D2B48C/000000?text=Wheat+Harvest"
             ],
-            "description": "Heirloom tomato seeds for a delicious harvest.",
-            "stock": 100,
-            "sku": "TOM-001",
-            "createdAt": "2025-01-15T10:00:00Z",
-            "updatedAt": "2025-02-20T12:00:00Z",
+            "description": "High germination wheat seeds with 30-35 quintals per acre yield potential. Thick, shiny ears (6-8 inches) with attractive grains. Harvest in 110-120 days.",
+            "stock": 180,
+            "sku": "WHEAT-407",
+            "createdAt": "2025-04-01T10:00:00Z",
+            "updatedAt": "2025-04-05T12:00:00Z",
             "attributes": {
-                "color": "red",
-                "germinationRate": "98%",
-                "season": "summer",
-                "growthTime": "80 days"
+                "germinationRate": "96%",
+                "season": "rabi",
+                "cropDuration": "110-120 days",
+                "yieldPotential": "30-35 quintals/acre"
             },
             "filters": {
-                "priceRange": "0-10",
-                "type": "vegetable",
-                "organic": false
+                "priceRange": "1400-1600",
+                "type": "field-crop",
+                "certified": true
             },
             "searchKeywords": [
-                "tomato",
-                "vegetable",
-                "heirloom",
-                "garden"
-            ]
-        },
-        {
-            "id": "P004",
-            "name": "Rose Seeds",
-            "category": "flower-seeds",
-            "subCategory": "roses",
-            "slug": "rose-seeds",
-            "price": 120,
-            "discountPrice": 12,
-            "discountAvailable": true,
-            "discountPercentage": 10,
-            "finalPrice": 108,
-            "available": true,
-            "enabled": true,
-            "visible": true,
-            "new": true,
-            "sale": false,
-            "featured": true,
-            "rating": 4.5,
-            "tags": [
-                "organic",
-                "summer",
-                "easy-to-grow"
-            ],
-            "images": [
-                "/products/SHB-76-nobg.png",
-                "/products/rose-2.png",
-                "/products/rose-3.png"
-            ],
-            "description": "Beautiful organic rose seeds with high germination rate. Perfect for home gardens.",
-            "stock": 150,
-            "sku": "ROSE-001",
-            "createdAt": "2025-01-01T10:00:00Z",
-            "updatedAt": "2025-02-01T12:00:00Z",
-            "attributes": {
-                "color": "red",
-                "germinationRate": "95%",
-                "season": "summer",
-                "growthTime": "90 days"
-            },
-            "filters": {
-                "priceRange": "100-200",
-                "type": "flower",
-                "organic": true
-            },
-            "searchKeywords": [
-                "rose",
-                "flower",
-                "garden",
-                "organic seeds"
-            ]
-        },
-        {
-            "id": "P005",
-            "name": "Sunflower Seeds",
-            "category": "flower-seeds",
-            "subCategory": "sunflowers",
-            "slug": "sunflower-seeds",
-            "price": 5.99,
-            "discountPrice": 0.59,
-            "discountAvailable": false,
-            "discountPercentage": 10,
-            "finalPrice": 5.40,
-            "available": false,
-            "enabled": true,
-            "visible": true,
-            "new": false,
-            "sale": true,
-            "featured": false,
-            "rating": 2,
-            "tags": [
-                "easy-to-grow",
-                "sun-loving"
-            ],
-            "images": [
-                "/products/SHB-76-nobg.png",
-                "/products/sunflower-2.png"
-            ],
-            "description": "Premium sunflower seeds for a beautiful garden.",
-            "stock": 200,
-            "sku": "SF-001",
-            "createdAt": "2025-03-01T10:00:00Z",
-            "updatedAt": "2025-03-10T12:00:00Z",
-            "attributes": {
-                "color": "yellow",
-                "germinationRate": "90%",
-                "season": "spring-summer",
-                "growthTime": "60 days"
-            },
-            "filters": {
-                "priceRange": "0-10",
-                "type": "flower",
-                "organic": false
-            },
-            "searchKeywords": [
-                "sunflower",
-                "flower",
-                "bird food",
-                "seeds"
-            ]
-        },
-        {
-            "id": "P006",
-            "name": "Tomato Seeds",
-            "category": "vegetable-seeds",
-            "subCategory": "heirloom-tomatoes",
-            "slug": "tomato-seeds",
-            "price": 3.49,
-            "discountPrice": 0.34,
-            "discountAvailable": true,
-            "discountPercentage": 10,
-            "finalPrice": 3.15,
-            "available": true,
-            "enabled": true,
-            "visible": true,
-            "new": true,
-            "sale": false,
-            "featured": true,
-            "rating": 4.9,
-            "tags": [
-                "heirloom",
-                "non-gmo"
-            ],
-            "images": [
-                "/products/SHB-76-nobg.png",
-                "/shashank_logo.png",
-                "/products/tomato-3.png"
-            ],
-            "description": "Heirloom tomato seeds for a delicious harvest.",
-            "stock": 100,
-            "sku": "TOM-001",
-            "createdAt": "2025-01-15T10:00:00Z",
-            "updatedAt": "2025-02-20T12:00:00Z",
-            "attributes": {
-                "color": "red",
-                "germinationRate": "98%",
-                "season": "summer",
-                "growthTime": "80 days"
-            },
-            "filters": {
-                "priceRange": "0-10",
-                "type": "vegetable",
-                "organic": false
-            },
-            "searchKeywords": [
-                "tomato",
-                "vegetable",
-                "heirloom",
-                "garden"
+                "wheat",
+                "gehun",
+                "rabi crop",
+                "high yield wheat"
             ]
         }
     ]

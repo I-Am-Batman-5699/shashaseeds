@@ -4,13 +4,15 @@ import React, { useEffect, useState, useRef } from 'react';
 import { BannerItem } from '@/types/components/banner/banner';
 import BannerCarousel from '@/components/banner/banner-carousel';
 import HelixHorizontal from "@/components/loaders/HelixHorizontal";
-import appContext from "../../../public/models/appContentTexts.json";
 import ScrollFadeIn from "@/components/animations/ScrollFadeIn";
+import { useGlobalData } from "@/context/global-data-context";
+import { AppData } from '@/types/appContextText';
 
 const Banner: React.FC = () => {
     const [items, setItems] = useState<BannerItem[]>([]);
     const [loading, setLoading] = useState(true);
-    const {appData} = appContext;
+    
+    const { appData, isGlobalDataLoading } = useGlobalData();
 
     const fetchItems = async () => {
         try {
@@ -30,9 +32,9 @@ const Banner: React.FC = () => {
     }, []);
 
     return (
-        <div className="flex flex-col">
+        <div className="flex flex-col text-zinc-800 dark:text-zinc-50">
             <div className="mx-auto lg:min-w-[95%] xl:max-w-7xl w-full md:pb-8 pb-4 md:pt-4 pt-1 px-4 sm:px-6 lg:px-8">
-                {loading ? (
+                {loading || isGlobalDataLoading ? (
                     <div className="py-12">
                         <HelixHorizontal />
                     </div>
@@ -44,7 +46,7 @@ const Banner: React.FC = () => {
                                 ● Hot News
                             </span>
                             <span className="text-[0.5rem] font-mono text-cyber">
-                                app version: {appData.version}
+                                app version: {(appData as AppData).version}
                             </span>
                         </div>
 

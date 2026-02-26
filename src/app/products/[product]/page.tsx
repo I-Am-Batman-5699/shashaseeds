@@ -1,18 +1,15 @@
 "use client";
-import React, { useEffect, useRef, useState, useCallback, use } from "react";
+import React, { useEffect, useRef, useState, useCallback } from "react";
 import { useParams } from "next/navigation";
-import productsData from "../../../../public/models/products/products.json";
-import productsCSS from '../../../styles/products.module.css';
-import FeaturedProductsData from "../../../../public/models/products/featured-products.json";
-import { FeaturedProduct, FeaturedProductsProps, Product, ReviewData, Reviews, ProductsData } from "@/types/products/products";
-import FeatureToggle from "../../../../public/models/feature/feature-toggle.json";
+import productsCSS from '@/styles/products.module.css';
+import { FeaturedProductsProps, Product, ReviewData, Reviews, ProductsData, ProductProps } from "@/types/products/products";
 import { Features, FeatureToggleProps, ActionButton } from "@/types/featureToggle";
-import reviewsData from "../../../../public/models/products/products-reviews.json";
 import StarRating from "@/components/common/StarRating";
 import ReviewItem from "@/components/common/ReviewItem";
 import ReviewModal from "@/components/modals/new-review";
 import HelixHorizontal from "@/components/loaders/HelixHorizontal";
 import LucideIconCustom from "@/components/ui/lucideIcons";
+import { FetchItems } from "@/lib/fetcher";
 
 const defaultConfig = {
   features: {
@@ -110,41 +107,68 @@ export default function ProductDetailPage() {
 
     setLoading(true);
 
-    const found = productsData.products.find(p => p.id === productId);
+    const loadData = async () => {
+      try {
+        setLoading(true);
 
-    if (found) {
-      setProduct(found);
-      if (found.images && found.images.length > 0) {
-        setMainImage(found.images[0]);
+        const [
+          productsRes,
+          featuredRes,
+          featureToggleRes,
+          reviewsRes
+        ] = await Promise.all([
+          FetchItems({ path: "/models/products/products.json" }),
+          FetchItems({ path: "/models/products/featured-products.json" }),
+          FetchItems({ path: "/models/feature/feature-toggle.json" }),
+          FetchItems({ path: "/models/products/products-reviews.json" }),
+        ]);
+
+        const products = productsRes.data as ProductProps;
+        const featuredData = featuredRes.data as FeaturedProductsProps;
+        const featureConfig = featureToggleRes.data as FeatureToggleProps;
+        const reviewsJson = reviewsRes.data as Reviews;
+
+        const found = products?.products?.find((p: Product) => p.id === productId);
+
+        if (!found) {
+          setProduct(null);
+          setLoading(false);
+          return;
+        }
+
+        setProduct(found);
+        setMainImage(found.images?.[0] || null);
+
+        setProductDetails({
+          isAvailable: (found.available ?? true) && (found.stock ?? 1) > 0,
+          finalPrice: (found.price * (1 - (found.discountPercentage ?? 0) / 100)).toFixed(2),
+          originalPrice: found.price.toFixed(2),
+          discountPercentage: found.discountPercentage ?? 0,
+          isDiscountAvailable: (found.discountPercentage ?? 0) > 0,
+        });
+
+        const featured = (featuredData as FeaturedProductsProps)?.products.reduce<Product[]>((acc: Product[], el: any) => {
+          const prod = products.products.find((p: Product) => p.id === el["product-id"]);
+          if (prod) acc.push({ ...el, ...prod });
+          return acc;
+        }, []);
+
+        setFeaturedProducts(featured as Product[]);
+        setConfig(featureConfig["products-page"].features);
+        setActionButtonConfig(featureConfig["products-page"].actionButtons);
+        setReviews(reviewsJson?.customerReviews?.[productId] || []);
+
+      } catch (err) {
+        console.error("Error loading product page:", err);
+      } finally {
+        setLoading(false);
       }
+    };
 
-      setProductDetails({
-        isAvailable: (found.available ?? true) && (found.stock ?? 1) > 0,
-        finalPrice: (found.price * (1 - (found.discountPercentage ?? 0) / 100)).toFixed(2) || '0.00',
-        originalPrice: found.price.toFixed(2),
-        discountPercentage: found.discountPercentage ?? 0,
-        isDiscountAvailable: (found.discountPercentage ?? 0) > 0,
-      });
+    if (productId) {
+      loadData();
     }
 
-    const featured = (FeaturedProductsData as FeaturedProductsProps).products.map((el) => {
-      const prod = productsData.products.find(p => p.id === el["product-id"]);
-      el = { ...el, ...prod! };
-      return el as unknown as Product;
-    });
-
-    setFeaturedProducts(featured);
-
-    const featureConfig = (FeatureToggle as FeatureToggleProps)["products-page"].features;
-    setConfig(featureConfig);
-
-    const fetaureActionButtons = (FeatureToggle as FeatureToggleProps)["products-page"].actionButtons;
-    setActionButtonConfig(fetaureActionButtons);
-
-    const productReviews = (reviewsData as Reviews)?.customerReviews[productId] || [];
-    setReviews(productReviews);
-
-    setLoading(false);
   }, [productId]);
 
   // TODO: get that dd to cart fetaure
@@ -455,7 +479,7 @@ export default function ProductDetailPage() {
                       {product.attributes && Object.keys(product.attributes).length > 0 && (
                         <div className="border-t border-gray-200 pt-4">
                           <p className="sm:text-lg md:text-xl font-bold text-gray-900 dark:text-green-50 mb-3">Specifications</p>
-                          <dl className="grid grid-cols-2 gap-x-4 gap-y-3 sm:grid-cols-2 lg:grid-cols-3 text-sm">
+                          <dl className="grid grid-cols-2 gap-x-4 gap-y-3 sm:grid-cols-2 lg:grid-cols-3 text-sm p-2">
                             {Object.entries(product.attributes).map(([key, value]) => (
                               <div key={key} className="sm:col-span-1 bg-gradient-to-br from-green-50 to-green-100 dark:from-slate-900 dark:to-slate-950 p-2 rounded-lg">
                                 <dt className="text-xs font-medium text-gray-400 uppercase tracking-wider">{key.replace('_', ' ')}</dt>
@@ -546,12 +570,14 @@ export default function ProductDetailPage() {
         </div>
       </div>
       {/* ⭐ Review Modal */}
-      <ReviewModal
-        isOpen={isReviewModalOpen}
-        productDetails={product as Product}
-        onClose={() => setIsReviewModalOpen(false)}
-        reviews={reviews}
-      />
+      {product && (
+        <ReviewModal
+          isOpen={isReviewModalOpen}
+          productDetails={product}
+          onClose={() => setIsReviewModalOpen(false)}
+          reviews={reviews}
+        />
+      )}
     </div >
   );
 }

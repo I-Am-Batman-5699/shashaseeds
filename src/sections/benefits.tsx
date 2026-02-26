@@ -44,7 +44,7 @@ export default function BenefitsSection() {
         <div className="flex flex-col text-zinc-800 dark:text-zinc-50 transition-colors duration-500">
             <div className="mx-auto lg:min-w-[95%] xl:max-w-7xl w-full md:pb-8 pb-4 md:pt-4 pt-1 px-4 sm:px-6 lg:px-8">
 
-                {/* 1. Loading State: Helix Loader */}
+                {/* 1. Helix Loader */}
                 {benefitContentLoading ? (
                     <div className="flex items-center justify-center py-32">
                         <HelixHorizontal />
@@ -72,7 +72,7 @@ export default function BenefitsSection() {
                                         direction="up"
                                         delay={index * 150} // Staggered delay logic
                                     >
-                                        <div className="group relative h-full p-8 rounded-3xl border border-theme/10 bg-white/40 dark:bg-zinc-900/40 backdrop-blur-xl shadow-xl hover:shadow-green-500/10 hover:border-green-500/30 transition-all duration-500">
+                                        <div className="group relative h-full p-8 rounded-3xl border-b-1 border-gray-400/40 bg-white/40 dark:bg-zinc-900/40 backdrop-blur-xl shadow-xl hover:shadow-green-500/10 hover:border-green-500/30 transition-all duration-500">
 
                                             {/* Icon with Glow Container */}
                                             <div className="inline-flex p-4 rounded-2xl bg-zinc-100 dark:bg-zinc-800 mb-6 group-hover:scale-110 transition-transform duration-500">

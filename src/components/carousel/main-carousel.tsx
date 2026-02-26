@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useEffect, useState, useRef } from 'react';
+import React, { useEffect, useState } from 'react';
 import HorizontalCarousel from '@/components/carousel/horizontal-carousel';
 import { FeaturedItems, CarouselItem, CarouselItemDisplay } from "@/types/components/carousel/mainCarosal";
 import HelixHorizontal from "@/components/loaders/HelixHorizontal";
@@ -40,7 +40,7 @@ const MainCarousel: React.FC = () => {
 
     return (
         <div className="flex flex-col text-zinc-800 dark:text-zinc-50">
-            <div className="mx-auto lg:min-w-[95%] xl:max-w-7xl md:pb-8 pb-4 md:pt-4 pt-1 flex-1 px-4 sm:px-6 lg:px-8">
+            <div className="mx-auto lg:min-w-[95%] xl:max-w-7xl w-full md:pb-8 pb-4 md:pt-4 pt-1 px-4 sm:px-6 lg:px-8">
                 {loading ? (
                     <div className="py-20">
                         <HelixHorizontal />

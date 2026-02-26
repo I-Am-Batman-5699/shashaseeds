@@ -45,7 +45,7 @@ export default function TestimonialsSection() {
                 testimony={selectedTestimony}
             />
 
-            <div className="mx-auto lg:min-w-[95%] xl:max-w-7xl md:pb-16 pb-8 md:pt-8 pt-2 px-4 sm:px-6 lg:px-8">
+            <div className="mx-auto lg:min-w-[95%] xl:max-w-7xl w-full md:pb-8 pb-4 md:pt-4 pt-1 px-4 sm:px-6 lg:px-8">
                 
                 {/* 1. Loader: Helix DNA DNA Pattern */}
                 {testimonialContentLoading ? (

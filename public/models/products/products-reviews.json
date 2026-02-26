@@ -6,16 +6,16 @@
                 "user": "Ramesh P.",
                 "rating": 5,
                 "date": "2025-10-01",
-                "title": "Excellent Millet Yield",
-                "content": "Outstanding germination and uniform crop stand. The millet showed strong drought tolerance and delivered impressive grain quality. Very satisfied with the performance."
+                "title": "High Yield Hybrid Millet",
+                "content": "Excellent germination and strong early vigor. This hybrid millet delivered a high yield with uniform grain quality. The science-backed genetics clearly reflect in crop consistency and nutritional richness."
             },
             {
                 "id": "SHB-76-review-2",
                 "user": "Lakshmi N.",
                 "rating": 4,
                 "date": "2025-10-15",
-                "title": "Healthy Crop Growth",
-                "content": "Good early vigor and consistent growth throughout the season. Yield was strong even in moderate rainfall conditions. Recommended for reliable millet cultivation."
+                "title": "Consistent and Nutritious",
+                "content": "The crop stand was uniform and healthy throughout the season. Yield performance was impressive, and the grains were rich and well-formed. A reliable hybrid millet variety."
             }
         ],
         "SHM-4560": [
@@ -24,16 +24,16 @@
                 "user": "Vikram S.",
                 "rating": 5,
                 "date": "2025-09-20",
-                "title": "High Oil Content Mustard",
-                "content": "Excellent germination and uniform flowering. The pods were well filled and the oil content was noticeably high. Delivered very good market returns."
+                "title": "Excellent Oil Recovery",
+                "content": "The crop matured within 120 days and produced long pods filled with bold, shiny grains. Oil recovery was close to 42%, and the yield reached around 13 quintals per acre. Very satisfied with the results."
             },
             {
                 "id": "SHM-4560-review-2",
                 "user": "Anita R.",
                 "rating": 4,
                 "date": "2025-10-05",
-                "title": "Strong and Productive",
-                "content": "Plants were sturdy with good branching and pod formation. Slightly sensitive to late rain, but overall yield and seed quality were impressive."
+                "title": "Strong Mustard Performance",
+                "content": "Uniform flowering and well-filled pods across the field. The grains were fat and attractive. Yield performance was within the 12-14 quintals per acre range as mentioned."
             }
         ],
         "SSW-407": [
@@ -42,16 +42,16 @@
                 "user": "Harpreet K.",
                 "rating": 5,
                 "date": "2025-11-01",
-                "title": "Outstanding Wheat Performance",
-                "content": "Very high germination with thick, shiny ears. The crop matured within 115 days and produced around 32 quintals per acre. Grain size and uniformity were excellent."
+                "title": "Excellent 30+ Quintal Yield",
+                "content": "Very high germination percentage with strong tillering. The crop matured in about 115 days and yielded nearly 34 quintals per acre. Thick and shiny 7-inch ears made harvesting very satisfying."
             },
             {
                 "id": "SSW-407-review-2",
                 "user": "Mahesh T.",
                 "rating": 4,
                 "date": "2025-11-12",
-                "title": "Reliable and High Yielding",
-                "content": "Strong plant structure and attractive grains. Harvest was timely and consistent across the field. A dependable wheat variety for commercial farming."
+                "title": "Uniform and Market Attractive",
+                "content": "The ears were 6-8 inches long and grains were attractive and well-filled. Production was within the 30-35 quintals per acre range as described. A dependable wheat seed for commercial cultivation."
             }
         ]
     }

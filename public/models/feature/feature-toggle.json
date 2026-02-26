@@ -17,8 +17,8 @@
         },
         "actionButtons": {
             "enableAddToCart": false,
-            "enableWishlist": true,
-            "enableEnquire": true,
+            "enableWishlist": false,
+            "enableEnquire": false,
             "enableCompare": false,
             "enableReview": true,
             "showFeaturedBadge": true,

@@ -18,7 +18,7 @@
     },
     "secondaryButton": {
         "text": "Learn More",
-        "link": "/about"
+        "link": "/about-us"
     },
     "image": {
         "src": "/shashank_logo.png",

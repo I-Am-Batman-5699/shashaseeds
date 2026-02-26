@@ -1,12 +1,11 @@
 "use client";
 
-import { FetchItems } from "@/lib/fetcher";
-import React, { useEffect, useState } from "react";
+import React, { useEffect } from "react";
 import companyData from "@/data/company.json";
 import uiElements from "@/data/ui-elements.json";
-import { AppContextType, AppData } from "@/types/appContextText";
 import HelixHorizontal from "../loaders/HelixHorizontal";
-import { MapPin, Mail, Phone, ExternalLink } from "lucide-react"; // Make sure to install lucide-react
+import { MapPin, Mail, Phone } from "lucide-react"; 
+import { useGlobalData } from "@/context/global-data-context";
 
 const COMPANY_DATA = companyData;
 const UI_ELEMENTS = uiElements;
@@ -14,25 +13,16 @@ const UI_ELEMENTS = uiElements;
 const FooterContent = () => {
     const { companyInfo, contactInfo, socialLinks } = COMPANY_DATA;
     const { footerSections, supportLinks } = UI_ELEMENTS;
-    const [appData, setAppData] = useState<AppData | null>(null);
-    const [appDataLoading, setAppDataLoading] = useState(true);
+    const {appData, isGlobalDataLoading} = useGlobalData();
 
-    const fetchData = async () => {
-        const response = await FetchItems({ path: '/models/appContextText.json' });
-        if (response.status === "S" && response.data) {
-            setAppData((response.data as AppContextType)?.appData);
-        }
-        setAppDataLoading(false);
-    };
 
     useEffect(() => {
-        fetchData();
     }, []);
 
     return (
         <footer className="w-full relative overflow-hidden bg-zinc-950 text-white/80 border-t border-zinc-900">
             <div className="mx-auto max-w-[98%] pb-4 pt-8">
-                {appDataLoading ? (
+                {isGlobalDataLoading ? (
                     <div className="flex items-center justify-center py-20">
                         <HelixHorizontal />
                     </div>
@@ -40,7 +30,7 @@ const FooterContent = () => {
                     <div className="container mx-auto px-6">
                         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12 mb-12">
 
-                            {/* COLUMN 2: Quick Links */}
+                            {/* COLUMN 1: Quick Links */}
                             {footerSections.map((section) => (
                                 <div key={section.id}>
                                     <h4 className="text-xs font-mono uppercase tracking-[0.2em] text-green-500 mb-6">{section.title}</h4>
@@ -57,7 +47,7 @@ const FooterContent = () => {
                                 </div>
                             ))}
 
-                            {/* COLUMN 4: Contact (Re-styled as Nodes) */}
+                            {/* COLUMN 2: Contact (Re-styled as Nodes) */}
                             <div className="space-y-6">
                                 <h4 className="text-xs font-mono uppercase tracking-[0.2em] text-green-500 mb-6">Contact_Nodes</h4>
                                 <div className="space-y-4">
@@ -97,7 +87,7 @@ const FooterContent = () => {
                                 </div>
                             </div>
 
-                            {/* COLUMN 1: Brand Info - Responsive Check */}
+                            {/* COLUMN 3: Brand Info - Responsive Check */}
                             <div className="space-y-6 flex flex-col items-center md:items-start text-center md:text-left">
                                 <a
                                     href="/"
@@ -126,7 +116,7 @@ const FooterContent = () => {
                                             <a
                                                 key={social.id}
                                                 href={isEnabled ? social.href : "#"}
-                                                onClick={(e) => !isEnabled && e.preventDefault()} // Block click if disabled
+                                                onClick={(e) => !isEnabled && e.preventDefault()} 
                                                 className={`p-2 rounded-lg bg-zinc-900 border transition-all ${isEnabled
                                                     ? "border-zinc-800 text-zinc-400 hover:text-green-500 hover:border-green-500/50 shadow-sm"
                                                     : "border-zinc-900 text-zinc-600 opacity-40 cursor-not-allowed"

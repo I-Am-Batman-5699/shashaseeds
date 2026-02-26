@@ -27,16 +27,15 @@ export default function HeroSectionNormal() {
 
     return (
         <div className="flex flex-col text-zinc-800 dark:text-zinc-50 min-h-[70vh] justify-center">
-            <div className="mx-auto lg:min-w-[95%] xl:max-w-7xl md:pb-8 pb-4 md:pt-4 pt-1 flex-1 px-4 sm:px-6 lg:px-8">
-
-                {/* 1. Improved UX: DNA Helix Loader */}
+            <div className="mx-auto lg:min-w-[95%] xl:max-w-7xl w-full md:pb-8 pb-4 md:pt-4 pt-1 px-4 sm:px-6 lg:px-8">
+                {/* 1. DNA Helix Loader */}
                 {heroContentLoading ? (
                     <div className="flex items-center justify-center py-32">
                         <HelixHorizontal />
                     </div>
                 ) : (
                     heroContent && (
-                        /* 2. Style Update: Applied ScrollFadeIn with glassmorphism */
+                        /* 2. ScrollFadeIn with glassmorphism */
                         <ScrollFadeIn direction="up" className="relative">
                             <section className={`relative overflow-hidden rounded-3xl backdrop-blur-xl shadow-2xl px-6 py-12 md:py-20`}>
 
