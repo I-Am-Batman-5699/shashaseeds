@@ -6,6 +6,7 @@ import Link from "next/link";
 import ThemeToggle from "@/components/ui/themeToggle";
 import { Button } from "@/components/ui/button";
 import SVGIcon from "@/components/ui/svgIcon";
+import { ActionButton } from "@/types/navigation";
 
 interface User {
   name: string;
@@ -20,7 +21,7 @@ interface ProfileOverlayProps {
   isLoggedIn: boolean;
   onLogin: () => void;
   onLogout: () => void;
-  actionButtons: any[];
+  actionButtons: ActionButton[];
 }
 
 export default function ProfileOverlay({
@@ -147,7 +148,7 @@ export default function ProfileOverlay({
             )}
 
             {actionButtons
-              .filter(btn => btn.visible && btn.featureEnabled && btn.id === "shop-now")
+              .filter(btn => btn?.visible && btn.featureEnabled && btn.id === "shop-now")
               .map((button) => (
                 <Button
                   key={button.id}

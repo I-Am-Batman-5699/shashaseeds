@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useEffect, useState, useRef } from 'react';
+import React, { useEffect, useState } from 'react';
 import { BannerItem } from '@/types/components/banner/banner';
 import BannerCarousel from '@/components/banner/banner-carousel';
 import HelixHorizontal from "@/components/loaders/HelixHorizontal";

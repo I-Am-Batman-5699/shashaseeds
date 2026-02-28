@@ -5,7 +5,6 @@ import React, { useCallback, useEffect, useRef, useState } from 'react';
 import { redirect } from 'next/navigation';
 
 import { BannerCarouselProps, BannerItem } from '@/types/components/banner/banner';
-import useBreakpoint from '@/lib/breakpoint';
 
 const BannerCarousel: React.FC<BannerCarouselProps> = ({
     items,
@@ -21,8 +20,6 @@ const BannerCarousel: React.FC<BannerCarouselProps> = ({
     const bannerRef = useRef<HTMLDivElement>(null);
 
     const totalItems = items.length;
-
-    const { isXs, isSm, isMd, isLg } = useBreakpoint();
 
     const nextSlide = useCallback(() => {
         if (isDragging || totalItems <= 1) return;

@@ -38,7 +38,7 @@ export async function POST(request: Request) {
         const fromAddress = isDev ? "Dev Mode <onboarding@resend.dev>" : "Shashank Seeds <contact@shashankseeds.in>";
         const toAddress = isDev ? ["rahulirajpapu5@gmail.com"] : [companyjson.contactInfo.email];
 
-        const { data, error } = await resend.emails.send({
+        const { error } = await resend.emails.send({
             from: fromAddress,
             to: toAddress,
             subject:`${isDev ? '[DEV_TEST] ' : ''}NEW ENQUIRY: ${name}`,
@@ -64,6 +64,7 @@ export async function POST(request: Request) {
         return NextResponse.json({ message: "Data packet transmitted successfully!" });
 
     } catch (error) {
+        console.error("Error in contact API route:", error);
         return NextResponse.json(
             { message: "Internal Server Error" },
             { status: 500 }

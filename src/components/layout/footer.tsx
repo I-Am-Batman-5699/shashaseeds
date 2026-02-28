@@ -6,6 +6,7 @@ import uiElements from "@/data/ui-elements.json";
 import HelixHorizontal from "../loaders/HelixHorizontal";
 import { MapPin, Mail, Phone } from "lucide-react"; 
 import { useGlobalData } from "@/context/global-data-context";
+import Link from "next/link";
 
 const COMPANY_DATA = companyData;
 const UI_ELEMENTS = uiElements;
@@ -89,7 +90,7 @@ const FooterContent = () => {
 
                             {/* COLUMN 3: Brand Info - Responsive Check */}
                             <div className="space-y-6 flex flex-col items-center md:items-start text-center md:text-left">
-                                <a
+                                <Link
                                     href="/"
                                     className="flex items-center gap-3 group transition-transform hover:scale-105"
                                 >
@@ -103,7 +104,7 @@ const FooterContent = () => {
                                     <span className="text-xl md:text-2xl font-bold tracking-tighter text-white whitespace-nowrap">
                                         {appData?.appName}
                                     </span>
-                                </a>
+                                </Link>
 
                                 <p className="text-zinc-400 text-sm leading-relaxed max-w-sm md:border-l-2 md:border-green-500/20 md:pl-4">
                                     {companyInfo.description}

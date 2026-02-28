@@ -11,21 +11,21 @@ const MainCarousel: React.FC = () => {
     const [title, setTitle] = useState<string>('Featured Products');
     const [loading, setLoading] = useState(true);
 
-    const fetchProducts = async () => {
-        try {
-            const res = await fetch('/models/products/featured-products.json');
-            if (!res.ok) throw new Error('Failed to fetch products');
-            const data: FeaturedItems = await res.json();
-            setProducts(transformProductData(data.products));
-            setTitle(data.title || 'Featured Products');
-        } catch (error) {
-            console.error(error);
-        } finally {
-            setLoading(false);
-        }
-    };
-
     useEffect(() => {
+        const fetchProducts = async () => {
+            try {
+                const res = await fetch('/models/products/featured-products.json');
+                if (!res.ok) throw new Error('Failed to fetch products');
+                const data: FeaturedItems = await res.json();
+                setProducts(transformProductData(data.products));
+                setTitle(data.title || 'Featured Products');
+            } catch (error) {
+                console.error(error);
+            } finally {
+                setLoading(false);
+            }
+        };
+
         fetchProducts();
     }, []);
 
@@ -56,7 +56,7 @@ const MainCarousel: React.FC = () => {
                                 </p>
                                 <span className="h-[0.1rem] w-8 bg-accent/50"></span>
                             </div>
-                            
+
                             <p className="text-3xl md:text-4xl font-black uppercase tracking-tighter text-zinc-950 dark:text-zinc-200 text-center">
                                 {title}
                             </p>
@@ -70,7 +70,7 @@ const MainCarousel: React.FC = () => {
                                 autoPlayInterval={3500}
                                 className="mb-4"
                             />
-                            
+
                             {/* Decorative Corner Flashes */}
                             <div className="absolute top-1 left-1 w-2 h-2 border-t border-l border-accent opacity-50"></div>
                             <div className="absolute bottom-1 right-1 w-2 h-2 border-b border-r border-accent opacity-50"></div>

@@ -73,7 +73,7 @@ function generateDrizzleData(count: number): DrizzleItem[] {
 }
 
 function Drizzle() {
-    const [drizzleData, setDrizzleData] = useState<any[]>([]);
+    const [drizzleData, setDrizzleData] = useState<DrizzleItem[]>([]);
 
     useEffect(() => {
         setDrizzleData(generateDrizzleData(drizzleCount));

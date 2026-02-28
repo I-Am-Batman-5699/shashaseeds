@@ -1,6 +1,6 @@
 "use client";
 
-import { motion, AnimatePresence } from 'framer-motion';
+import { motion } from 'framer-motion';
 import React, { useCallback, useEffect, useRef, useState } from 'react';
 import Image from 'next/image';
 import { HorizontalCarouselProps } from "@/types/components/carousel/mainCarosal";
@@ -12,6 +12,7 @@ const HorizontalCarousel: React.FC<HorizontalCarouselProps> = ({
     className = ''
 }) => {
     const [currentIndex, setCurrentIndex] = useState(0);
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
     const [isAutoPlaying, setIsAutoPlaying] = useState(autoPlay);
     const [isDragging, setIsDragging] = useState(false);
     const touchStartX = useRef(0);
@@ -57,7 +58,11 @@ const HorizontalCarousel: React.FC<HorizontalCarouselProps> = ({
         setIsDragging(false);
         const deltaX = touchStartX.current - touchEndX.current;
         if (Math.abs(deltaX) > 50) {
-            deltaX > 0 ? nextSlide() : prevSlide();
+            if (deltaX > 0) {
+                nextSlide();
+            } else {
+                prevSlide();
+            }
         }
     };
 

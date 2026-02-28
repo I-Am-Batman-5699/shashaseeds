@@ -3,8 +3,7 @@
 import Link from 'next/link';
 import Image from 'next/image';
 import { useState } from 'react';
-import { motion } from 'framer-motion';
-import { Product, ProductProps } from '@/types/products/products';
+import { Product } from '@/types/products/products';
 
 interface Props {
     product: Product;

@@ -133,7 +133,7 @@ const FeatureCard = ({ feature, index, isBlooming }: { feature: { id: string, ic
         transform: `translateY(${styles.translateY}px)`
       }}
     >
-      <div className={`w-full max-w-md bg-white/80 dark:bg-slate-900/80 border p-8 rounded-3xl backdrop-blur-md transition-all duration-700 cursor-default relative overflow-hidden ${isBlooming ? 'border-amber-400 shadow-xl shadow-amber-500/10 scale-[1.02]' : 'border-emerald-500/10 shadow-lg hover:shadow-emerald-500/5 hover:scale-[1.03]'} rounded-2xl shadow-xl p-4 md:p-6 inset-shadow-sm dark:inset-shadow-indigo-900/50 dark:inset-shadow-indigo-900/50`}>
+      <div className={`w-full max-w-md bg-white/80 dark:bg-slate-900/80 border p-8 rounded-3xl backdrop-blur-md transition-all duration-700 cursor-default relative overflow-hidden ${isBlooming ? 'border-amber-400 shadow-xl shadow-amber-500/10 scale-[1.02]' : 'border-emerald-500/10 shadow-lg hover:shadow-emerald-500/5 hover:scale-[1.03]'} rounded-2xl shadow-xl p-4 md:p-6 inset-shadow-sm dark:inset-shadow-indigo-900/50`}>
 
         <div
           className={`absolute bottom-0 left-0 h-1 transition-all duration-700 ease-in-out z-20 ${isBlooming ? 'w-full bg-amber-500 shadow-[0_0_15px_rgba(245,158,11,0.5)]' : 'w-0 group-hover:w-full bg-emerald-500'

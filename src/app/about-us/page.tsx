@@ -9,12 +9,16 @@ import company from "@/data/company.json";
 import { AboutUsPageSection, FeatureToggleProps } from "@/types/featureToggle";
 import AIDNALoader from "@/components/loaders/ClosedAIDNA";
 import { AboutUs } from "@/types/aboutUs";
+import Image from "next/image";
 
 const ScrollFadeIn = ({ children, direction = 'up', delay = 0, className = '', id, scrollMarginClass = "scroll-mt-24" }: { children: React.ReactNode, direction?: 'up' | 'left' | 'right' | 'down', delay?: number, className?: string, id?: string, scrollMarginClass?: string }) => {
     const [isVisible, setIsVisible] = useState(false);
     const ref = useRef<HTMLDivElement>(null);
 
     useEffect(() => {
+        const element = ref.current;
+        if (!element) return;
+
         const observer = new IntersectionObserver(
             ([entry]) => {
                 if (entry.isIntersecting) {
@@ -25,14 +29,10 @@ const ScrollFadeIn = ({ children, direction = 'up', delay = 0, className = '', i
             { threshold: 0.1 }
         );
 
-        if (ref.current) {
-            observer.observe(ref.current);
-        }
+        observer.observe(element);
 
         return () => {
-            if (ref.current) {
-                observer.unobserve(ref.current);
-            }
+            observer.unobserve(element);
         };
     }, []);
 
@@ -63,6 +63,25 @@ const ScrollFadeIn = ({ children, direction = 'up', delay = 0, className = '', i
     );
 };
 
+const TeamImage = ({ src, name }: { src: string; name: string }) => {
+    const initials = name.split(" ").map(n => n[0].toUpperCase()).join("");
+
+    const fallback = `https://placehold.co/150x150/065F46/D1FAE5.png?text=${initials}`;
+
+    const [imgSrc, setImgSrc] = useState(src);
+
+    return (
+        <Image
+            src={imgSrc}
+            alt={name}
+            width={96}
+            height={96}
+            className="rounded-full border-2 border-cyber object-cover"
+            onError={() => setImgSrc(fallback)}
+        />
+    );
+};
+
 const scrollTo = (id: string) => {
     const element = document.getElementById(id);
     if (element) {
@@ -75,12 +94,14 @@ const HolographicProfile = ({ appContext }: { appContext: AboutUs }) => (
 
         <div className="relative z-10 flex flex-col items-center text-center space-y-4">
             <ScrollFadeIn direction="down" delay={200} id="owner-profile-image">
-                <div className="relative w-32 h-32 rounded-full p-1 bg-accent/30 flex items-center justify-center animate-spin-slow">
-                    <img
+                <div className="relative w-32 h-32 rounded-full p-1 bg-accent/30 flex items-center justify-center animate-pulse">
+                    <Image
                         src={appContext?.owner.image}
                         alt={appContext?.owner.name}
                         className="w-full h-full object-cover rounded-full border-4 border-primary-bg"
-                        onError={(e) => (e.currentTarget.src = 'https://placehold.co/150x150/065F46/D1FAE5?text=Owner+Profile')}
+                        onError={(e) => (e.currentTarget.src = 'https://placehold.co/150x150/065F46/D1FAE5.png?text=Owner+Profile')}
+                        fill
+                        sizes="128px"
                     />
                 </div>
             </ScrollFadeIn>
@@ -130,6 +151,7 @@ export default function AboutUsFuturistic() {
 
     const searchParams = useSearchParams();
 
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     const fetchItems = async (path: string, setContent: Dispatch<SetStateAction<any>>, modelName?: string, setLoading?: (flag: boolean) => void) => {
         const response = await FetchItems({ path: path });
         if (response.status === "S" && response.data) {
@@ -151,25 +173,38 @@ export default function AboutUsFuturistic() {
         }
     }
 
-    const fetchFetures = () => {
-        fetchItems("/models/feature/feature-toggle.json", setFeaturesVisible, "feature", setFeaturesLoading);
-    }
-    const fetchAbouUs = () => {
-        fetchItems("/models/about-us.json", setAppContext, "about-us", setAppContextLoading);
-    }
 
     useEffect(() => {
-        fetchFetures();
-        fetchAbouUs();
+        const fetchFeatures = async () => {
+            await fetchItems(
+                "/models/feature/feature-toggle.json",
+                setFeaturesVisible,
+                "feature",
+                setFeaturesLoading
+            );
+        };
+
+        const fetchAboutUs = async () => {
+            await fetchItems(
+                "/models/about-us.json",
+                setAppContext,
+                "about-us",
+                setAppContextLoading
+            );
+        };
+
+        fetchFeatures();
+        fetchAboutUs();
+
         setCompanyData(company.companyInfo);
         setCompanyDataLoading(false);
-        setTimeout(() => {
-            const sectionFromURL = searchParams.get('section');
-            if (sectionFromURL) {
-                scrollTo(sectionFromURL);
-            }
-        }, 1000)
-    }, []);
+
+        const sectionFromURL = searchParams.get("section");
+        if (sectionFromURL) {
+            scrollTo(sectionFromURL);
+        }
+
+    }, [searchParams]);
 
     return (
         <div className="flex flex-col min-h-screen bg-gradient-to-br from-green-50 to-green-100 text-zinc-800 dark:from-slate-900 dark:to-slate-950 dark:text-zinc-50">
@@ -352,7 +387,7 @@ export default function AboutUsFuturistic() {
                                                 <div className="p-6 rounded-xl bg-gradient-to-br from-green-100 to-green-200 dark:from-slate-900 dark:to-slate-950 shadow-inner border-l-4 border-cyber h-full flex flex-col justify-between">
                                                     <DynamicIcon name="quote" className="w-8 h-8 text-accent mb-4 opacity-50" />
                                                     <p className="text-primary-text italic sm:text-md md:text-lg leading-relaxed mb-4">
-                                                        "{testimonial.content}"
+                                                        &quot;{testimonial.content}&quot;
                                                     </p>
                                                     <div className="flex flex-col text-right">
                                                         <p className="font-bold text-cyber sm:text-md md:text-lg">{testimonial.title}</p>
@@ -375,7 +410,7 @@ export default function AboutUsFuturistic() {
                                 <div className="text-center mb-8">
                                     <DynamicIcon name="users" className="w-12 h-12 text-accent mx-auto mb-4" />
                                     <p className="sm:text-xl m-2 md:text-3xl lg:text-4xl font-black tracking-widest text-heading">
-                                        Shashank's Team
+                                        Shashank&apos;s Team
                                     </p>
                                     <p className="sm:text-md md:text-lg lg:text-xl text-secondary-text mt-2 font-mono">Biological Data Orchestrators</p>
                                 </div>
@@ -383,15 +418,13 @@ export default function AboutUsFuturistic() {
                                     <div className="grid grid-cols-1 sm:grid-cols-3 gap-8">
                                         {appContext?.team.map((member, i) => (
                                             <ScrollFadeIn key={member.name} direction="up" delay={i * 200 + 10} className="h-full">
-                                                <div key={i} className="group flex flex-col items-center p-6 bg-gradient-to-br from-green-100 to-green-200 dark:from-slate-900 dark:to-slate-950 border border-theme rounded-2xl transition-all hover:-translate-y-2 hover:shadow-2xl">
+                                                <div key={i} className="group flex flex-col items-center p-6 bg-gradient-to-br from-green-100 to-green-200 dark:from-slate-900 dark:to-slate-950 border border-theme rounded-2xl transition-all hover:-translate-y-2 hover:shadow-2xl h-full">
                                                     <div className="relative mb-6">
                                                         <div className="absolute inset-0 bg-accent rounded-full blur-md opacity-0 group-hover:opacity-40 transition-opacity" />
-                                                        <img src={member.image} alt={member.name} className="relative w-24 h-24 rounded-full border-2 border-cyber"
-                                                            onError={(e) => (e.currentTarget.src = `https://placehold.co/150x150/065F46/D1FAE5?text=${member.name.split(' ').map(n => n[0].toLocaleUpperCase()).join('')}`)}
-                                                        />
+                                                        <TeamImage src={member.image} name={member.name} />
                                                     </div>
-                                                    <p className="sm:text-lg md:text-xl font-bold text-primary-text">{member.name}</p>
-                                                    <p className="sm:text-xs  md:text-sm text-accent font-bold uppercase tracking-widest mt-1">{member.role}</p>
+                                                    <p className="sm:text-lg md:text-xl font-bold text-primary-text text-center">{member.name}</p>
+                                                    <p className="sm:text-xs  md:text-sm text-accent font-bold uppercase tracking-widest mt-1 text-center">{member.role}</p>
                                                 </div>
                                             </ScrollFadeIn>
                                         ))}

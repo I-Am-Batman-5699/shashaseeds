@@ -13,7 +13,7 @@ const useTheme = () => {
 
 const ThemeProvider = ({ children }: { children: React.ReactNode }) => {
     const [theme, setTheme] = useState<ThemeMode>(() => {
-        try { const storedTheme = localStorage.getItem('app-theme') as ThemeMode; return storedTheme || 'system'; } catch (error) { return 'system'; }
+        try { const storedTheme = localStorage.getItem('app-theme') as ThemeMode; return storedTheme || 'system'; } catch (error) { console.error(error); return 'system'; }
     });
     const [currentMode, setCurrentMode] = useState<'light' | 'dark'>('light');
     const calculateMode = useCallback((currentTheme: ThemeMode) => {

@@ -16,7 +16,6 @@ import { NavigationItem, ActionButton } from "@/types/navigation";
 
 import HamburgerButton from "@/components/ui/hamburgerButton";
 import SVGIcon from "@/components/ui/svgIcon";
-import { Button } from "@/components/ui/button";
 import ProfileOverlay from "@/components/ui/profileOverlay";
 import MobileProfileModal from "@/components/modals/profileModal";
 
@@ -78,6 +77,7 @@ export default function HeaderNavbar({ isLoading = false }: { isLoading?: boolea
         setProfileOpen(prev => !prev);
     };
 
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
     const toggleMobileProfile = () => {
         setMobileProfileOpen(prev => !prev);
     };

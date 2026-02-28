@@ -7,6 +7,9 @@ const ScrollFadeIn = ({ children, direction = 'up', delay = 0, className = '' }:
     const ref = useRef<HTMLDivElement>(null);
 
     useEffect(() => {
+        const element = ref.current;
+        if (!element) return;
+
         const observer = new IntersectionObserver(
             ([entry]) => {
                 if (entry.isIntersecting) {
@@ -16,8 +19,12 @@ const ScrollFadeIn = ({ children, direction = 'up', delay = 0, className = '' }:
             },
             { threshold: 0.1 }
         );
-        if (ref.current) observer.observe(ref.current);
-        return () => { if (ref.current) observer.unobserve(ref.current); };
+
+        observer.observe(element);
+
+        return () => {
+            observer.disconnect();
+        };
     }, []);
 
     const baseTransition = `transition-all duration-1000 ease-out ${className}`;

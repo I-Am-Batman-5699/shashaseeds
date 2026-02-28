@@ -1,14 +1,14 @@
 "use client";
 
-import { useState, useRef, useEffect, useMemo } from 'react';
+import { useState, useRef, useEffect, useMemo, useCallback } from 'react';
 import ProductCard from '@/components/cards/ProductCard';
 import { motion, AnimatePresence } from 'framer-motion';
 import { ReadonlyURLSearchParams, useSearchParams } from "next/navigation";
 import { ProductProps, Product } from '@/types/products/products';
 import { createPortal } from "react-dom";
 import { FetchItems } from "@/lib/fetcher";
-import { FilterConfig } from '@/types/products/product-page';
 import AIDNALoader from '@/components/loaders/ClosedAIDNA';
+import { FeatureToggleProps, ProductsPage as ProductsPageProps } from '@/types/featureToggle';
 
 interface ClickOutsideEvent extends MouseEvent {
     target: EventTarget | null;
@@ -19,7 +19,7 @@ export default function ProductsPage() {
     const categoryFromUrl = searchParams.get('category');
 
     const [products, setProducts] = useState<Product[]>([]);
-    const [config, setConfig] = useState<any | null>(null);
+    const [config, setConfig] = useState<ProductsPageProps>();
     const [isLoading, setIsLoading] = useState(true);
 
     const [searchTerm, setSearchTerm] = useState('');
@@ -43,19 +43,20 @@ export default function ProductsPage() {
         },
     }), []);
 
-    const parseUrlFilters = (params: ReadonlyURLSearchParams) => {
+    const parseUrlFilters = useCallback((params: ReadonlyURLSearchParams) => {
         const initialFilters: Record<string, string | boolean | undefined> = {};
 
         Object.keys(urlFilterKeyMap).forEach((urlKey) => {
             const urlValue = params.get(urlKey);
             if (urlValue !== null) {
-                const { filterKey, transform } = urlFilterKeyMap[urlKey as keyof typeof urlFilterKeyMap];
+                const { filterKey, transform } =
+                    urlFilterKeyMap[urlKey as keyof typeof urlFilterKeyMap];
                 initialFilters[filterKey] = transform(urlValue);
             }
         });
 
         return initialFilters;
-    };
+    }, [urlFilterKeyMap]);
 
     const [selectedFilters, setSelectedFilters] = useState<Record<string, string | boolean | undefined>>(() =>
         parseUrlFilters(searchParams)
@@ -85,7 +86,7 @@ export default function ProductsPage() {
                     console.error("Error fetching features config:", featuresResult.error);
                 }
 
-                const featuresResponse = featuresResult.data as any;
+                const featuresResponse = featuresResult.data as FeatureToggleProps;
                 const pageConfig = featuresResponse?.["products-page"];
 
                 setConfig(pageConfig || null);
@@ -106,11 +107,12 @@ export default function ProductsPage() {
 
     useEffect(() => {
         const newUrlFilters = parseUrlFilters(searchParams);
+        // eslint-disable-next-line @typescript-eslint/no-unused-vars
         setSelectedFilters(prev => ({
             // ...prev,
             ...newUrlFilters
         }));
-    }, [searchParams]);
+    }, [searchParams, parseUrlFilters]);
 
     useEffect(() => {
         setIsMounted(true);
@@ -235,8 +237,8 @@ export default function ProductsPage() {
         setIsSortPopoverOpen(false);
     };
 
-    const productsPageConfig = config || {};
-    const availableFilters: FilterConfig = productsPageConfig.filters?.availableOptions || {};
+    const productsPageConfig = (config || {}) as ProductsPageProps;
+    const availableFilters = productsPageConfig.filters?.availableOptions || {};
     const sortOptionsMap = productsPageConfig.sort?.availableOptions || {};
     const defaultSortBy = productsPageConfig.sort?.defaultSortBy || 'id-asc';
     const productsPageData = productsPageConfig.displayData || {};
@@ -267,7 +269,7 @@ export default function ProductsPage() {
             <div className=" bg-gradient-to-br from-green-100 to-green-200 dark:from-slate-900 dark:to-slate-950 min-h-[90vh] flex items-center justify-center">
                 <div className="mx-auto max-w-[90%] md:pb-8 pb-4 md:pt-4 pt-1">
                     <div className="rounded-2xl shadow-xl md:p-4 p-2 inset-shadow-sm dark:inset-shadow-indigo-900/50 space-y-1">
-                        <AIDNALoader/>
+                        <AIDNALoader />
                     </div>
                 </div>
             </div>
@@ -415,18 +417,18 @@ export default function ProductsPage() {
                                                 return (
                                                     <div key={key} className="mb-4">
                                                         <p className="font-semibold text-lg capitalize mb-2">
-                                                            {productsPageData.filterDisplayNames?.[key] || key}
+                                                            {productsPageData.filterDisplayNames?.[key as keyof typeof productsPageData.filterDisplayNames] || key}
                                                         </p>
 
                                                         <div className="flex flex-wrap gap-2">
-                                                            {filterData.options.map((value) => {
+                                                            {filterData.options.map((value: string) => {
 
                                                                 let isSelected = selectedFilters[key as keyof typeof selectedFilters] === value;
                                                                 let isDisabled = false;
 
                                                                 if (isUrlFilterActive && isFilterKeyUrlLocked) {
                                                                     if (value !== urlLockedValue) {
-                                                                        return null; 
+                                                                        return null;
                                                                     }
 
                                                                     isSelected = true;
@@ -440,8 +442,8 @@ export default function ProductsPage() {
 
                                                                 const specificDisplayKey = `${key}-${value.toString()}`;
 
-                                                                const optionText = productsPageData.filterOptionDisplayNames?.[specificDisplayKey]
-                                                                    || productsPageData.filterOptionDisplayNames?.[value.toString()]
+                                                                const optionText = productsPageData.filterOptionDisplayNames?.[specificDisplayKey as keyof typeof productsPageData.filterOptionDisplayNames]
+                                                                    || productsPageData.filterOptionDisplayNames?.[value.toString() as keyof typeof productsPageData.filterOptionDisplayNames]
                                                                     || value.toString();
 
                                                                 return (

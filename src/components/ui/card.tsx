@@ -82,6 +82,7 @@ CardContent.displayName = "CardContent";
 const CardUl = React.forwardRef<
   HTMLUListElement,
   React.HTMLAttributes<HTMLUListElement>
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
 >(({ className, ...props }, ref) => (
   <ul className={cn("", className)} {...props} />
 ))
@@ -90,6 +91,7 @@ CardUl.displayName = "CardUl";
 const CardLi = React.forwardRef<
   HTMLLIElement,
   React.HTMLAttributes<HTMLLIElement>
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
 >(({ className, ...props }, ref) => (
   <li className={cn("text-black", className)} {...props} />
 ))

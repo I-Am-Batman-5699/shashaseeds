@@ -1,13 +1,13 @@
 "use client";
 import React, { useEffect, useRef, useState } from "react";
-import { 
-  Sprout, 
-  Droplets, 
-  Sun, 
-  Wind, 
-  Bug, 
-  Calendar, 
-  Search, 
+import {
+  Sprout,
+  Droplets,
+  Sun,
+  Wind,
+  Bug,
+  Calendar,
+  Search,
   ArrowRight,
   Info,
   ChevronRight,
@@ -74,11 +74,14 @@ const GARDENING_TIPS_DATA = {
 };
 
 // Reuse the ScrollFadeIn component logic for consistent UI
-const ScrollFadeIn = ({ children, direction = 'up', delay = 0, className = '', id }:{ children?:React.ReactNode, direction?:string, delay?:number, className?:string, id?:string }) => {
+const ScrollFadeIn = ({ children, direction = 'up', delay = 0, className = '', id }: { children?: React.ReactNode, direction?: string, delay?: number, className?: string, id?: string }) => {
   const [isVisible, setIsVisible] = useState(false);
   const ref = useRef(null);
 
   useEffect(() => {
+    const element = ref.current;
+    if (!element) return;
+
     const observer = new IntersectionObserver(
       ([entry]) => {
         if (entry.isIntersecting) {
@@ -88,8 +91,12 @@ const ScrollFadeIn = ({ children, direction = 'up', delay = 0, className = '', i
       },
       { threshold: 0.1 }
     );
-    if (ref.current) observer.observe(ref.current);
-    return () => { if (ref.current) observer.unobserve(ref.current); };
+
+    observer.observe(element);
+
+    return () => {
+      observer.unobserve(element);
+    };
   }, []);
 
   const baseTransition = `transition-all duration-1000 ease-out ${className}`;
@@ -121,37 +128,38 @@ const IconMap = {
   wind: Wind
 };
 
-const DynamicIcon = ({ name, className }: { name:string, className:string }) => {
+const DynamicIcon = ({ name, className }: { name: string, className: string }) => {
   const IconComponent = IconMap[name as keyof typeof IconMap] || Info;
   return <IconComponent className={className} />;
 };
 
 export default function GardeningTips() {
   const [tips, setTips] = useState(GARDENING_TIPS_DATA.tips);
+  setTips(GARDENING_TIPS_DATA.tips);
   const [activeCategory, setActiveCategory] = useState("all");
   const [searchQuery, setSearchQuery] = useState("");
 
   const filteredTips = tips.filter(tip => {
     const matchesCategory = activeCategory === "all" || tip.category === activeCategory;
-    const matchesSearch = tip.title.toLowerCase().includes(searchQuery.toLowerCase()) || 
-                          tip.description.toLowerCase().includes(searchQuery.toLowerCase());
+    const matchesSearch = tip.title.toLowerCase().includes(searchQuery.toLowerCase()) ||
+      tip.description.toLowerCase().includes(searchQuery.toLowerCase());
     return matchesCategory && matchesSearch;
   });
 
   return (
     <div className="flex flex-col min-h-screen bg-gradient-to-br from-green-50 to-green-100 text-zinc-800 dark:from-slate-900 dark:to-slate-950 dark:text-zinc-50 font-sans">
-      
+
       {/* --- Sticky Navigation Bar --- */}
       <div className="mx-auto mt-4 lg:max-w-[90%] w-full sticky top-4 z-50 flex flex-wrap items-center justify-between gap-4 p-3 rounded-2xl border border-white/20 backdrop-blur-md shadow-lg bg-white/30 dark:bg-slate-900/50">
         <nav className="flex items-center space-x-2 sm:space-x-4 overflow-x-auto no-scrollbar">
-          <button 
+          <button
             onClick={() => setActiveCategory("all")}
             className={`px-4 py-1.5 text-[10px] sm:text-xs font-bold uppercase tracking-widest rounded-full transition-all ${activeCategory === 'all' ? 'bg-emerald-600 text-white' : 'text-zinc-600 dark:text-zinc-400 hover:text-emerald-500'}`}
           >
             All Logs
           </button>
           {GARDENING_TIPS_DATA.categories.map(cat => (
-            <button 
+            <button
               key={cat.id}
               onClick={() => setActiveCategory(cat.id)}
               className={`flex items-center gap-2 px-4 py-1.5 text-[10px] sm:text-xs font-bold uppercase tracking-widest rounded-full transition-all ${activeCategory === cat.id ? 'bg-emerald-600 text-white' : 'text-zinc-600 dark:text-zinc-400 hover:text-emerald-500'}`}
@@ -161,12 +169,12 @@ export default function GardeningTips() {
             </button>
           ))}
         </nav>
-        
+
         <div className="relative flex-grow max-w-xs ml-auto">
           <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-zinc-400" />
-          <input 
-            type="text" 
-            placeholder="Search Database..." 
+          <input
+            type="text"
+            placeholder="Search Database..."
             className="w-full bg-white/50 dark:bg-slate-800/50 border border-emerald-500/20 rounded-xl py-2 pl-10 pr-4 text-xs focus:outline-none focus:ring-2 focus:ring-emerald-500/50 transition-all"
             value={searchQuery}
             onChange={(e) => setSearchQuery(e.target.value)}
@@ -175,7 +183,7 @@ export default function GardeningTips() {
       </div>
 
       <main className="mx-auto lg:max-w-[90%] md:max-w-7xl px-4 sm:px-6 lg:px-8 py-8 space-y-12">
-        
+
         {/* --- Header & Mission Section --- */}
         <ScrollFadeIn direction="up" id="botanical-header">
           <header className="text-center space-y-4">
@@ -188,7 +196,7 @@ export default function GardeningTips() {
             <p className="text-lg md:text-xl font-medium text-zinc-600 dark:text-zinc-400 max-w-2xl mx-auto italic">
               {GARDENING_TIPS_DATA.header.tagline}
             </p>
-            
+
             <div className="max-w-4xl mx-auto mt-8 p-6 rounded-3xl border-2 border-emerald-500/20 bg-white/40 dark:bg-slate-900/60 backdrop-blur-sm relative overflow-hidden group">
               <div className="absolute top-0 right-0 p-4 opacity-5 group-hover:opacity-10 transition-opacity">
                 <Sprout className="w-32 h-32 text-emerald-500" />
@@ -204,26 +212,25 @@ export default function GardeningTips() {
         {/* --- Tips Grid --- */}
         <section className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
           {filteredTips.map((tip, index) => (
-            <ScrollFadeIn 
-              key={tip.id} 
-              direction="up" 
-              delay={index * 100} 
+            <ScrollFadeIn
+              key={tip.id}
+              direction="up"
+              delay={index * 100}
               className="h-full"
             >
               <div className="group h-full flex flex-col p-6 rounded-2xl bg-white dark:bg-slate-900 border border-emerald-500/10 shadow-lg hover:shadow-emerald-500/20 hover:border-emerald-500/40 transition-all duration-500 relative overflow-hidden">
-                
+
                 {/* Holographic accent */}
                 <div className="absolute -top-12 -right-12 w-24 h-24 bg-emerald-500/10 rounded-full blur-2xl group-hover:bg-emerald-500/20 transition-all" />
-                
+
                 <div className="flex justify-between items-start mb-4">
                   <div className="p-3 bg-emerald-50 dark:bg-emerald-900/20 rounded-xl text-emerald-600 dark:text-emerald-400">
                     <DynamicIcon name={GARDENING_TIPS_DATA.categories.find(c => c.id === tip.category)?.icon as string} className="w-6 h-6" />
                   </div>
-                  <span className={`text-[10px] font-bold uppercase px-3 py-1 rounded-full border ${
-                    tip.importance === 'Critical' ? 'border-red-500/50 text-red-500 bg-red-500/5' :
-                    tip.importance === 'High' ? 'border-orange-500/50 text-orange-500 bg-orange-500/5' :
-                    'border-emerald-500/50 text-emerald-500 bg-emerald-500/5'
-                  }`}>
+                  <span className={`text-[10px] font-bold uppercase px-3 py-1 rounded-full border ${tip.importance === 'Critical' ? 'border-red-500/50 text-red-500 bg-red-500/5' :
+                      tip.importance === 'High' ? 'border-orange-500/50 text-orange-500 bg-orange-500/5' :
+                        'border-emerald-500/50 text-emerald-500 bg-emerald-500/5'
+                    }`}>
                     {tip.importance}
                   </span>
                 </div>
@@ -231,7 +238,7 @@ export default function GardeningTips() {
                 <h3 className="text-xl font-bold text-zinc-800 dark:text-zinc-100 mb-3 group-hover:text-emerald-600 transition-colors">
                   {tip.title}
                 </h3>
-                
+
                 <p className="text-sm text-zinc-600 dark:text-zinc-400 leading-relaxed font-mono flex-grow">
                   {tip.description}
                 </p>
@@ -257,8 +264,8 @@ export default function GardeningTips() {
           <div className="text-center py-20 bg-white/20 dark:bg-slate-900/20 rounded-3xl border border-dashed border-emerald-500/30">
             <Search className="w-12 h-12 text-zinc-400 mx-auto mb-4 opacity-50" />
             <p className="text-lg font-bold text-zinc-500">No protocol found matching your query.</p>
-            <button 
-              onClick={() => {setActiveCategory("all"); setSearchQuery("");}}
+            <button
+              onClick={() => { setActiveCategory("all"); setSearchQuery(""); }}
               className="mt-4 text-emerald-600 underline text-sm"
             >
               Reset Search Parameters

@@ -34,7 +34,7 @@ export default function RootLayout({
         let routerEvents: NextRouter['events'] | undefined;
 
         const setupRouterEvents = async () => {
-            const nextRouter: any = await import('next/router');
+            const nextRouter = await import('next/router');
             routerEvents = nextRouter.default.events;
 
             const handleStart = (url: string) => {

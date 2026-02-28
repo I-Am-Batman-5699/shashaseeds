@@ -1,4 +1,3 @@
-import { useState } from "react";
 import { X, Star } from "lucide-react";
 import { Testimonial } from "@/types/components/sections/testimonials";
 

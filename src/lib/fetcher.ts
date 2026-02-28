@@ -1,6 +1,6 @@
 interface FetchItemsParams {
     path?: string;
-    payload?: Record<string, any>;
+    payload?: Record<string, unknown>;
 }
 
 export const FetchItems = async (fetchFor: FetchItemsParams) => {

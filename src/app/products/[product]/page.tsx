@@ -2,7 +2,7 @@
 import React, { useEffect, useRef, useState, useCallback } from "react";
 import { useParams } from "next/navigation";
 import productsCSS from '@/styles/products.module.css';
-import { FeaturedProductsProps, Product, ReviewData, Reviews, ProductsData, ProductProps } from "@/types/products/products";
+import { FeaturedProductsProps, Product, ReviewData, Reviews, ProductsData, ProductProps, FeaturedProduct } from "@/types/products/products";
 import { Features, FeatureToggleProps, ActionButton } from "@/types/featureToggle";
 import StarRating from "@/components/common/StarRating";
 import ReviewItem from "@/components/common/ReviewItem";
@@ -10,6 +10,7 @@ import ReviewModal from "@/components/modals/new-review";
 import HelixHorizontal from "@/components/loaders/HelixHorizontal";
 import LucideIconCustom from "@/components/ui/lucideIcons";
 import { FetchItems } from "@/lib/fetcher";
+import Link from "next/link";
 
 const defaultConfig = {
   features: {
@@ -147,7 +148,7 @@ export default function ProductDetailPage() {
           isDiscountAvailable: (found.discountPercentage ?? 0) > 0,
         });
 
-        const featured = (featuredData as FeaturedProductsProps)?.products.reduce<Product[]>((acc: Product[], el: any) => {
+        const featured = (featuredData as FeaturedProductsProps)?.products.reduce<Product[]>((acc: Product[], el: FeaturedProduct) => {
           const prod = products.products.find((p: Product) => p.id === el["product-id"]);
           if (prod) acc.push({ ...el, ...prod });
           return acc;
@@ -263,13 +264,13 @@ export default function ProductDetailPage() {
         <div className="rounded-2xl shadow-xl space-y-1 inset-shadow-sm dark:inset-shadow-indigo-900/50">
           <div className="max-w-7xl mx-auto px-4 py-8">
             <div className={productsCSS.customButtom}>
-              <a href="/products" className="inline-flex items-center text-accent font-medium hover:text-green-700 mb-6 transition-colors">
+              <Link href="/products" className="inline-flex items-center text-accent font-medium hover:text-green-700 mb-6 transition-colors">
                 <LucideIconCustom
                   name="chevronLeft"
                   className="w-5 h-5 font-semibold"
                 />
                 Back to Products
-              </a>
+              </Link>
             </div>
             {
               loading || !product ? (
@@ -289,18 +290,18 @@ export default function ProductDetailPage() {
                             Product Not Found
                           </h1>
                           <p className="text-zinc-600 dark:text-zinc-400">
-                            We couldn't find the product <span className="font-mono text-accent">"{productId}"</span>.
+                            We couldn&apos;t find the product <span className="font-mono text-accent">&quot;{productId}&quot;</span>.
                             It might have been removed or the link is incorrect.
                           </p>
                         </div>
 
                         <div className={productsCSS.customButtom}>
-                          <a
+                          <Link
                             href="/products"
                             className="inline-flex items-center justify-center w-full px-6 py-3 bg-accent hover:bg-green-700 text-white font-bold rounded-xl transition-all shadow-lg hover:shadow-green-500/20"
                           >
                             Browse All Products
-                          </a>
+                          </Link>
                         </div>
                       </div>
                     </div>
@@ -399,7 +400,7 @@ export default function ProductDetailPage() {
                                 : "border-gray-200 hover:border-green-300"
                                 }`}
                             >
-                              <img src={src} alt={`${product.name} thumbnail ${i + 1}`} className="w-full h-full object-cover rounded" />
+                              <img src={src} alt={`${product.name} thumbnail ${i + 1}`} className="w-full h-full object-cover rounded" height={100} width={100}/>
                             </button>
                           ))}
                         </div>
@@ -546,7 +547,7 @@ export default function ProductDetailPage() {
                           <a key={fp.id} href={`/products/${fp.id}`} className="flex-shrink-0 w-48 p-3 rounded-xl hover:shadow-lg  inset-shadow-xs dark:inset-shadow-indigo-900/50 transition-transform hover:scale-105 duration-200 bg-gradient-to-br from-green-100 to-green-200 dark:from-slate-900 dark:to-slate-950">
                             <div className="relative w-full aspect-square mb-2 rounded overflow-hidden">
                               <img
-                                src={fp.image}
+                                src={fp.image as string}
                                 alt={fp.name}
                                 className="absolute inset-0 w-full h-full object-contain p-1"
                                 onError={(e) => (e.currentTarget.src = 'https://placehold.co/80x80/AAAAAA/FFFFFF?text=Error')}

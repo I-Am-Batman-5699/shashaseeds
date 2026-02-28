@@ -1,6 +1,7 @@
 import React from "react";
 import classes from "@/styles/notfound.module.css";
 import Drizzle from "@/components/ui/drizzle";
+import Link from "next/link";
 
 
 export default function NotFound() {
@@ -10,11 +11,11 @@ export default function NotFound() {
         <Drizzle />
       </div>
       <div className={classes["notfound-content"]}>
-        <h1>404</h1>
+        <p className="sm:text-2xl md:text-3xl lg:text-4xl">404</p>
         <p>Oops! Page not found.</p>
         <p>
           It looks like you’re lost in the drizzle.<br />
-          <a href="/" className={classes["notfound-link"]}>Go Home</a>
+          <Link href="/" className={classes["notfound-link"]}>Go Home</Link>
         </p>
       </div>
     </div>

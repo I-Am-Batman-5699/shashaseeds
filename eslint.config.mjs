@@ -10,6 +10,23 @@ const compat = new FlatCompat({
 });
 
 const eslintConfig = [
+  {
+    ignores: [
+      ".next/**",
+      "out/**",
+      "dist/**",
+      "src/**/*X*.tsx",
+    ],
+  },
+
   ...compat.extends("next/core-web-vitals", "next/typescript"),
+
+  // 👇 override AFTER Next config
+  {
+    rules: {
+      "@next/next/no-img-element": "off",
+    },
+  },
 ];
+
 export default eslintConfig;

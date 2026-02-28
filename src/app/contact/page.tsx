@@ -45,6 +45,7 @@ export default function ContactPage() {
                 alert(`TRANSMISSION ERROR: ${data.message}`);
             }
         } catch (err) {
+            console.error("Error during form submission:", err);
             alert("CRITICAL ERROR: System uplink failed.");
         } finally {
             setIsSubmitting(false);
