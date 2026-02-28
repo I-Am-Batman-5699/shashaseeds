@@ -108,7 +108,7 @@ function ProductsPageContent() {
 
     useEffect(() => {
         const newUrlFilters = parseUrlFilters(searchParams);
-        // eslint-disable-next-line @typescript-eslint/no-unused-vars
+         
         setSelectedFilters(prev => ({
             // ...prev,
             ...newUrlFilters

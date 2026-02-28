@@ -77,7 +77,7 @@ export default function HeaderNavbar({ isLoading = false }: { isLoading?: boolea
         setProfileOpen(prev => !prev);
     };
 
-    // eslint-disable-next-line @typescript-eslint/no-unused-vars
+     
     const toggleMobileProfile = () => {
         setMobileProfileOpen(prev => !prev);
     };

@@ -12,7 +12,7 @@ const HorizontalCarousel: React.FC<HorizontalCarouselProps> = ({
     className = ''
 }) => {
     const [currentIndex, setCurrentIndex] = useState(0);
-    // eslint-disable-next-line @typescript-eslint/no-unused-vars
+     
     const [isAutoPlaying, setIsAutoPlaying] = useState(autoPlay);
     const [isDragging, setIsDragging] = useState(false);
     const touchStartX = useRef(0);

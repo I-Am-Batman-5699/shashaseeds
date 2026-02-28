@@ -152,7 +152,7 @@ function AboutUsContent() {
 
     const searchParams = useSearchParams();
 
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+     
     const fetchItems = async (path: string, setContent: Dispatch<SetStateAction<any>>, modelName?: string, setLoading?: (flag: boolean) => void) => {
         const response = await FetchItems({ path: path });
         if (response.status === "S" && response.data) {

@@ -1,32 +1,25 @@
-import { FlatCompat } from "@eslint/eslintrc";
-import { dirname } from "path";
-import { fileURLToPath } from "url";
+import next from "eslint-config-next";
 
-const __filename = fileURLToPath(import.meta.url);
-const __dirname = dirname(__filename);
-
-const compat = new FlatCompat({
-  baseDirectory: __dirname,
-});
-
-const eslintConfig = [
+const config = [
   {
     ignores: [
       ".next/**",
       "out/**",
       "dist/**",
+      "src/generated/**",
       "src/**/*X*.tsx",
     ],
   },
 
-  ...compat.extends("next/core-web-vitals", "next/typescript"),
+  ...next,
 
-  // 👇 override AFTER Next config
   {
     rules: {
       "@next/next/no-img-element": "off",
+      "react-hooks/set-state-in-effect": "off",
+      "react-hooks/purity": "off",
     },
   },
 ];
 
-export default eslintConfig;
+export default config;
