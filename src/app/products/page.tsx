@@ -1,5 +1,6 @@
 "use client";
-
+export const dynamic = "force-dynamic";
+import { Suspense } from "react";
 import { useState, useRef, useEffect, useMemo, useCallback } from 'react';
 import ProductCard from '@/components/cards/ProductCard';
 import { motion, AnimatePresence } from 'framer-motion';
@@ -14,7 +15,7 @@ interface ClickOutsideEvent extends MouseEvent {
     target: EventTarget | null;
 }
 
-export default function ProductsPage() {
+function ProductsPageContent() {
     const searchParams = useSearchParams();
     const categoryFromUrl = searchParams.get('category');
 
@@ -509,5 +510,13 @@ export default function ProductsPage() {
                 </div>
             </div>
         </div>
+    );
+}
+
+export default function ProductsPage() {
+    return (
+        <Suspense fallback={<AIDNALoader />}>
+            <ProductsPageContent />
+        </Suspense>
     );
 }

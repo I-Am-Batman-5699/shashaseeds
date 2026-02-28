@@ -10,6 +10,7 @@ import { AboutUsPageSection, FeatureToggleProps } from "@/types/featureToggle";
 import AIDNALoader from "@/components/loaders/ClosedAIDNA";
 import { AboutUs } from "@/types/aboutUs";
 import Image from "next/image";
+import { Suspense } from "react";
 
 const ScrollFadeIn = ({ children, direction = 'up', delay = 0, className = '', id, scrollMarginClass = "scroll-mt-24" }: { children: React.ReactNode, direction?: 'up' | 'left' | 'right' | 'down', delay?: number, className?: string, id?: string, scrollMarginClass?: string }) => {
     const [isVisible, setIsVisible] = useState(false);
@@ -98,7 +99,7 @@ const HolographicProfile = ({ appContext }: { appContext: AboutUs }) => (
                     <Image
                         src={appContext?.owner.image}
                         alt={appContext?.owner.name}
-                        className="w-full h-full object-cover rounded-full border-4 border-primary-bg"
+                        className="bject-cover rounded-full border-4 border-primary-bg"
                         onError={(e) => (e.currentTarget.src = 'https://placehold.co/150x150/065F46/D1FAE5.png?text=Owner+Profile')}
                         fill
                         sizes="128px"
@@ -138,7 +139,7 @@ const HolographicProfile = ({ appContext }: { appContext: AboutUs }) => (
     </div>
 );
 
-export default function AboutUsFuturistic() {
+function AboutUsContent() {
 
     const [companyData, setCompanyData] = useState<CompanyInfo>();
     const [companyDataLoading, setCompanyDataLoading] = useState(true);
@@ -453,5 +454,13 @@ export default function AboutUsFuturistic() {
             </div>
 
         </div >
+    );
+}
+
+export default function AboutUsFuturistic() {
+    return (
+        <Suspense fallback={<AIDNALoader />}>
+            <AboutUsContent />
+        </Suspense>
     );
 }
